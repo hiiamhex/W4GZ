@@ -19,11 +19,6 @@ export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Close the menu whenever the route changes.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -114,6 +109,7 @@ export default function Nav() {
                 <Link
                   href={link.href}
                   aria-current={isActive(link.href) ? "page" : undefined}
+                  onClick={() => setOpen(false)}
                   className="flex items-center justify-between px-5 py-5 font-mono text-sm uppercase tracking-[0.2em] sm:px-8"
                 >
                   <span className={isActive(link.href) ? "text-ink" : "text-muted"}>
@@ -127,7 +123,12 @@ export default function Nav() {
             ))}
           </ul>
           <div className="px-5 py-8 sm:px-8">
-            <CTAButton href={ENROLL_HREF} variant="filled" className="w-full">
+            <CTAButton
+              href={ENROLL_HREF}
+              variant="filled"
+              className="w-full"
+              onClick={() => setOpen(false)}
+            >
               {enrollLabel}
             </CTAButton>
           </div>

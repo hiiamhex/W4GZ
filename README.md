@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# W4GZ — Writing4GenZ
 
-## Getting Started
+The production marketing site for **W4GZ**, a Vietnamese writing community. The
+site is itself a story: a visitor walks in from the noise, sees what a
+self-authored life looks like, and picks up the pen. Motto — _"Creates narratives
+worth living."_ — is the operating principle, not a tagline.
 
-First, run the development server:
+Built section-by-section from the authoritative brief in
+[`docs/brief.md`](docs/brief.md) (extracted from `docs/W4GZ_Website_Script.docx`).
+
+## Stack
+
+- **Next.js 16** (App Router) + **TypeScript** + **Tailwind CSS v4** (CSS-first `@theme`)
+- Fonts via `next/font/google`: **Cormorant Garamond** (display, italic) ·
+  **Be Vietnam Pro** (body) · **IBM Plex Mono** (mono/tech layer)
+- No backend: forms post to a stubbed, configurable handler (`lib/submit.ts`)
+
+> **Font note:** the brief specified Outfit (body) and DM Mono (mono), but neither
+> ships a Vietnamese subset on Google Fonts — Vietnamese diacritics (ọ, ệ, ữ, …)
+> would fall back to a system font. They were swapped for Be Vietnam Pro and
+> IBM Plex Mono (full Vietnamese) to keep rendering consistent. Cormorant Garamond
+> is unchanged.
+
+## Getting started
+
+Requires **Node.js ≥ 20.9** (Next.js 16).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install      # install dependencies
+npm run dev      # dev server → http://localhost:3000
+npm run build    # production build (static)
+npm run start    # serve the production build
+npm run typecheck
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Google Fonts are fetched and self-hosted at build time, so the first build needs
+network access.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Routes (one per chapter)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route           | Chapter | Beat |
+| --------------- | ------- | ---- |
+| `/`             | I · Home — Narratives Worth Living | recognition |
+| `/why-writing`  | II · Why Writing — the last human act | illumination |
+| `/courses`      | III · Courses — The Practice | method |
+| `/community`    | IV · Community — The Living Community | desire |
+| `/ecosystem`    | V · Ecosystem — The -4GZ Ecosystem | scale |
+| `/people`       | VI · People — softer Hall of Fame | identification |
+| `/join`         | VII · Join — The Covenant | commitment |
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/            # routes (one folder per chapter) + layout, template, sitemap, robots, OG/icon
+components/
+  layout/       # Nav, Footer
+  motion/       # Reveal, HeroStagger, Ticker (all reduced-motion aware)
+  ui/           # SectionLabel, EpigraphQuote, PullQuote, GhostWord, CTAButton,
+                # SketchSlot, StatBlock/CountUp, SpecTable, EntryCard, CourseCard,
+                # PersonCard, ChapterTransition, Container, Section, Wordmark
+  forms/        # StubForm
+content/        # ALL copy — typed, i18n-ready (vi filled, en stubbed)
+lib/            # config (+ placeholder constants), i18n, submit, seo
+public/sketches # drop real kí họa here → SketchSlot swaps to next/image
+docs/           # brief.md + the source .docx
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Design system
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Monochrome only — black ink on warm paper. Boldness comes from **structure and
+typography**, never color. Tokens (CSS vars + Tailwind `@theme` in
+`app/globals.css`):
 
-## Deploy on Vercel
+`--ink #141414` · `--paper #F4F1EB` · `--paper-dark #EDE9E0` · `--muted #7A7872`
+· `--hairline rgba(20,20,20,.12)`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Grids are divided by 0.5px hairlines (`hr-*` utilities), sections breathe with
+~1.5× vertical padding, and giant stroked-serif "ghost" words break the grid.
+Motion: staggered hero fade-up, scroll reveals, subtle hovers, route-change fade
+— all disabled under `prefers-reduced-motion`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Content & editing
+
+All copy lives in `/content/<page>.ts` as a `Localized<T>` dict (`vi` filled now,
+`en` stubbed). Components never hard-code copy. To translate later, add the `en`
+key and a locale switch; `lib/i18n.ts`'s `pick()` already falls back to `vi`.
+
+## Imagery (kí họa)
+
+All imagery is member hand-sketch. Until real assets exist, `SketchSlot` renders
+an intentional empty frame captioned with the brief's IMAGE description. Drop
+files into `/public/sketches/` and set `sketch.src` in the content files.
+
+## Privacy — Law III (non-negotiable)
+
+On `/people` and anywhere members appear: **sketch portraits + single-initial
+aliases + cohort number only. Never real names, never photos.** This is enforced
+structurally — `PersonCard` has no `name`/`photo` field.
+
+## Forms
+
+`StubForm` posts through `lib/submit.ts`, which `console.info`s the payload and, if
+`SUBMIT_ENDPOINT` (in `lib/config.ts`) is set, POSTs JSON to it. Wire that constant
+to a real backend before launch.
+
+## Before launch
+
+See [`PLACEHOLDERS.md`](PLACEHOLDERS.md) — a checklist of every NOTE from the brief
+(real data, links, address, testimonials, sketches, domain, form endpoint).

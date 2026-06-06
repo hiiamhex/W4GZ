@@ -4,7 +4,6 @@ import { buildMetadata } from "@/lib/seo";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionLabel from "@/components/ui/SectionLabel";
-import PullQuote from "@/components/ui/PullQuote";
 import CourseCard from "@/components/ui/CourseCard";
 import ChapterTransition from "@/components/ui/ChapterTransition";
 import Reveal from "@/components/motion/Reveal";

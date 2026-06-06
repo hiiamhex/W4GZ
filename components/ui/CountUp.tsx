@@ -23,39 +23,37 @@ export default function CountUp({
   const [shown, setShown] = useState(animatable ? `0${suffix}` : value);
 
   useEffect(() => {
-    if (!animatable) {
-      setShown(value);
-      return;
-    }
+    if (!animatable) return; // non-numeric values render as-is from initial state
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setShown(value);
-      return;
-    }
+
+    const reduced = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     let raf = 0;
     let started = false;
-    const run = () => {
-      const t0 = performance.now();
-      const dur = 1100;
-      const tick = (now: number) => {
-        const p = Math.min(1, (now - t0) / dur);
-        const eased = 1 - Math.pow(1 - p, 3);
-        setShown(`${Math.round(target * eased)}${suffix}`);
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    };
 
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting && !started) {
-            started = true;
-            run();
-            io.disconnect();
+          if (!entry.isIntersecting || started) continue;
+          started = true;
+          io.disconnect();
+
+          if (reduced) {
+            setShown(value);
+            return;
           }
+          const t0 = performance.now();
+          const dur = 1100;
+          const tick = (now: number) => {
+            const p = Math.min(1, (now - t0) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            setShown(`${Math.round(target * eased)}${suffix}`);
+            if (p < 1) raf = requestAnimationFrame(tick);
+          };
+          raf = requestAnimationFrame(tick);
         }
       },
       { threshold: 0.5 },

@@ -77,6 +77,7 @@ export default function CTAButton({
         rel="noopener noreferrer"
         className={cls}
         aria-label={ariaLabel}
+        onClick={onClick}
       >
         {inner}
       </a>
@@ -85,7 +86,7 @@ export default function CTAButton({
 
   if (href) {
     return (
-      <Link href={href} className={cls} aria-label={ariaLabel}>
+      <Link href={href} className={cls} aria-label={ariaLabel} onClick={onClick}>
         {inner}
       </Link>
     );

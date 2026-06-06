@@ -17,18 +17,15 @@ export default function Ticker({
   label?: string;
   className?: string;
 }) {
-  const Sequence = () => (
-    <span className="inline-flex items-center">
-      {items.map((item, i) => (
-        <span key={i} className="inline-flex items-center">
-          <span className="px-1">{item}</span>
-          <span aria-hidden className="px-5 text-hairline">
-            {separator}
-          </span>
+  const sequence = (prefix: string) =>
+    items.map((item, i) => (
+      <span key={`${prefix}-${i}`} className="inline-flex items-center">
+        <span className="px-1">{item}</span>
+        <span aria-hidden className="px-5 text-hairline">
+          {separator}
         </span>
-      ))}
-    </span>
-  );
+      </span>
+    ));
 
   return (
     <div
@@ -42,9 +39,9 @@ export default function Ticker({
           { "--marquee-duration": `${durationSec}s` } as React.CSSProperties
         }
       >
-        <Sequence />
-        <span aria-hidden>
-          <Sequence />
+        <span className="inline-flex">{sequence("a")}</span>
+        <span className="inline-flex" aria-hidden>
+          {sequence("b")}
         </span>
       </div>
     </div>

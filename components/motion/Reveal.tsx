@@ -4,7 +4,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 
 /**
  * Scroll-reveal wrapper (brief 2.4): fades/translates content in when it enters
- * the viewport. Honors prefers-reduced-motion by showing content immediately.
+ * the viewport. Under prefers-reduced-motion, globals.css forces `.reveal`
+ * visible, so content shows immediately regardless of the observer.
  */
 export default function Reveal({
   children,
@@ -22,11 +23,6 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
 
     const io = new IntersectionObserver(
       (entries) => {

@@ -1,0 +1,43 @@
+# PLACEHOLDERS — fill before launch
+
+Every item below is a deliberate, clearly-marked placeholder standing in for real
+data the owner must supply (each maps to a `NOTE` in `docs/brief.md`). Replace the
+value, then check the box. Most live in the typed content layer (`/content/*.ts`)
+or `/lib/config.ts`, so editing is one-file-per-concern.
+
+## Global config — `lib/config.ts`
+- [ ] **Production domain** — `SITE.url` is `https://w4gz.org` (guess). Set the real domain (drives canonical URLs, sitemap, OG).
+- [ ] **Form endpoint** — `SUBMIT_ENDPOINT` is empty → forms only `console.info` the payload. Point it at the real email/enrollment backend (`lib/submit.ts`).
+- [ ] **Hub map/location** — `HUB_MAP_URL` empty → the "Tìm Hub" CTA is disabled/pending until set.
+- [ ] **Partnership contact** — `CONTACT_EMAIL` empty → Ecosystem "Liên hệ" falls back to `/join` instead of a `mailto:`.
+- [ ] **Nav "Enroll" target** — `ENROLL_HREF` is `/courses`. Confirm or repoint.
+
+## Home — `content/home.ts` (brief I.1)
+- [ ] **Hero stats** — `10+ / Gen Z / HCMC / Est. 2022` are the brief defaults. Optionally replace with real figures (total enrollments / individuals / cohorts).
+
+## Courses — `content/courses.ts` (brief III.3 + III.4)
+- [ ] **Course specifics** — tuition, exact duration, start dates, and the Advanced application method. Surfaced as the marked note `pathsNote`; add real rows to each track's `spec[]`.
+- [ ] **Testimonials ×3** — real, anonymized quotes from 3 students. Currently `"…" · Học viên · Khóa __ · Online`. Keep the Law III alias format (no names).
+
+## Community — `content/community.ts` (brief IV.2 + IV.4)
+- [ ] **Hub address + opening hours** — `hub.address` / `hub.hours` show `[ … đang cập nhật ]`. Fill, and set `HUB_MAP_URL`.
+- [ ] **Online channel links** — Discord, Blog W4GZ, Fanpage show a `[link]` chip. Add real `href` (+ `external: true`) to each channel in `online.channels[]`.
+
+## Ecosystem — `content/ecosystem.ts` (brief V.3 + V.4)
+- [ ] **Branch maturity** — confirm which `-4genz` branches are public vs. "đang ấp" (set `status` per branch). The investment branch is intentionally excluded (brief standing preference).
+- [ ] **Building layer** — real big projects & fanpages (name + one-line + link + sketch). Currently the placeholder panel `[ Mô tả … — chờ nội dung từ bạn. ]`.
+
+## People — `content/people.ts` (brief VI.3 + VI.4) — ⚠ Law III
+- [ ] **6–9 portraits** — real anonymized data: single-initial alias + cohort + one milestone/sentence + a sketch each. 3 aliases (M./H./L.) are from the brief; 3 are `? · Khóa __` placeholders. **Never add real names or photos** (enforced by `PersonCard`'s type).
+- [ ] **H.'s line** — currently `"…"`; supply the member's verse/sentence.
+- [ ] **Parity member quote** (VI.4) — currently `"…" · Thành viên · Khóa __`.
+
+## Join — `content/join.ts` (brief VII.2)
+- [ ] **Full Covenant** — confirm whether the longer original Covenant from the Manifesto should appear anywhere (the web version is the condensed 4 lines).
+
+## Imagery — `/public/sketches/` (brief 2.5)
+- [ ] **Member sketches (kí họa)** — every `SketchSlot` currently renders an empty captioned frame. Drop real files into `/public/sketches/` and set `sketch.src` on each entry in the content files. Confirm whether an archive exists or art must be produced.
+
+## Copy / rights notes (no action unless you disagree)
+- Benjamin (The Storyteller) and Han (Die Krise der Narration) are **paraphrased on purpose** in Why Writing (in-copyright → no direct quotation). Wittgenstein, Nietzsche, Kipling, Didion, Aristotle are quoted directly (public domain / short fair quotation).
+- Nav labels are English by brand decision; the Vietnamese alternatives are recorded in the brief for a future locale toggle (`en` is stubbed in the content layer).
