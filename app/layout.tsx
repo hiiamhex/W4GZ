@@ -8,6 +8,8 @@ import Footer from "@/components/layout/Footer";
 import MotionProvider from "@/components/motion/MotionProvider";
 import Preloader from "@/components/motion/Preloader";
 import ChapterCounter from "@/components/motion/ChapterCounter";
+import ScrollVelocity from "@/components/motion/ScrollVelocity";
+import GhostParallax from "@/components/motion/GhostParallax";
 
 /* Display — serif, used italic for emotion/headlines/quotes (brief 2.2). */
 const cormorant = Cormorant_Garamond({
@@ -70,8 +72,16 @@ export default function RootLayout({
         className={`${cormorant.variable} ${jakarta.variable} ${plexMono.variable} h-full`}
       >
         <body className="flex min-h-full flex-col bg-paper text-ink">
+          {/* Set data-motion before paint so reveal/transition states never flash. */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `try{var m=localStorage.getItem('w4gz-motion');var r=window.matchMedia('(prefers-reduced-motion: reduce)').matches;document.documentElement.setAttribute('data-motion',(m!=='off'&&!r)?'on':'off');}catch(e){document.documentElement.setAttribute('data-motion','off');}`,
+            }}
+          />
           <MotionProvider>
             <Preloader />
+            <ScrollVelocity />
+            <GhostParallax />
             <Nav />
             <main id="main" className="flex-1 pt-[var(--nav-h)]">
               {children}

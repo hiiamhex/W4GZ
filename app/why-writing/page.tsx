@@ -11,6 +11,7 @@ import SketchSlot from "@/components/ui/SketchSlot";
 import ChapterTransition from "@/components/ui/ChapterTransition";
 import Reveal from "@/components/motion/Reveal";
 import HeroStagger from "@/components/motion/HeroStagger";
+import Scramble from "@/components/motion/Scramble";
 
 export const metadata = buildMetadata({
   title: "Why Writing",
@@ -54,7 +55,7 @@ export default function WhyWritingPage() {
             <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-12 lg:gap-x-12">
               <div className="lg:col-span-7">
                 <SectionLabel index={m.index} className="mb-8">
-                  {m.theme}
+                  <Scramble text={m.theme} />
                 </SectionLabel>
 
                 {m.epigraph ? (
