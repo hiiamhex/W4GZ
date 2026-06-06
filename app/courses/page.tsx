@@ -26,7 +26,11 @@ export default function CoursesPage() {
         <Container>
           <div className="flex min-h-[52vh] max-w-5xl flex-col justify-end py-16 lg:min-h-[62vh] lg:py-24">
             <HeroStagger className="flex flex-col gap-6">
-              <SectionLabel muted={false} className="text-ink">
+              <SectionLabel
+                muted={false}
+                className="text-ink"
+                viewTransitionName="chapter-mark"
+              >
                 {c.hero.label}
               </SectionLabel>
               <h1 className="max-w-4xl font-display text-[2.4rem] italic leading-[1.05] text-ink sm:text-5xl lg:text-6xl">

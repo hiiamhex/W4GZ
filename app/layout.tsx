@@ -6,6 +6,8 @@ import { SITE } from "@/lib/config";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import MotionProvider from "@/components/motion/MotionProvider";
+import Preloader from "@/components/motion/Preloader";
+import ChapterCounter from "@/components/motion/ChapterCounter";
 
 /* Display — serif, used italic for emotion/headlines/quotes (brief 2.2). */
 const cormorant = Cormorant_Garamond({
@@ -69,11 +71,13 @@ export default function RootLayout({
       >
         <body className="flex min-h-full flex-col bg-paper text-ink">
           <MotionProvider>
+            <Preloader />
             <Nav />
             <main id="main" className="flex-1 pt-[var(--nav-h)]">
               {children}
             </main>
             <Footer />
+            <ChapterCounter />
           </MotionProvider>
         </body>
       </html>

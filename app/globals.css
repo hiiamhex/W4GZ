@@ -227,3 +227,53 @@
 [data-motion="off"] .marquee-track {
   animation: none !important;
 }
+
+/* ── Route morph: View Transitions (brief §3) ───────────────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+::view-transition-old(root) {
+  animation-name: vt-ink-out;
+}
+::view-transition-new(root) {
+  animation-name: vt-ink-in;
+}
+@keyframes vt-ink-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-ink-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+/* Shared-element morph: the chapter mark persists + morphs across routes. */
+::view-transition-group(chapter-mark) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Running chapter counter tick on route change. */
+.chapter-tick {
+  animation: w4gz-fade-up 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+/* Instant cut (no route animation) under reduced-motion OR the user toggle. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+[data-motion="off"]::view-transition-group(*),
+[data-motion="off"]::view-transition-old(*),
+[data-motion="off"]::view-transition-new(*) {
+  animation: none !important;
+}
