@@ -10,6 +10,9 @@ import Preloader from "@/components/motion/Preloader";
 import ChapterCounter from "@/components/motion/ChapterCounter";
 import ScrollVelocity from "@/components/motion/ScrollVelocity";
 import GhostParallax from "@/components/motion/GhostParallax";
+import SketchInk from "@/components/motion/SketchInk";
+import MagneticButtons from "@/components/motion/MagneticButtons";
+import CaretCursor from "@/components/motion/CaretCursor";
 
 /* Display — serif, used italic for emotion/headlines/quotes (brief 2.2). */
 const cormorant = Cormorant_Garamond({
@@ -82,6 +85,9 @@ export default function RootLayout({
             <Preloader />
             <ScrollVelocity />
             <GhostParallax />
+            <SketchInk />
+            <MagneticButtons />
+            <CaretCursor />
             <Nav />
             <main id="main" className="flex-1 pt-[var(--nav-h)]">
               {children}

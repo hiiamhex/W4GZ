@@ -25,6 +25,7 @@ export default function SketchSlot({
       style={tilt ? { transform: `rotate(${tilt}deg)` } : undefined}
     >
       <div
+        data-ink
         className="relative w-full overflow-hidden bg-paper-dark hr-all"
         style={{ aspectRatio: aspect }}
         role={src ? undefined : "img"}

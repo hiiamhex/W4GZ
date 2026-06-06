@@ -281,3 +281,43 @@
 [data-motion="off"]::view-transition-new(*) {
   animation: none !important;
 }
+
+/* ── Caret cursor + micro (brief §3) ────────────────────────────────────── */
+.caret-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  width: 2px;
+  height: 1.4rem;
+  margin: -0.7rem 0 0 -1px;
+  background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  opacity: 0;
+}
+.has-caret-cursor .caret-cursor {
+  opacity: 1;
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.has-caret-cursor,
+.has-caret-cursor a,
+.has-caret-cursor button,
+.has-caret-cursor [role="button"] {
+  cursor: none;
+}
+.has-caret-cursor input,
+.has-caret-cursor textarea,
+.has-caret-cursor [contenteditable="true"] {
+  cursor: text;
+}
+@media (pointer: coarse) {
+  .caret-cursor {
+    display: none;
+  }
+}
