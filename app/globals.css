@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   W4GZ design system — black ink on warm paper, monochrome only.
+   No color, no gradients, no colored shadows. Structure + typography do the work.
+   ───────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Palette (brief 2.1) — monochrome */
+  --color-ink: #141414;
+  --color-paper: #f4f1eb;
+  --color-paper-dark: #ede9e0;
+  --color-muted: #7a7872;
+  --color-hairline: rgba(20, 20, 20, 0.12);
+
+  /* Three type registers (brief 2.2). next/font supplies the --font-* vars. */
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-bevietnam), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-plexmono), ui-monospace, "SFMono-Regular", Menlo,
+    monospace;
+}
+
+@layer base {
+  :root {
+    /* Fixed-nav height — used for main offset + section scroll-margin. */
+    --nav-h: 4.25rem;
+  }
+  @media (min-width: 768px) {
+    :root {
+      --nav-h: 5rem;
+    }
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-feature-settings: "kern";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+  /* Serif display registers carry weight via utility classes, not bold defaults. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ── Hairlines: 0.5px rules that divide the grid (brief 2.3) ──────────────── */
+@utility hr-t {
+  border-top: 0.5px solid var(--color-hairline);
+}
+@utility hr-b {
+  border-bottom: 0.5px solid var(--color-hairline);
+}
+@utility hr-l {
+  border-left: 0.5px solid var(--color-hairline);
+}
+@utility hr-r {
+  border-right: 0.5px solid var(--color-hairline);
+}
+@utility hr-all {
+  border: 0.5px solid var(--color-hairline);
+}
+@utility hr-y {
+  border-top: 0.5px solid var(--color-hairline);
+  border-bottom: 0.5px solid var(--color-hairline);
+}
+/* Inverse hairlines for ink-on-dark sections/cards. */
+@utility hr-t-inv {
+  border-top: 0.5px solid rgba(244, 241, 235, 0.16);
+}
+@utility hr-b-inv {
+  border-bottom: 0.5px solid rgba(244, 241, 235, 0.16);
+}
+@utility hr-all-inv {
+  border: 0.5px solid rgba(244, 241, 235, 0.16);
+}
+
+/* ── Decorative "ghost" words: giant transparent stroked serif (brief 2.3) ── */
+.ghost-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-hairline);
+  text-stroke: 1.5px var(--color-hairline);
+  user-select: none;
+  pointer-events: none;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+}
+
+/* ── Motion (brief 2.4) ─────────────────────────────────────────────────── */
+@keyframes w4gz-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes w4gz-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes w4gz-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Per-navigation content fade (app/template.tsx). */
+.route-fade {
+  animation: w4gz-fade-in 0.5s ease both;
+}
+
+/* Staggered hero reveal — delay set inline via --rise-delay. */
+.hero-rise {
+  animation: w4gz-fade-up 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+  animation-delay: var(--rise-delay, 0s);
+}
+
+/* Scroll reveal — Reveal.tsx toggles .is-visible when in view. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Infinite marquee track — two copies of content translate -50%. */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+.marquee-track {
+  display: inline-flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+  animation: w4gz-marquee var(--marquee-duration, 42s) linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Honor reduced-motion: disable intro/scroll/marquee animation entirely. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
