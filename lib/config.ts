@@ -31,3 +31,9 @@ export const ENROLL_HREF = "/courses";
  * renders in a pending state until the address is public.
  */
 export const HUB_MAP_URL = "";
+
+/**
+ * TODO(placeholder): partnership/contact email. Empty => the "Liên hệ" CTA
+ * falls back to the /join page instead of a mailto link.
+ */
+export const CONTACT_EMAIL = "";
