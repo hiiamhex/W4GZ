@@ -25,3 +25,9 @@ export const SUBMIT_ENDPOINT = "";
 
 /** Destination for the persistent nav "Enroll →" shortcut (decided visitors). */
 export const ENROLL_HREF = "/courses";
+
+/**
+ * TODO(placeholder): W4GZ Hub map/location URL. Empty => the "Tìm Hub" CTA
+ * renders in a pending state until the address is public.
+ */
+export const HUB_MAP_URL = "";
