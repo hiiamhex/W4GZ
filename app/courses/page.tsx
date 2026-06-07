@@ -1,55 +1,43 @@
-import { courses } from "@/content/courses";
-import { pick } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import {
+  courses,
+  hero,
+  pillars,
+  cohort,
+  gate,
+  tracksLabel,
+  tracks,
+  tracksNote,
+  testimonialsLabel,
+  testimonials,
+  testimonialsNote,
+  transition,
+} from "@/content/courses";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionLabel from "@/components/ui/SectionLabel";
 import CourseCard from "@/components/ui/CourseCard";
 import ChapterTransition from "@/components/ui/ChapterTransition";
+import PageHero from "@/components/ui/PageHero";
 import Reveal from "@/components/motion/Reveal";
-import HeroStagger from "@/components/motion/HeroStagger";
 
 export const metadata = buildMetadata({
   title: "Courses",
-  description:
-    "The Practice — viết là một kỉ luật có thể học. Hai con đường: W4GZ Introduction (online) và W4GZ Advanced (offline tại HCMC).",
+  description: courses.description,
   path: "/courses",
 });
 
 export default function CoursesPage() {
-  const c = pick(courses);
-
   return (
     <>
-      {/* III.1 · Hero */}
-      <section className="scroll-mt-[var(--nav-h)]">
-        <Container>
-          <div className="flex min-h-[52vh] max-w-5xl flex-col justify-end py-16 lg:min-h-[62vh] lg:py-24">
-            <HeroStagger className="flex flex-col gap-6">
-              <SectionLabel
-                muted={false}
-                className="text-ink"
-                viewTransitionName="chapter-mark"
-              >
-                {c.hero.label}
-              </SectionLabel>
-              <h1 className="max-w-4xl font-display text-[2.4rem] italic leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
-                {c.hero.headline}
-              </h1>
-              <p className="max-w-2xl text-lg leading-relaxed text-ink/80 md:text-xl">
-                {c.hero.subhead}
-              </p>
-            </HeroStagger>
-          </div>
-        </Container>
-      </section>
+      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} />
 
       {/* III.2 · Sáu trụ cột */}
       <Section topRule>
         <Container>
-          <SectionLabel className="mb-10">{c.pillarsLabel}</SectionLabel>
+          <SectionLabel className="mb-10">Sáu trụ cột</SectionLabel>
           <div className="hr-t hr-l grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {c.pillars.map((p) => (
+            {pillars.map((p) => (
               <div key={p.index} className="hr-r hr-b flex flex-col gap-4 p-6 md:p-8">
                 <span className="font-mono text-xs tracking-[0.2em] text-muted">
                   {p.index}
@@ -69,37 +57,87 @@ export default function CoursesPage() {
         </Container>
       </Section>
 
-      {/* III.3 · Hai con đường */}
+      {/* III.3 · Vì sao dạy theo cohort */}
       <Section topRule>
         <Container>
-          <SectionLabel className="mb-10">{c.pathsLabel}</SectionLabel>
+          <div className="max-w-3xl">
+            <SectionLabel className="mb-6">{cohort.label}</SectionLabel>
+            <Reveal>
+              <p className="mb-6 font-display text-2xl italic leading-snug text-ink md:text-3xl">
+                {cohort.lead}
+              </p>
+            </Reveal>
+            <p className="text-lg leading-relaxed text-ink/80">{cohort.body}</p>
+          </div>
+        </Container>
+      </Section>
+
+      {/* III.4 · Cổng duy nhất — the single gate (inverse, the core rule) */}
+      <Section dark topRule>
+        <Container>
+          <SectionLabel muted={false} className="mb-6 text-paper/60">
+            {gate.label}
+          </SectionLabel>
+          <Reveal>
+            <p className="font-display text-3xl italic leading-[1.1] text-paper md:text-5xl">
+              {gate.lead}
+            </p>
+          </Reveal>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-paper/75 md:text-lg">
+            {gate.body}
+          </p>
+          <div className="mt-10 grid grid-cols-1 gap-px bg-[rgba(244,241,235,0.16)] md:grid-cols-2">
+            {gate.paths.map((p) => (
+              <div key={p.label} className="bg-ink p-6 md:p-8">
+                <h3 className="font-display text-xl italic text-paper md:text-2xl">
+                  {p.label}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-paper/70">
+                  {p.body}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 max-w-2xl font-mono text-[0.78rem] uppercase leading-relaxed tracking-[0.14em] text-paper/60">
+            {gate.closing}
+          </p>
+          <p className="mt-4 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-paper/40">
+            {gate.note}
+          </p>
+        </Container>
+      </Section>
+
+      {/* III.5 · Hai lối qua cổng */}
+      <Section topRule>
+        <Container>
+          <SectionLabel className="mb-10">{tracksLabel}</SectionLabel>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-            {c.tracks.map((track) => (
-              <Reveal key={track.title}>
+            {tracks.map((t) => (
+              <Reveal key={t.title}>
                 <CourseCard
-                  tone={track.tone}
-                  status={track.status}
-                  title={track.title}
-                  positioning={track.positioning}
-                  specHead={track.specHead}
-                  spec={track.spec}
-                  cta={track.cta}
+                  tone={t.tone}
+                  status={t.status}
+                  title={t.title}
+                  positioning={t.positioning}
+                  specHead={t.specHead}
+                  spec={t.spec}
+                  cta={t.cta}
                 />
               </Reveal>
             ))}
           </div>
           <p className="mt-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted">
-            {c.pathsNote}
+            {tracksNote}
           </p>
         </Container>
       </Section>
 
-      {/* III.4 · Từ người đã viết (testimonials, Law III aliases) */}
+      {/* III.6 · Từ người đã viết */}
       <Section topRule>
         <Container>
-          <SectionLabel className="mb-10">{c.testimonialsLabel}</SectionLabel>
+          <SectionLabel className="mb-10">{testimonialsLabel}</SectionLabel>
           <div className="hr-t hr-l grid grid-cols-1 md:grid-cols-3">
-            {c.testimonials.map((t, i) => (
+            {testimonials.map((t, i) => (
               <figure key={i} className="hr-r hr-b flex flex-col gap-6 p-6 md:p-8">
                 <blockquote className="font-display text-2xl italic leading-snug text-ink">
                   {t.quote}
@@ -111,14 +149,13 @@ export default function CoursesPage() {
             ))}
           </div>
           <p className="mt-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted">
-            {c.testimonialsNote}
+            {testimonialsNote}
           </p>
         </Container>
       </Section>
 
-      {/* III.4 · Chuyển sang Community */}
-      <ChapterTransition href={c.transition.href}>
-        {c.transition.text}
+      <ChapterTransition href={transition.href}>
+        {transition.text}
       </ChapterTransition>
     </>
   );
