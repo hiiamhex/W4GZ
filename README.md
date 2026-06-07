@@ -80,6 +80,25 @@ Grids are divided by 0.5px hairlines (`hr-*` utilities), sections breathe with
 Motion: staggered hero fade-up, scroll reveals, subtle hovers, route-change fade
 — all disabled under `prefers-reduced-motion`.
 
+## Motion system
+
+A "living manuscript" motion layer (GSAP + Lenis + View Transitions) sits on top of the
+server-rendered site as pure progressive enhancement:
+
+- **Lenis** smooth scroll (one instance, GSAP-ticker driven) · **View Transitions** route
+  morphs (shared-element chapter mark + ink wipe) · session **preloader** ·
+  **scroll-velocity** variable-font weight · **ghost-word parallax** · **scramble** decode
+  (Why-Writing labels) · sketch **ink-in** wipes · **magnetic** CTAs · blinking **caret cursor**.
+- **Guardrails:** a visible "Chuyển động" toggle (footer) and `prefers-reduced-motion` both
+  hard-disable Lenis + all choreography (native scroll, instant cuts). All copy is
+  server-rendered, visible without JS, and crawlable; the preloader is skippable and never
+  blocks first paint; a lite path (mobile / low-power / Save-Data) is detected for the WebGL layer.
+- **Deferred (need a browser to tune):** the optional WebGL layer (OGL paper-grain /
+  ink-diffusion / halftone), the horizontal-scroll galley, SVG stroke-draw ink-in, and the
+  hero per-line mask reveal — intentionally not shipped without visual QA.
+
+Motion deps: `lenis`, `gsap` (free plugins), `@gsap/react`, `next-view-transitions`.
+
 ## Content & editing
 
 All copy lives in `/content/<page>.ts` as a `Localized<T>` dict (`vi` filled now,

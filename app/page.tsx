@@ -31,7 +31,11 @@ export default function HomePage() {
         <Container>
           <div className="grid grid-cols-1 lg:min-h-[calc(100svh-var(--nav-h))] lg:grid-cols-2">
             <HeroStagger className="flex h-full flex-col gap-6 py-12 lg:justify-end lg:py-20 lg:pr-12">
-              <SectionLabel muted={false} className="text-ink">
+              <SectionLabel
+                muted={false}
+                className="text-ink"
+                viewTransitionName="chapter-mark"
+              >
                 {c.hero.label}
               </SectionLabel>
               <h1 className="font-display text-[2.6rem] italic leading-[1.04] tracking-[-0.01em] text-ink sm:text-6xl lg:text-7xl">

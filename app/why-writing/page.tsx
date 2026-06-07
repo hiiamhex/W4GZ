@@ -11,6 +11,7 @@ import SketchSlot from "@/components/ui/SketchSlot";
 import ChapterTransition from "@/components/ui/ChapterTransition";
 import Reveal from "@/components/motion/Reveal";
 import HeroStagger from "@/components/motion/HeroStagger";
+import Scramble from "@/components/motion/Scramble";
 
 export const metadata = buildMetadata({
   title: "Why Writing",
@@ -29,7 +30,11 @@ export default function WhyWritingPage() {
         <Container>
           <div className="flex min-h-[58vh] max-w-5xl flex-col justify-end py-16 lg:min-h-[68vh] lg:py-24">
             <HeroStagger className="flex flex-col gap-6">
-              <SectionLabel muted={false} className="text-ink">
+              <SectionLabel
+                muted={false}
+                className="text-ink"
+                viewTransitionName="chapter-mark"
+              >
                 {c.hero.label}
               </SectionLabel>
               <h1 className="max-w-4xl font-display text-[2.4rem] italic leading-[1.05] text-ink sm:text-5xl lg:text-7xl">
@@ -50,7 +55,7 @@ export default function WhyWritingPage() {
             <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-12 lg:gap-x-12">
               <div className="lg:col-span-7">
                 <SectionLabel index={m.index} className="mb-8">
-                  {m.theme}
+                  <Scramble text={m.theme} />
                 </SectionLabel>
 
                 {m.epigraph ? (

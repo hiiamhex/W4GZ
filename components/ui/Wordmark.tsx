@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 /** W4GZ wordmark (mono — the tech layer). `full` renders "Writing4GenZ". */
 export default function Wordmark({

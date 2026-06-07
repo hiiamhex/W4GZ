@@ -1,9 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Be_Vietnam_Pro, IBM_Plex_Mono } from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
+import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { SITE } from "@/lib/config";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import MotionProvider from "@/components/motion/MotionProvider";
+import Preloader from "@/components/motion/Preloader";
+import ChapterCounter from "@/components/motion/ChapterCounter";
+import ScrollVelocity from "@/components/motion/ScrollVelocity";
+import GhostParallax from "@/components/motion/GhostParallax";
+import SketchInk from "@/components/motion/SketchInk";
+import MagneticButtons from "@/components/motion/MagneticButtons";
+import CaretCursor from "@/components/motion/CaretCursor";
 
 /* Display — serif, used italic for emotion/headlines/quotes (brief 2.2). */
 const cormorant = Cormorant_Garamond({
@@ -14,12 +23,12 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-/* Body — geometric sans with full Vietnamese support (replaces Outfit, which
-   lacks a Vietnamese subset). */
-const beVietnam = Be_Vietnam_Pro({
-  variable: "--font-bevietnam",
+/* Body — variable geometric sans with full Vietnamese support. The variable
+   weight axis lets scroll velocity drive font-weight (brief §3); replaces Outfit,
+   which has no Vietnamese subset. */
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -59,18 +68,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="vi"
-      data-scroll-behavior="smooth"
-      className={`${cormorant.variable} ${beVietnam.variable} ${plexMono.variable} h-full`}
-    >
-      <body className="flex min-h-full flex-col bg-paper text-ink">
-        <Nav />
-        <main id="main" className="flex-1 pt-[var(--nav-h)]">
-          {children}
-        </main>
-        <Footer />
-      </body>
-    </html>
+    <ViewTransitions>
+      <html
+        lang="vi"
+        data-scroll-behavior="smooth"
+        className={`${cormorant.variable} ${jakarta.variable} ${plexMono.variable} h-full`}
+      >
+        <body className="flex min-h-full flex-col bg-paper text-ink">
+          {/* Set data-motion before paint so reveal/transition states never flash. */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `try{var m=localStorage.getItem('w4gz-motion');var r=window.matchMedia('(prefers-reduced-motion: reduce)').matches;document.documentElement.setAttribute('data-motion',(m!=='off'&&!r)?'on':'off');}catch(e){document.documentElement.setAttribute('data-motion','off');}`,
+            }}
+          />
+          <MotionProvider>
+            <Preloader />
+            <ScrollVelocity />
+            <GhostParallax />
+            <SketchInk />
+            <MagneticButtons />
+            <CaretCursor />
+            <Nav />
+            <main id="main" className="flex-1 pt-[var(--nav-h)]">
+              {children}
+            </main>
+            <Footer />
+            <ChapterCounter />
+          </MotionProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

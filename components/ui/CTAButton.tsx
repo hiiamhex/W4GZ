@@ -1,10 +1,10 @@
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import type { ReactNode } from "react";
 
 type Variant = "filled" | "outline" | "inverse";
 
 const BASE =
-  "group inline-flex items-center justify-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] leading-none transition-colors duration-300 select-none";
+  "magnetic group inline-flex items-center justify-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] leading-none transition-colors duration-300 select-none";
 
 const SIZES = {
   sm: "px-4 py-2.5",
