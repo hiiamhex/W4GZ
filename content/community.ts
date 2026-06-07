@@ -1,136 +1,153 @@
-import type { Localized } from "@/lib/i18n";
-import type { Quote, Sketch, Entry } from "./types";
+import type { Page, ArtItem } from "./model";
+import type { Entry } from "./types";
 
-export interface Facet {
-  title: string;
-  body: string;
-  sketch: Sketch;
-}
+/** Chapter IV · Community — "Community is the answer" (Master Spec Trang IV). */
 
-export interface CommunityContent {
-  hero: { label: string; headline: string; subhead: string };
-  hub: {
-    label: string;
-    title: string;
-    body: string;
-    address: string;
-    hours: string;
-    ctaLabel: string;
-    sketch: Sketch;
-  };
-  holistic: { label: string; epigraph: Quote; facets: Facet[] };
-  online: { label: string; channels: Entry[]; note: string };
-  transition: { text: string; href: string };
-}
+export const hero = {
+  label: "Community",
+  heading: "Viết một mình là không đủ.",
+  sub: "Vì ngôn ngữ là sản phẩm chung, ký ức là tập thể, và năng lực viết chỉ sống được khi có người nuôi nó cùng bạn. Cộng đồng chính là lời đáp.",
+};
 
-/** Chapter IV · Community — "The Living Community" (brief 5, Trang IV). */
-export const community: Localized<CommunityContent> = {
-  vi: {
-    hero: {
-      label: "The Living Community",
-      headline: "Viết là cột sống. Đây là cơ thể.",
-      subhead:
-        "W4GZ không dừng ở một khóa học. Quanh việc viết, một đời sống đầy đủ được dựng lên — thân thể, tâm trí, giác quan, giọng nói, và những thứ tiếng khác.",
-    },
-    hub: {
-      label: "Không gian vật lý · Hồ Chí Minh",
-      title: "W4GZ Hub",
-      body: "Một không gian dành riêng để viết, đọc, và gặp nhau tại HCMC. Buổi viết hằng tuần, giờ mở tự do, và những sự kiện định kì. Nơi cộng đồng gặp nhau ngoài đời thật.",
-      address: "[ Địa chỉ Hub — đang cập nhật ]",
-      hours: "[ Giờ mở cửa — đang cập nhật ]",
-      ctaLabel: "Tìm Hub",
-      sketch: {
-        caption: "góc phòng có sách, bàn dài, người ngồi viết. Nét mực tối giản",
-        alt: "Kí họa không gian W4GZ Hub: góc phòng có sách, bàn dài, người ngồi viết",
-        aspect: "4 / 3",
-      },
-    },
-    holistic: {
-      label: "Phát triển toàn diện",
-      epigraph: {
+export const community: Page = {
+  route: "/community",
+  chapter: "IV",
+  title: "Community",
+  description:
+    "Community is the answer — viết một mình là không đủ. Ngôn ngữ là của chung, cô đơn là một khủng hoảng, và W4GZ là vòng tròn bạn bước vào qua một cổng.",
+  sectors: [
+    {
+      id: "IV.2",
+      kicker: "01",
+      heading: "Ngôn ngữ và nghĩa vốn là của chung",
+      module: "community",
+      quote: {
         original:
           "For the strength of the Pack is the Wolf, and the strength of the Wolf is the Pack.",
-        lang: "en",
         translation:
-          "Sức mạnh của bầy nằm ở từng con sói, sức mạnh của con sói nằm ở cả bầy.",
-        attribution: "Rudyard Kipling, The Law of the Jungle",
+          "Sức mạnh của bầy nằm ở từng con sói, và của con sói nằm ở cả bầy.",
+        author: "Rudyard Kipling",
+        lang: "en",
       },
-      facets: [
+      body: [
+        "Không có ngôn ngữ riêng tư. Một chữ chỉ có nghĩa vì có một cộng đồng cùng dùng nó (luận điểm của Wittgenstein). Ký ức và ý nghĩa được kiến tạo tập thể — ta nhớ và hiểu trong một “chúng ta”, không trong chân không. Viết, tận cùng, là một hành vi hướng tới người khác.",
+      ],
+    },
+    {
+      id: "IV.3",
+      kicker: "02",
+      heading: "Đứt gãy hiện đại: vì sao người ta bỏ viết và bỏ nghĩa",
+      body: [
+        "Con người hiện đại khó viết không chỉ vì thiếu động lực cá nhân. Họ thiếu một cộng đồng nuôi dưỡng năng lực ấy một cách có ý nghĩa. Các vòng tròn quan hệ đang phân mảnh và đứt gãy đẩy việc viết — và việc tìm nghĩa — xuống tầng ẩn, rồi biến mất khỏi thực hành được củng cố hằng ngày.",
+      ],
+      stat: [
         {
-          title: "Thân thể",
-          body: "Chạy bộ là một thực hành thường trực ở W4GZ; nhiều thành viên đã hoàn thành full và half marathon. Cùng đó là những chuyến trekking, cắm trại, leo núi. Thân thể là phương tiện đầu tiên ta có một thế giới — rèn nó là rèn chính nền của trải nghiệm (Merleau-Ponty).",
-          sketch: {
-            caption: "dáng người chạy lúc rạng sáng; hoặc đoàn người trên sống núi",
-            alt: "Kí họa dáng người chạy lúc rạng sáng, hoặc đoàn người trên sống núi",
-            aspect: "4 / 3",
-          },
+          value:
+            "Cô đơn kéo dài gây hại cho sức khỏe tương đương hút tới 15 điếu thuốc mỗi ngày; khoảng một nửa người trưởng thành (ở Mỹ) trải qua cô đơn.",
+          source: "US Surgeon General, 2023",
+          verify: true,
         },
         {
-          title: "Tâm trí",
-          body: "Cộng đồng chăm sóc sức khỏe tinh thần như một phần của thực hành, và rèn tư duy mạch lạc qua logic. Một đời có nghĩa là một đời chịu đựng được mọi cách sống (Frankl, nối tiếp Nietzsche).",
-          sketch: {
-            caption: "một người ngồi tĩnh bên cửa sổ; nét thưa, nhiều khoảng trống",
-            alt: "Kí họa một người ngồi tĩnh bên cửa sổ, nét thưa, nhiều khoảng trống",
-            aspect: "4 / 3",
-          },
+          value:
+            "Riêng nhóm 15–24 tuổi: thời gian gặp bạn trực tiếp giảm khoảng 70% trong gần hai thập niên.",
+          source: "US Surgeon General, 2023",
+          verify: true,
         },
+      ],
+      art: [
         {
-          title: "Giác quan",
-          body: "Đọc thơ và làm thơ; vẽ kí họa. Hai thực hành mài lại cách nhìn và cách nghe — và chính kí họa của thành viên là ngôn ngữ thị giác của trang web này.",
-          sketch: {
-            caption: "bàn tay phác họa; vài trang thơ chép tay",
-            alt: "Kí họa một bàn tay đang phác họa, bên cạnh vài trang thơ chép tay",
-            aspect: "4 / 3",
-          },
-        },
-        {
-          title: "Giọng nói",
-          body: "Kể chuyện trên sân khấu và làm podcast — đưa chữ rời trang giấy, thử nó trước một người nghe thật, trong một thân thể và một giọng.",
-          sketch: {
-            caption: "một người kể chuyện dưới ngọn đèn, vài bóng người nghe",
-            alt: "Kí họa một người kể chuyện dưới ngọn đèn, với vài bóng người nghe",
-            aspect: "4 / 3",
-          },
-        },
-        {
-          title: "Những thứ tiếng khác",
-          body: "Anh, Nhật, Trung. Mỗi ngôn ngữ mới là một thế giới mới — đúng như giới hạn ngôn ngữ là giới hạn thế giới.",
-          sketch: {
-            caption: "vài hệ chữ đan nhau — Latin, kana, Hán",
-            alt: "Kí họa vài hệ chữ đan nhau — chữ Latin, kana, và Hán",
-            aspect: "4 / 3",
-          },
+          id: "community-rings",
+          kind: "concept",
+          brief:
+            "Đồ họa khái niệm: nhiều vòng tròn quan hệ rời rạc, đứt nét — rồi một đường luồn (module Community) nối chúng lại.",
+          ratio: "4 / 5",
+          module: "community",
         },
       ],
     },
-    online: {
-      label: "Cộng đồng online",
-      channels: [
+    {
+      id: "IV.4",
+      kicker: "03",
+      heading: "Vòng tròn bạn bước vào, qua một cổng",
+      body: [
+        "W4GZ là vòng tròn người viết bước vào để xây câu chuyện ý nghĩa của mình — cùng người khác, một cách bền vững. Bạn bước vào qua một cổng duy nhất: khóa học viết. Bên trong có chuẩn mực để noi theo, ma sát để mài, và một feedback loop để mỗi vòng viết tốt hơn vòng trước.",
+        "Một mình, bạn viết bằng ý chí. Trong một bầy, bạn viết bằng một hệ.",
+      ],
+      art: [
         {
-          index: "Kênh chính",
-          title: "Discord",
-          description:
-            "Nơi thực hành tiếp diễn giữa các buổi — chia sẻ, phản hồi, bàn luận.",
-          status: "[link]",
-        },
-        {
-          index: "Lưu trữ dài",
-          title: "Blog W4GZ",
-          description: "Bài viết cộng đồng và sản phẩm biên tập.",
-          status: "[link]",
-        },
-        {
-          index: "Cập nhật",
-          title: "Fanpage",
-          description: "Sự kiện, thông báo, lời mời mở.",
-          status: "[link]",
+          id: "community-table",
+          kind: "sketch",
+          brief:
+            "Kí họa: vài người ngồi quanh một bàn dài, trang viết trải ra giữa — đọc và phản hồi cho nhau.",
+          ratio: "4 / 5",
         },
       ],
-      note: "Cần link thật: Discord, Blog, (các) Fanpage — đang cập nhật.",
+      cta: [{ label: "Cổng vào W4GZ", href: "/courses", variant: "outline" }],
     },
-    transition: {
-      text: "Mỗi nhánh trên đã lớn thành một cộng đồng riêng.",
-      href: "/ecosystem",
+    {
+      id: "IV.5",
+      kicker: "04",
+      heading: "Rồi bạn học cách gieo lại nó",
+      module: "community",
+      body: [
+        "Giá trị không dừng ở W4GZ. Khi đã sống trong một feedback loop lành mạnh, bạn biết cách tái tạo nó cho các vòng tròn quan hệ khác của mình — gia đình, đồng nghiệp, bạn bè. Vốn xã hội nhân lên: bạn mang chuẩn mực và sự nuôi dưỡng ra ngoài, thay vì giữ riêng.",
+      ],
     },
+  ],
+};
+
+export const hub: {
+  label: string;
+  heading: string;
+  body: string[];
+  address: string;
+  hours: string;
+  ctaLabel: string;
+  sketch: ArtItem;
+} = {
+  label: "W4GZ Hub · Hồ Chí Minh",
+  heading: "Một không gian văn hóa sẽ được nhân rộng",
+  body: [
+    "W4GZ Hub là không gian vật lý ở HCMC, thiết kế để tác động tới con người theo cách truyền thống — buộc người ta đối mặt, gặp gỡ, va chạm, và cư xử dựa trên đó. Bên trong là vô số hoạt động nâng cao tri thức, có chiều sâu, được thiết kế bài bản, trong một không gian chung đòi hỏi nuôi dưỡng liên tục.",
+    "Vui trên mạng nhưng bối rối khi đối mặt người khác — Hub tồn tại để chữa đúng vết nứt đó.",
+  ],
+  address: "[ Địa chỉ Hub — đang cập nhật ]",
+  hours: "[ Giờ mở cửa — đang cập nhật ]",
+  ctaLabel: "Tìm Hub",
+  sketch: {
+    id: "hub",
+    kind: "sketch",
+    brief: "góc phòng có sách, bàn dài, người ngồi viết và trò chuyện",
+    ratio: "4 / 3",
   },
+};
+
+export const online: { label: string; channels: Entry[]; note: string } = {
+  label: "Cộng đồng online",
+  channels: [
+    {
+      index: "Kênh thành viên",
+      title: "Discord",
+      description: "Không gian thành viên, thực hành tiếp diễn giữa các buổi.",
+      status: "[link]",
+    },
+    {
+      index: "Lưu trữ dài",
+      title: "Blog W4GZ",
+      description: "Lưu trữ dài, sản phẩm biên tập.",
+      status: "[link]",
+    },
+    {
+      index: "Cập nhật",
+      title: "Fanpage",
+      description: "Sự kiện, thông báo, lời mời mở.",
+      status: "[link]",
+    },
+  ],
+  note: "Discord dành cho thành viên đã qua cổng; Blog và Fanpage là cửa sổ mở cho công chúng. Cần link thật: Discord, Blog, Fanpage.",
+};
+
+export const transition = {
+  text: "Hãy xem cộng đồng này tạo ra gì.",
+  href: "/ecosystem",
 };
