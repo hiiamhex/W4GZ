@@ -12,6 +12,8 @@ import ScrollVelocity from "@/components/motion/ScrollVelocity";
 import GhostParallax from "@/components/motion/GhostParallax";
 import SketchInk from "@/components/motion/SketchInk";
 import MagneticButtons from "@/components/motion/MagneticButtons";
+import InkCanvas from "@/components/motion/InkCanvas";
+import SymbolLayer from "@/components/motion/SymbolLayer";
 
 /* Display — serif, used italic for emotion/headlines/quotes (brief 2.2). */
 const cormorant = Cormorant_Garamond({
@@ -86,6 +88,8 @@ export default function RootLayout({
             <GhostParallax />
             <SketchInk />
             <MagneticButtons />
+            <InkCanvas />
+            <SymbolLayer />
             <Nav />
             <main id="main" className="flex-1 pt-[var(--nav-h)]">
               {children}
