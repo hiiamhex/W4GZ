@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import { home } from "@/content/home";
-import { pick } from "@/lib/i18n";
-import { SITE } from "@/lib/config";
+import {
+  home,
+  heroStats,
+  tickerItems,
+  pillars,
+  pillarsClosing,
+  doors,
+  transition,
+} from "@/content/home";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionLabel from "@/components/ui/SectionLabel";
-import EpigraphQuote from "@/components/ui/EpigraphQuote";
-import PullQuote from "@/components/ui/PullQuote";
 import CTAButton from "@/components/ui/CTAButton";
 import StatBlock from "@/components/ui/StatBlock";
 import EntryCard from "@/components/ui/EntryCard";
@@ -14,20 +18,26 @@ import ChapterTransition from "@/components/ui/ChapterTransition";
 import Ticker from "@/components/motion/Ticker";
 import Reveal from "@/components/motion/Reveal";
 import HeroStagger from "@/components/motion/HeroStagger";
+import SymbolModule from "@/components/symbols/SymbolModule";
 
 export const metadata: Metadata = {
-  description: SITE.description,
+  description: home.description,
   alternates: { canonical: "/" },
 };
 
-export default function HomePage() {
-  const c = pick(home);
+const hero = home.sectors[0];
 
+export default function HomePage() {
   return (
     <>
-      {/* I.1 · Hero — two columns split by a vertical hairline, content at the
-          bottom; whitespace is "the unwritten page". */}
-      <section className="scroll-mt-[var(--nav-h)]">
+      {/* I.1 · Hero — two columns split by a hairline; symbol mark faint in corner */}
+      <section className="relative scroll-mt-[var(--nav-h)]">
+        <SymbolModule
+          name="writing"
+          size={160}
+          draw
+          className="pointer-events-none absolute top-6 right-5 hidden text-ink/10 lg:block"
+        />
         <Container>
           <div className="grid grid-cols-1 lg:min-h-[calc(100svh-var(--nav-h))] lg:grid-cols-2">
             <HeroStagger className="flex h-full flex-col gap-6 py-12 lg:justify-end lg:py-20 lg:pr-12">
@@ -36,25 +46,21 @@ export default function HomePage() {
                 className="text-ink"
                 viewTransitionName="chapter-mark"
               >
-                {c.hero.label}
+                {hero.kicker}
               </SectionLabel>
               <h1 className="font-display text-[2.6rem] italic leading-[1.04] tracking-[-0.01em] text-ink sm:text-6xl lg:text-7xl">
-                {c.hero.headline.map((line, i) => (
-                  <span key={i} className="block">
-                    {line}
-                  </span>
-                ))}
+                <span className="block">{hero.heading}</span>
+                <span className="block">{hero.sub}</span>
               </h1>
               <p className="max-w-xl text-base leading-relaxed text-ink/80 md:text-lg">
-                {c.hero.subhead}
+                {hero.body?.[0]}
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
-                <CTAButton href={c.hero.ctas.primary.href} variant="filled">
-                  {c.hero.ctas.primary.label}
-                </CTAButton>
-                <CTAButton href={c.hero.ctas.secondary.href} variant="outline">
-                  {c.hero.ctas.secondary.label}
-                </CTAButton>
+                {hero.cta?.map((c, i) => (
+                  <CTAButton key={i} href={c.href} variant={c.variant}>
+                    {c.label}
+                  </CTAButton>
+                ))}
               </div>
             </HeroStagger>
 
@@ -62,12 +68,9 @@ export default function HomePage() {
               base={0.24}
               className="flex h-full flex-col gap-12 py-12 lg:justify-end lg:py-20 lg:pl-12 lg:hr-l"
             >
-              <Ticker
-                items={c.hero.tickerItems}
-                label="Băng chữ thương hiệu W4GZ"
-              />
+              <Ticker items={tickerItems} label="Băng chữ thương hiệu W4GZ" />
               <div className="grid grid-cols-2 gap-x-6 gap-y-10">
-                {c.hero.stats.map((s, i) => (
+                {heroStats.map((s, i) => (
                   <StatBlock key={i} stat={s} />
                 ))}
               </div>
@@ -76,64 +79,57 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* I.2 · Bối cảnh thời đại */}
+      {/* I.2 · Ba trụ — the weave at Home */}
       <Section topRule>
         <Container>
+          <SectionLabel className="mb-10">Ba trụ</SectionLabel>
+          <div className="hr-t hr-l grid grid-cols-1 md:grid-cols-3">
+            {pillars.map((p) => (
+              <div
+                key={p.name}
+                className="hr-r hr-b flex min-h-[14rem] flex-col gap-4 p-6 md:p-8"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
+                    {p.name}
+                  </span>
+                  {p.module ? (
+                    <SymbolModule
+                      name={p.module}
+                      size={40}
+                      draw
+                      className="text-ink/40"
+                    />
+                  ) : null}
+                </div>
+                <p className="font-display text-2xl italic leading-snug text-ink">
+                  {p.line}
+                </p>
+              </div>
+            ))}
+          </div>
           <Reveal>
-            <EpigraphQuote quote={c.era.quote} />
+            <p className="mt-10 max-w-2xl font-display text-2xl italic leading-snug text-ink md:text-3xl">
+              {pillarsClosing}
+            </p>
           </Reveal>
-          <div className="mt-14 max-w-3xl space-y-8">
-            <Reveal>
-              <PullQuote>{c.era.headline}</PullQuote>
-            </Reveal>
-            <div className="space-y-6">
-              {c.era.paragraphs.map((p, i) => (
-                <Reveal key={i} delay={i * 0.05}>
-                  <p className="text-lg leading-relaxed text-ink/80">{p}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
         </Container>
       </Section>
 
-      {/* I.3 · Lời đáp W4GZ — inverse block, the eye-stop */}
-      <Section dark>
+      {/* I.3 · Bốn cửa vào */}
+      <Section topRule>
         <Container>
-          <div className="max-w-4xl">
-            <Reveal>
-              <p className="font-display text-3xl italic leading-[1.1] text-paper md:text-5xl lg:text-6xl">
-                {c.answer.statement}
-              </p>
-            </Reveal>
-            <div className="mt-10 max-w-2xl space-y-5">
-              {c.answer.body.map((p, i) => (
-                <Reveal key={i} delay={i * 0.05}>
-                  <p className="text-base leading-relaxed text-paper/75 md:text-lg">
-                    {p}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* I.4 · Bốn cửa vào — hairline grid, hover fills paper-dark */}
-      <Section>
-        <Container>
-          <SectionLabel className="mb-10">{c.doorsLabel}</SectionLabel>
+          <SectionLabel className="mb-10">Bốn cửa vào</SectionLabel>
           <div className="hr-t hr-l grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            {c.doors.map((door, i) => (
-              <EntryCard key={i} entry={door} />
+            {doors.map((d) => (
+              <EntryCard key={d.index} entry={d} />
             ))}
           </div>
         </Container>
       </Section>
 
-      {/* I.5 · Chuyển chương */}
-      <ChapterTransition href={c.transition.href}>
-        {c.transition.text}
+      <ChapterTransition href={transition.href}>
+        {transition.text}
       </ChapterTransition>
     </>
   );
