@@ -1,157 +1,137 @@
-import { ecosystem } from "@/content/ecosystem";
-import { pick } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { CONTACT_EMAIL } from "@/lib/config";
+import {
+  ecosystem,
+  hero,
+  richness,
+  verticals,
+  projects,
+  collaborate,
+  transition,
+} from "@/content/ecosystem";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionLabel from "@/components/ui/SectionLabel";
 import GhostWord from "@/components/ui/GhostWord";
+import ArtSlot from "@/components/ui/ArtSlot";
 import CTAButton from "@/components/ui/CTAButton";
 import ChapterTransition from "@/components/ui/ChapterTransition";
+import PageHero from "@/components/ui/PageHero";
+import SectorView from "@/components/ui/SectorView";
 import Reveal from "@/components/motion/Reveal";
-import HeroStagger from "@/components/motion/HeroStagger";
 
 export const metadata = buildMetadata({
   title: "Ecosystem",
-  description:
-    "The -4GZ Ecosystem — viết là gốc, mọi thứ khác mọc lên từ đó. Một protocol, nhiều địa hạt: storytelling, poetry, podcast, logic, và hơn thế.",
+  description: ecosystem.description,
   path: "/ecosystem",
 });
 
 export default function EcosystemPage() {
-  const c = pick(ecosystem);
   const contactHref = CONTACT_EMAIL ? `mailto:${CONTACT_EMAIL}` : "/join";
 
   return (
     <>
-      {/* V.1 · Hero */}
-      <section className="scroll-mt-[var(--nav-h)]">
-        <Container>
-          <div className="flex min-h-[52vh] max-w-5xl flex-col justify-end py-16 lg:min-h-[62vh] lg:py-24">
-            <HeroStagger className="flex flex-col gap-6">
-              <SectionLabel
-                muted={false}
-                className="text-ink"
-                viewTransitionName="chapter-mark"
-              >
-                {c.hero.label}
-              </SectionLabel>
-              <h1 className="max-w-4xl font-display text-[2.4rem] italic leading-[1.05] text-ink sm:text-5xl lg:text-7xl">
-                {c.hero.headline}
-              </h1>
-              <p className="max-w-2xl text-lg leading-relaxed text-ink/80 md:text-xl">
-                {c.hero.subhead}
-              </p>
-            </HeroStagger>
-          </div>
-        </Container>
-      </section>
+      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} />
 
-      {/* V.2 · -4GZ nghĩa là gì — ghost word breaks the grid */}
+      {/* V.2 · Sự giàu có chính là bằng chứng + verticals */}
       <Section topRule className="relative overflow-hidden">
         <Container>
           <div className="relative z-10 max-w-3xl">
             <Reveal>
-              <h2 className="mb-6 font-display text-3xl italic leading-tight text-ink md:text-5xl">
-                {c.meaning.heading}
+              <h2 className="mb-6 font-display text-3xl italic leading-tight text-ink md:text-4xl">
+                {richness.label}
               </h2>
             </Reveal>
-            <p className="text-lg leading-relaxed text-ink/80">
-              {c.meaning.body}
-            </p>
+            <p className="text-lg leading-relaxed text-ink/80">{richness.body}</p>
+          </div>
+          <div className="hr-t hr-l mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {verticals.map((v) => (
+              <div key={v.name} className="hr-r hr-b flex flex-col gap-3 p-6 md:p-8">
+                <h3 className="font-mono text-base font-medium tracking-tight text-ink">
+                  {v.name}
+                </h3>
+                <p className="text-sm leading-relaxed text-ink/80">{v.line}</p>
+              </div>
+            ))}
           </div>
         </Container>
-        <GhostWord className="absolute top-1/2 right-[-6%] hidden -translate-y-1/2 text-[26vw] leading-none lg:block">
+        <GhostWord className="absolute top-1/3 right-[-6%] hidden text-[22vw] leading-none lg:block">
           -4GZ
         </GhostWord>
       </Section>
 
-      {/* V.3 · Các nhánh */}
+      {/* V.3 · chuẩn hóa để lan tỏa */}
+      <SectorView sector={ecosystem.sectors[0]} />
+
+      {/* V.4 · Những dự án chiến lược */}
       <Section topRule>
         <Container>
-          <SectionLabel className="mb-10">{c.branchesLabel}</SectionLabel>
-          <div className="hr-t hr-l grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {c.branches.map((b) => (
-              <div
-                key={b.index}
-                className="hr-r hr-b flex flex-col gap-3 p-6 md:p-8"
-              >
-                <span className="font-mono text-xs tracking-[0.2em] text-muted">
-                  {b.index}
-                </span>
-                <h3 className="font-mono text-base font-medium tracking-tight text-ink">
-                  {b.name}
-                </h3>
-                <p className="text-sm leading-relaxed text-ink/80">
-                  {b.description}
-                </p>
-                {b.status ? (
-                  <span className="hr-all mt-1 w-fit px-2 py-1 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-muted">
-                    {b.status}
-                  </span>
-                ) : null}
-              </div>
+          <SectionLabel className="mb-10">{projects.label}</SectionLabel>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+            {projects.items.map((p) => (
+              <Reveal key={p.name}>
+                <div className="hr-all h-full bg-paper-dark/40 p-8 md:p-10">
+                  <h3 className="font-display text-2xl italic leading-tight text-ink md:text-3xl">
+                    {p.name}
+                  </h3>
+                  <p className="mt-4 text-base leading-relaxed text-ink/80">
+                    {p.body}
+                  </p>
+                </div>
+              </Reveal>
             ))}
           </div>
-          <p className="mt-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted">
-            {c.branchesNote}
-          </p>
-        </Container>
-      </Section>
-
-      {/* V.4 · Dự án lớn & fanpage (placeholder building layer) */}
-      <Section topRule>
-        <Container>
-          <SectionLabel className="mb-10">{c.building.heading}</SectionLabel>
-          <div className="hr-all bg-paper-dark/40 p-8 md:p-12">
-            <p className="font-mono text-sm uppercase tracking-[0.14em] text-muted">
-              {c.building.placeholder}
-            </p>
-            <div className="mt-8 grid grid-cols-1 gap-px bg-hairline sm:grid-cols-3">
-              {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  className="flex aspect-[4/3] items-center justify-center bg-paper-dark"
-                >
-                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted">
-                    [ đang cập nhật ]
-                  </span>
-                </div>
-              ))}
+          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">
+              <p className="hr-l max-w-2xl pl-4 text-base leading-relaxed text-ink/80">
+                {projects.stat.value}
+                <span className="mt-1 block font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted">
+                  {projects.stat.source} · cần xác minh
+                </span>
+              </p>
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/80">
+                {projects.closing}
+              </p>
+            </div>
+            <div className="lg:col-span-5">
+              <ArtSlot
+                id={projects.art.id}
+                brief={projects.art.brief}
+                module="ecosystem"
+              />
             </div>
           </div>
-          <p className="mt-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted">
-            {c.buildingNote}
-          </p>
         </Container>
       </Section>
 
-      {/* V.5 · Hợp tác */}
+      {/* V.5 · W4GZ Media Team */}
+      <SectorView sector={ecosystem.sectors[1]} />
+
+      {/* V.6 · Hợp tác */}
       <Section topRule>
         <Container>
           <div className="max-w-2xl">
             <Reveal>
               <h2 className="mb-5 font-display text-3xl italic leading-tight text-ink md:text-4xl">
-                {c.collaborate.heading}
+                {collaborate.heading}
               </h2>
             </Reveal>
             <p className="mb-8 text-lg leading-relaxed text-ink/80">
-              {c.collaborate.body}
+              {collaborate.body}
             </p>
             <CTAButton
               href={contactHref}
               external={Boolean(CONTACT_EMAIL)}
               variant="outline"
             >
-              {c.collaborate.ctaLabel}
+              {collaborate.ctaLabel}
             </CTAButton>
           </div>
         </Container>
       </Section>
 
-      {/* V.5 · Chuyển sang People */}
-      <ChapterTransition href={c.transition.href}>
-        {c.transition.text}
+      <ChapterTransition href={transition.href}>
+        {transition.text}
       </ChapterTransition>
     </>
   );
