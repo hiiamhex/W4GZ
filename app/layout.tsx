@@ -14,6 +14,10 @@ import SketchInk from "@/components/motion/SketchInk";
 import MagneticButtons from "@/components/motion/MagneticButtons";
 import InkCanvas from "@/components/motion/InkCanvas";
 import SymbolLayer from "@/components/motion/SymbolLayer";
+import { warnUnverifiedStats } from "@/lib/verifyStats";
+
+// Build/SSR guardrail: warn about any STAT still needing verification.
+warnUnverifiedStats();
 
 /* Display — serif, used italic for emotion/headlines/quotes (brief 2.2). */
 const cormorant = Cormorant_Garamond({

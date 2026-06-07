@@ -1,129 +1,107 @@
 # W4GZ — Writing4GenZ
 
-The production marketing site for **W4GZ**, a Vietnamese writing community. The
-site is itself a story: a visitor walks in from the noise, sees what a
-self-authored life looks like, and picks up the pen. Motto — _"Creates narratives
-worth living."_ — is the operating principle, not a tagline.
+The production marketing site for **W4GZ**, a Vietnamese writing community. The site
+is itself a story: a visitor walks in from the noise, understands why narrative is
+survival, sees a self-authored life built _with others_, and picks up the pen. Motto —
+_"Creates narratives worth living."_ — is the operating principle, not a tagline.
 
-Built section-by-section from the authoritative brief in
-[`docs/brief.md`](docs/brief.md) (extracted from `docs/W4GZ_Website_Script.docx`).
+**Source of truth:** `docs/W4GZ_Landing_Master_Spec.docx` (Master Spec **v2**, extracted
+to [`docs/master-spec.md`](docs/master-spec.md)). It supersedes Script v1. All `COPY`
+blocks are pasted verbatim into the content layer — never paraphrased, translated, or
+invented; `STAT`s are rendered but flagged for verification.
 
 ## Stack
 
 - **Next.js 16** (App Router) + **TypeScript** + **Tailwind CSS v4** (CSS-first `@theme`)
 - Fonts via `next/font/google`: **Cormorant Garamond** (display, italic) ·
-  **Be Vietnam Pro** (body) · **IBM Plex Mono** (mono/tech layer)
-- No backend: forms post to a stubbed, configurable handler (`lib/submit.ts`)
+  **Plus Jakarta Sans** (variable body — scroll-velocity weight) · **IBM Plex Mono** (mono)
+- **Native cursor only.** **One gate** (see below). No backend.
 
-> **Font note:** the brief specified Outfit (body) and DM Mono (mono), but neither
-> ships a Vietnamese subset on Google Fonts — Vietnamese diacritics (ọ, ệ, ữ, …)
-> would fall back to a system font. They were swapped for Be Vietnam Pro and
-> IBM Plex Mono (full Vietnamese) to keep rendering consistent. Cormorant Garamond
-> is unchanged.
+> **Font note:** the brief specified Outfit (body), but Outfit has no Vietnamese subset on
+> Google Fonts — diacritics (ọ, ệ, ữ, …) would fall back to a system font. Body uses
+> **Plus Jakarta Sans** instead (variable weight + full Vietnamese); IBM Plex Mono replaces
+> DM Mono for the same reason. Cormorant Garamond is unchanged.
 
 ## Getting started
 
-Requires **Node.js ≥ 20.9** (Next.js 16).
+Requires **Node.js ≥ 20.9**.
 
 ```bash
-npm install      # install dependencies
-npm run dev      # dev server → http://localhost:3000
-npm run build    # production build (static)
-npm run start    # serve the production build
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static production build (also prints STAT-verify warnings)
+npm run start
 npm run typecheck
 npm run lint
 ```
 
-Google Fonts are fetched and self-hosted at build time, so the first build needs
-network access.
+`NEXT_PUBLIC_HIDE_GAPS=1` hides all `<Gap>` dev markers (see below).
 
 ## Routes (one per chapter)
 
-| Route           | Chapter | Beat |
-| --------------- | ------- | ---- |
-| `/`             | I · Home — Narratives Worth Living | recognition |
-| `/why-writing`  | II · Why Writing — the last human act | illumination |
-| `/courses`      | III · Courses — The Practice | method |
-| `/community`    | IV · Community — The Living Community | desire |
-| `/ecosystem`    | V · Ecosystem — The -4GZ Ecosystem | scale |
-| `/people`       | VI · People — softer Hall of Fame | identification |
-| `/join`         | VII · Join — The Covenant | commitment |
+`/` Home · `/why-writing` (8 movements) · `/courses` (the gate) · `/community`
+("Community is the answer") · `/ecosystem` (The -4GZ Ecosystem) · `/people` · `/join`
+(The Covenant). Per-route metadata + OG; lang `vi`.
 
 ## Structure
 
 ```
-app/            # routes (one folder per chapter) + layout, template, sitemap, robots, OG/icon
+app/            # one folder per chapter + layout, sitemap, robots, OG/icon
 components/
-  layout/       # Nav, Footer
-  motion/       # Reveal, HeroStagger, Ticker (all reduced-motion aware)
-  ui/           # SectionLabel, EpigraphQuote, PullQuote, GhostWord, CTAButton,
-                # SketchSlot, StatBlock/CountUp, SpecTable, EntryCard, CourseCard,
-                # PersonCard, ChapterTransition, Container, Section, Wordmark
-  forms/        # StubForm
-content/        # ALL copy — typed, i18n-ready (vi filled, en stubbed)
-lib/            # config (+ placeholder constants), i18n, submit, seo
+  symbols/      # SymbolModule (6 page modules ported from the specimen)
+  motion/       # MotionProvider, Lenis+GSAP, InkCanvas, SymbolLayer (weave),
+                # Preloader, ChapterCounter, Reveal, Scramble, Ticker, …
+  ui/           # SectorView, PageHero, Section, Epigraph, Gap, ArtSlot, SketchSlot,
+                # CTAButton, EntryCard, CourseCard, SpecTable, PersonCard, Symbol* …
+content/        # model.ts (Page/Sector) + one file per page, verbatim from Master Spec
+lib/            # config (placeholders), seo, verifyStats, i18n
+public/symbols/ # W4GZ_Symbol_System.svg (specimen)
 public/sketches # drop real kí họa here → SketchSlot swaps to next/image
-docs/           # brief.md + the source .docx
+docs/           # Master Spec docx + master-spec.md
 ```
 
-## Design system
+## Content model
 
-Monochrome only — black ink on warm paper. Boldness comes from **structure and
-typography**, never color. Tokens (CSS vars + Tailwind `@theme` in
-`app/globals.css`):
+Pages are data: `content/<page>.ts` exports a typed `Page` of `Sector[]` (`model.ts`).
+`SectorView` renders prose sectors uniformly (kicker → heading → sub → body → quote →
+stat → art → cta, with the page's symbol module as motif); heroes and card grids read
+sectors for bespoke layout. Edit copy in one place; never in components.
 
-`--ink #141414` · `--paper #F4F1EB` · `--paper-dark #EDE9E0` · `--muted #7A7872`
-· `--hairline rgba(20,20,20,.12)`
+## Design system & symbols
 
-Grids are divided by 0.5px hairlines (`hr-*` utilities), sections breathe with
-~1.5× vertical padding, and giant stroked-serif "ghost" words break the grid.
-Motion: staggered hero fade-up, scroll reveals, subtle hovers, route-change fade
-— all disabled under `prefers-reduced-motion`.
+Monochrome only — ink on warm paper; boldness via structure + typography, never colour.
+Tokens in `app/globals.css` (`--ink/--paper/--paper-dark/--muted/--hairline/--amber`),
+0.5px `hr-*` hairlines, giant ghost serif words. The **symbol system** (line = narrative,
+node = community) is the visual engine: per-page `SymbolModule`s draw on, and the **weave**
+re-draws on every route change.
 
-## Motion system
+## Motion (progressive enhancement)
 
-A "living manuscript" motion layer (GSAP + Lenis + View Transitions) sits on top of the
-server-rendered site as pure progressive enhancement:
+GSAP + Lenis + View Transitions, all gated: a visible **"Chuyển động"** toggle (footer)
+and `prefers-reduced-motion` hard-disable everything (native scroll, instant cuts); a
+**lite path** (mobile / low-power / Save-Data) drops WebGL + ink-blot + Lenis. Includes
+route morphs (shared chapter-mark + ink wipe), session preloader, scroll-velocity body
+weight, ghost-word parallax, scramble decode, sketch ink-in, magnetic CTAs, and the
+**click ink-blot** on background clicks. All copy is server-rendered, selectable, and
+readable with JS off; Enroll stays reachable.
 
-- **Lenis** smooth scroll (one instance, GSAP-ticker driven) · **View Transitions** route
-  morphs (shared-element chapter mark + ink wipe) · session **preloader** ·
-  **scroll-velocity** variable-font weight · **ghost-word parallax** · **scramble** decode
-  (Why-Writing labels) · sketch **ink-in** wipes · **magnetic** CTAs · blinking **caret cursor**.
-- **Guardrails:** a visible "Chuyển động" toggle (footer) and `prefers-reduced-motion` both
-  hard-disable Lenis + all choreography (native scroll, instant cuts). All copy is
-  server-rendered, visible without JS, and crawlable; the preloader is skippable and never
-  blocks first paint; a lite path (mobile / low-power / Save-Data) is detected for the WebGL layer.
-- **Deferred (need a browser to tune):** the optional WebGL layer (OGL paper-grain /
-  ink-diffusion / halftone), the horizontal-scroll galley, SVG stroke-draw ink-in, and the
-  hero per-line mask reveal — intentionally not shipped without visual QA.
+## The single gate (permanent)
 
-Motion deps: `lenis`, `gsap` (free plugins), `@gsap/react`, `next-view-transitions`.
+Membership requires a course — **Introduction + graduation essay** (→ quarterly
+onboarding, 4 intakes/year) **or Advanced**. No CTA/copy/flow implies joining the
+community without a course; "join"-style CTAs route to `/courses` or `/join`
+(`ENROLL_URL`/`APPLY_URL` in `lib/config.ts`, fallback `/courses`).
 
-## Content & editing
+## Law III (privacy, non-negotiable)
 
-All copy lives in `/content/<page>.ts` as a `Localized<T>` dict (`vi` filled now,
-`en` stubbed). Components never hard-code copy. To translate later, add the `en`
-key and a locale switch; `lib/i18n.ts`'s `pick()` already falls back to `vi`.
+On `/people` and anywhere members appear: sketch portraits + single-initial aliases +
+cohort only. Never names, never photos — enforced structurally (`PersonCard` has no such
+fields).
 
-## Imagery (kí họa)
+## Gaps & before launch
 
-All imagery is member hand-sketch. Until real assets exist, `SketchSlot` renders
-an intentional empty frame captioned with the brief's IMAGE description. Drop
-files into `/public/sketches/` and set `sketch.src` in the content files.
-
-## Privacy — Law III (non-negotiable)
-
-On `/people` and anywhere members appear: **sketch portraits + single-initial
-aliases + cohort number only. Never real names, never photos.** This is enforced
-structurally — `PersonCard` has no `name`/`photo` field.
-
-## Forms
-
-`StubForm` posts through `lib/submit.ts`, which `console.info`s the payload and, if
-`SUBMIT_ENDPOINT` (in `lib/config.ts`) is set, POSTs JSON to it. Wire that constant
-to a real backend before launch.
-
-## Before launch
-
-See [`PLACEHOLDERS.md`](PLACEHOLDERS.md) — a checklist of every NOTE from the brief
-(real data, links, address, testimonials, sketches, domain, form endpoint).
+Anything not fully executable renders as a visible `<Gap>` (amber `DEV STEP-IN`) and is
+logged in [`GAPS.md`](GAPS.md) — WebGL shaders, production symbol set, sketches, concept
+art, and the real data in **Master Spec Appendix D** (STAT verification, course details,
+onboarding cadence, Hub address, links, member entries). Build prints the STAT-verify
+warning. Set the launch placeholders in `lib/config.ts`.
