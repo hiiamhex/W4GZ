@@ -37,3 +37,12 @@ export const HUB_MAP_URL = "";
  * falls back to the /join page instead of a mailto link.
  */
 export const CONTACT_EMAIL = "";
+
+/**
+ * TODO(placeholder): real enrollment / application destinations (the single
+ * gate — Introduction + graduation essay, or Advanced). Empty => CTAs fall back
+ * to the Courses gate page so Enroll stays reachable. Never route "join the
+ * community" anywhere but the gate.
+ */
+export const ENROLL_URL = "";
+export const APPLY_URL = "";

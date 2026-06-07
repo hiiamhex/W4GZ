@@ -125,7 +125,7 @@ export const tracks: {
     ],
     cta: {
       label: "Apply for Advanced",
-      href: "/join#enroll",
+      href: "/join#apply",
       variant: "inverse",
     },
   },

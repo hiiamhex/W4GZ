@@ -1,68 +1,58 @@
-import type { Localized } from "@/lib/i18n";
-import type { SubmitKind } from "@/lib/submit";
+import type { Page } from "./model";
 
-export interface JoinDoor {
+/** Chapter VII · Join — The Covenant (Master Spec Trang VII). One gate, two paths. */
+
+export const hero = {
+  label: "The Covenant",
+  heading: "Trang đầu tiên của bạn.",
+  sub: "Tham gia W4GZ là nhận một chuẩn mực vào trong mình — một lời tuyên với chính mình, có cộng đồng làm chứng.",
+};
+
+export const covenant = {
+  label: "Lời tuyên",
+  lines: [
+    "Tôi hiểu W4GZ là một chuẩn tôi gìn giữ, không phải một nhóm tôi gia nhập.",
+    "Tôi viết với sự trung thực và công bố với tay nghề. Tôi nhận phản hồi không phòng thủ, và đưa phản hồi cụ thể, hướng vào trang viết. Tôi chọn nhịp đều thay vì những đợt bùng cháy rồi tắt.",
+    "Tôi không xem mình là người thụ động trước thời đại. Tôi giành lại quyền kể câu chuyện của mình, và góp phần dựng những câu chuyện đáng sống cho cả những người quanh tôi.",
+  ],
+};
+
+export const gateLabel = "Một cổng, hai lối qua";
+
+export const paths: {
   id: string;
-  heading: string;
+  label: string;
   body: string;
   ctaLabel: string;
-  kind: SubmitKind;
-  placeholder: string;
-  success: string;
-}
-
-export interface JoinContent {
-  hero: { label: string; headline: string; subhead: string };
-  covenant: { label: string; lines: string[]; note: string };
-  doorsLabel: string;
-  doors: JoinDoor[];
-  closing: { motto: string; intent: string };
-}
-
-/** Chapter VII · Join — "The Covenant" (brief 5, Trang VII). Closes the arc. */
-export const join: Localized<JoinContent> = {
-  vi: {
-    hero: {
-      label: "The Covenant",
-      headline: "Trang đầu tiên của bạn.",
-      subhead:
-        "Tham gia W4GZ không phải mua một dịch vụ. Đó là nhận một chuẩn mực vào trong mình — một lời tuyên với chính mình, có cộng đồng làm chứng.",
-    },
-    covenant: {
-      label: "Lời tuyên",
-      lines: [
-        "Tôi hiểu W4GZ là một chuẩn tôi gìn giữ, không phải một nhóm tôi gia nhập.",
-        "Tôi viết với sự trung thực và công bố với tay nghề. Tôi chỉ chia sẻ điều tôi thật sự đã ngẫm, và chỉ dựng điều tôi đủ sức giữ một cách nghiêm túc.",
-        "Tôi nhận phản hồi mà không phòng thủ, và đưa phản hồi cụ thể, hướng vào trang viết. Tôi chọn nhịp đều thay vì những đợt bùng cháy rồi tắt.",
-        "Tôi hiểu cộng đồng này là kỉ luật đầu tiên trong một kiến trúc lớn hơn — và khi giữ chuẩn ở đây, tôi đang đặt nền cho mọi thứ tiếp theo.",
-      ],
-      note: "Bản Covenant gốc trong Manifesto dài hơn — xác nhận có muốn dùng nguyên văn đầy đủ ở đâu đó.",
-    },
-    doorsLabel: "Hai cánh cửa",
-    doors: [
-      {
-        id: "enroll",
-        heading: "Học viết",
-        body: "Bắt đầu với Introduction online, hoặc nộp đơn cho Advanced tại HCMC.",
-        ctaLabel: "Enroll / Apply",
-        kind: "enroll",
-        placeholder: "email của bạn",
-        success: "Đã ghi nhận — chúng tôi sẽ liên hệ về khóa học.",
-      },
-      {
-        id: "community",
-        heading: "Vào cộng đồng",
-        body: "Bước vào đời sống quanh việc viết — Hub, các nhánh, và những người đang viết bên nhau.",
-        ctaLabel: "Join the community",
-        kind: "subscribe",
-        placeholder: "email của bạn",
-        success: "Chào mừng — chúng tôi sẽ gửi lời mời vào cộng đồng.",
-      },
-    ],
-    closing: {
-      motto: "Creates narratives worth living.",
-      intent:
-        "Does this make us better writers, and more complete human beings — together?",
-    },
+}[] = [
+  {
+    id: "enroll",
+    label: "Lối A — Introduction + bài luận tốt nghiệp",
+    body: "Hoàn tất Introduction online và nộp bài luận tốt nghiệp; được duyệt theo kì onboarding của cộng đồng — bốn kì mỗi năm.",
+    ctaLabel: "Enroll Introduction",
   },
+  {
+    id: "apply",
+    label: "Lối B — Advanced",
+    body: "Hoàn tất W4GZ Advanced tại HCMC (xét đơn).",
+    ctaLabel: "Apply for Advanced",
+  },
+];
+
+export const gateClosing =
+  "Hai lối đều đi qua một cổng duy nhất: viết. Đó là cách W4GZ giữ mình là cộng đồng của những người biết viết.";
+
+export const closing = {
+  motto: "Creates narratives worth living.",
+  intent:
+    "Does this make us better writers, and more complete human beings — together?",
+};
+
+export const join: Page = {
+  route: "/join",
+  chapter: "VII",
+  title: "Join",
+  description:
+    "The Covenant — trang đầu tiên của bạn. Một cổng, hai lối qua: Introduction + bài luận tốt nghiệp, hoặc Advanced.",
+  sectors: [],
 };
