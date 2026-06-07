@@ -1,0 +1,126 @@
+<svg viewBox="0 0 1000 1340" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, serif">
+  <rect x="0" y="0" width="1000" height="1340" fill="#F4F1EB"/>
+  <rect x="16" y="16" width="968" height="1308" fill="none" stroke="#141414" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- HEADER -->
+  <text x="50" y="62" font-size="30" fill="#141414" font-style="italic">W4GZ — Symbol System</text>
+  <text x="50" y="86" font-size="13" fill="#7A7872" font-family="'DM Mono', ui-monospace, monospace" letter-spacing="2">ONE LINE · MANY NODES · NARRATIVE × COMMUNITY</text>
+  <line x1="50" y1="104" x2="950" y2="104" stroke="#141414" stroke-opacity="0.2" stroke-width="1"/>
+
+  <!-- ATOMS -->
+  <text x="50" y="150" font-size="13" fill="#7A7872" font-family="'DM Mono', ui-monospace, monospace" letter-spacing="3">ATOMS</text>
+  <g stroke="#141414" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M250,210 L380,165"/>
+  </g>
+  <circle cx="250" cy="210" r="3" fill="#141414"/>
+  <text x="250" y="250" font-size="14" fill="#141414">The Stroke</text>
+  <text x="250" y="270" font-size="12" fill="#7A7872">= narrative · a line that enters and exits; the story continues past the frame</text>
+
+  <circle cx="660" cy="188" r="10" fill="#141414"/>
+  <circle cx="660" cy="188" r="22" fill="#141414" fill-opacity="0.10"/>
+  <text x="700" y="184" font-size="14" fill="#141414">The Node</text>
+  <text x="700" y="204" font-size="12" fill="#7A7872">= community · where strokes meet; also the ink (see click interaction)</text>
+  <line x1="50" y1="300" x2="950" y2="300" stroke="#141414" stroke-opacity="0.12" stroke-width="1"/>
+
+  <!-- MODULES -->
+  <text x="50" y="338" font-size="13" fill="#7A7872" font-family="'DM Mono', ui-monospace, monospace" letter-spacing="3">MODULES — one per page</text>
+
+  <!-- helper frames + glyphs; each glyph local 0..120, placed via translate -->
+  <!-- WRITING (Why Writing) -->
+  <g transform="translate(125,380)">
+    <rect x="0" y="0" width="120" height="120" fill="none" stroke="#141414" stroke-opacity="0.15"/>
+    <g stroke="#141414" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40,22 C50,48 56,72 66,94"/>
+      <path d="M34,104 L92,104" stroke-width="3" stroke-opacity="0.55"/>
+    </g>
+    <circle cx="66" cy="94" r="6" fill="#141414"/>
+  </g>
+  <text x="185" y="538" font-size="14" fill="#141414" text-anchor="middle">Writing</text>
+
+  <!-- COMMUNITY -->
+  <g transform="translate(440,380)">
+    <rect x="0" y="0" width="120" height="120" fill="none" stroke="#141414" stroke-opacity="0.15"/>
+    <g stroke="#141414" stroke-width="6" fill="none" stroke-linecap="round">
+      <path d="M22,28 L60,60"/><path d="M98,30 L60,60"/><path d="M24,96 L60,60"/><path d="M96,94 L60,60"/><path d="M60,18 L60,60"/>
+    </g>
+    <circle cx="60" cy="60" r="7" fill="#141414"/>
+  </g>
+  <text x="500" y="538" font-size="14" fill="#141414" text-anchor="middle">Community</text>
+
+  <!-- ECOSYSTEM -->
+  <g transform="translate(755,380)">
+    <rect x="0" y="0" width="120" height="120" fill="none" stroke="#141414" stroke-opacity="0.15"/>
+    <g stroke="#141414" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M60,104 L60,58"/><path d="M60,58 L34,26"/><path d="M60,58 L60,22"/><path d="M60,58 L86,28"/>
+    </g>
+    <circle cx="60" cy="58" r="6" fill="#141414"/>
+  </g>
+  <text x="815" y="538" font-size="14" fill="#141414" text-anchor="middle">Ecosystem</text>
+
+  <!-- PEOPLE -->
+  <g transform="translate(125,560)">
+    <rect x="0" y="0" width="120" height="120" fill="none" stroke="#141414" stroke-opacity="0.15"/>
+    <g stroke="#141414" stroke-width="5" fill="none" stroke-linecap="round">
+      <path d="M22,94 L98,94"/>
+      <path d="M34,94 L34,56"/><path d="M48,94 L48,42"/><path d="M62,94 L62,62"/><path d="M76,94 L76,46"/><path d="M88,94 L88,58"/>
+    </g>
+    <circle cx="34" cy="56" r="5" fill="#141414"/><circle cx="48" cy="42" r="5" fill="#141414"/><circle cx="62" cy="62" r="5" fill="#141414"/><circle cx="76" cy="46" r="5" fill="#141414"/><circle cx="88" cy="58" r="5" fill="#141414"/>
+  </g>
+  <text x="185" y="718" font-size="14" fill="#141414" text-anchor="middle">People</text>
+
+  <!-- HUB -->
+  <g transform="translate(440,560)">
+    <rect x="0" y="0" width="120" height="120" fill="none" stroke="#141414" stroke-opacity="0.15"/>
+    <g stroke="#141414" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M30,30 L90,30"/><path d="M30,30 L30,90"/><path d="M30,90 L62,90"/><path d="M90,30 L90,62"/>
+      <path d="M62,60 L44,44"/><path d="M62,60 L80,44"/><path d="M62,60 L52,78"/>
+    </g>
+    <circle cx="62" cy="60" r="6" fill="#141414"/>
+  </g>
+  <text x="500" y="718" font-size="14" fill="#141414" text-anchor="middle">Hub</text>
+
+  <!-- MEDIA -->
+  <g transform="translate(755,560)">
+    <rect x="0" y="0" width="120" height="120" fill="none" stroke="#141414" stroke-opacity="0.15"/>
+    <g stroke="#141414" stroke-width="5" fill="none" stroke-linecap="round">
+      <path d="M40,42 A18,18 0 0 1 40,78"/>
+      <path d="M40,30 A30,30 0 0 1 40,90"/>
+      <path d="M40,18 A42,42 0 0 1 40,102"/>
+      <path d="M40,60 L22,60"/>
+    </g>
+    <circle cx="40" cy="60" r="6" fill="#141414"/>
+  </g>
+  <text x="815" y="718" font-size="14" fill="#141414" text-anchor="middle">Media Team</text>
+  <line x1="50" y1="752" x2="950" y2="752" stroke="#141414" stroke-opacity="0.12" stroke-width="1"/>
+
+  <!-- THE WEAVE -->
+  <text x="50" y="792" font-size="13" fill="#7A7872" font-family="'DM Mono', ui-monospace, monospace" letter-spacing="3">THE WEAVE — the connective principle</text>
+  <g stroke="#141414" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M40,850 L160,895 L280,850 L400,895 L520,850 L640,895 L760,850 L880,895 L960,855"/>
+  </g>
+  <g fill="#141414">
+    <circle cx="160" cy="895" r="6"/><circle cx="280" cy="850" r="6"/><circle cx="400" cy="895" r="6"/><circle cx="520" cy="850" r="6"/><circle cx="640" cy="895" r="6"/><circle cx="760" cy="850" r="6"/><circle cx="880" cy="895" r="6"/>
+  </g>
+  <text x="50" y="940" font-size="13" fill="#7A7872">One line threading many nodes: a single narrative binding a community. The line exits both edges — it never ends, and it tiles infinitely as wallpaper.</text>
+  <line x1="50" y1="966" x2="950" y2="966" stroke="#141414" stroke-opacity="0.12" stroke-width="1"/>
+
+  <!-- MASTER MARK -->
+  <text x="50" y="1006" font-size="13" fill="#7A7872" font-family="'DM Mono', ui-monospace, monospace" letter-spacing="3">MASTER MARK</text>
+  <g stroke="#141414" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M360,1050 L410,1140 L460,1075 L510,1140 L560,1050"/>
+    <path d="M560,1050 L598,1082" stroke-width="4" stroke-opacity="0.7"/>
+    <path d="M636,1052 L676,1024" stroke-width="4" stroke-opacity="0.7"/>
+  </g>
+  <g fill="#141414">
+    <circle cx="360" cy="1050" r="6"/><circle cx="410" cy="1140" r="6"/><circle cx="460" cy="1075" r="6"/><circle cx="510" cy="1140" r="6"/><circle cx="560" cy="1050" r="6"/>
+    <circle cx="598" cy="1082" r="5"/><circle cx="636" cy="1052" r="5"/>
+  </g>
+  <path d="M676,1024 L700,1006" stroke="#141414" stroke-width="4" stroke-opacity="0.7" stroke-linecap="round" fill="none"/>
+  <path d="M700,1006 l-9,1 m9,-1 l-2,9" stroke="#141414" stroke-width="3" stroke-opacity="0.7" stroke-linecap="round" fill="none"/>
+  <text x="500" y="1192" font-size="13" fill="#7A7872" text-anchor="middle">“W4GZ” as one continuous narrative, gathering at nodes (community), opening forward and upward (4GZ).</text>
+
+  <!-- FOOTER -->
+  <line x1="50" y1="1238" x2="950" y2="1238" stroke="#141414" stroke-opacity="0.12" stroke-width="1"/>
+  <text x="50" y="1276" font-size="12" fill="#7A7872">Monochrome system — ink on paper. In motion: strokes draw on (penned), nodes bleed like ink, modules detach per page and re-weave on page transition.</text>
+  <text x="50" y="1298" font-size="12" fill="#7A7872">Placeholder marks for a designer to refine — the SYSTEM (line = narrative, node = community, modules = pages, the weave = the binding) is the deliverable.</text>
+</svg>
