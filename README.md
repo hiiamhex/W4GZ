@@ -39,13 +39,15 @@ npm run lint
 
 ## Routes (one per chapter)
 
-`/` Home · `/why-writing` (8 movements) · `/courses` (the gate) · `/community`
-("Community is the answer") · `/ecosystem` (The -4GZ Ecosystem) · `/people` · `/join`
-(The Covenant). Per-route metadata + OG; lang `vi`.
+Eight funnel pages: `/` Home · `/why-writing` · `/the-fit` ("ARE YOU W4GZ?" — registrant fit,
+6 value cards) · `/courses` (the gate) · `/community` · `/ecosystem` · `/people` · `/join`
+(the primary CTA). Per-route metadata + OG; lang `vi`.
 
-Plus one **standalone deep-read** — `/power-of-narrative` (three chapters, one visible at
-a time; **not** in the nav). Reached via the auto-link rule and a fixed "deep read" link at
-the end of Why Writing. See `docs/power-of-narrative.md` + Master Spec Addendum v2.1.
+Plus the **deep read** — `/power-of-narrative` (three chapters, one visible at a time). It
+**is** in the nav but **set apart** from the funnel (after a hairline divider, in Cormorant
+italic with an "đọc sâu" tag — a different tier). Also reached via the auto-link rule and a
+fixed "deep read" link at the end of Why Writing. See `docs/power-of-narrative.md` + Master
+Spec Addenda v2.1 / v2.2.
 
 ## Structure
 
@@ -82,12 +84,20 @@ re-draws on every route change.
 **Symbol System v2** (`components/symbols/SymbolModule.tsx` ← `assets/W4GZ_Symbol_System_v2.svg`):
 the full glyph vocabulary — Narrative, Home, The Fit, Courses, Join added to Writing, Community,
 Ecosystem, People, Hub, Media Team — so the spine (Narrative × Writing × Community) and every
-page/section header carry their glyph and **no icon list is asymmetric**. Motion is event-driven,
-CSS-first (keyed off `[data-motion]` + `data-drawn`): the draw-on + node-bleed **reveal plays once**
-on enter and **re-fires on a route/section transition**; **only the weave's travelling node loops**
-(ambient, paused off-screen — `components/symbols/Weave.tsx`); all motion is disabled under
-`prefers-reduced-motion` / the toggle. Auto-link rule: every heading containing "narrative" links to
-`/power-of-narrative` (`lib/narrativeLink.tsx`, wired into `PageHero` + `SectorView`).
+page/section header (+ The Fit's 6 value cards) carry their glyph and **no icon list is asymmetric**.
+Motion is CSS-first (keyed off `[data-motion]` + `data-drawn` / `data-inview`): the draw-on +
+node-bleed **reveal plays once** on enter and **re-fires on a route/section transition**; then
+**every glyph stays alive** with a desynchronised, low-amplitude node-halo "breathe" (the weave
+adds a travelling node — `components/symbols/Weave.tsx`); all idle loops **pause off-screen** and all
+motion is disabled under `prefers-reduced-motion` / the toggle. Auto-link rule: every heading
+containing "narrative" links to `/power-of-narrative` (`lib/narrativeLink.tsx`, wired into `PageHero`
++ `SectorView` + the Home/Fit/Courses anchors).
+
+**Brand logo & favicons** (`components/ui/Wordmark.tsx`): the W monogram (symbol-vocabulary) + the
+wordmark, rendered inline and monochrome (ink-on-paper / paper-on-ink, never recoloured). Drop-in
+SVG exports in `public/logo/`; the favicon/app-icon set (`app/icon.svg`, `app/apple-icon.png`,
+`app/favicon.ico`, `public/icons/icon-{192,512}.png`, `app/manifest.ts`) is generated from the
+monogram by `scripts/gen-brand-assets.mjs` (sharp) — `<head>` links via Next file conventions.
 
 ## Motion (progressive enhancement)
 

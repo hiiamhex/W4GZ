@@ -314,6 +314,36 @@
 [data-motion="on"] .glyph-interactive:hover .gn {
   transform: scale(1.22);
 }
+/* Idle "breathe" (tier 3): after the reveal, every glyph's node-halo keeps a
+   gentle, never-ending heartbeat so no symbol is a dead static icon. Phase +
+   duration are desynchronised per instance (set in JS); the loop pauses
+   off-screen and is absent under motion-off / reduced-motion (halo opacity 0). */
+.glyph .gh,
+.weave .wh {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+[data-motion="on"] .glyph[data-drawn="true"] .gh,
+[data-motion="on"] .weave[data-drawn="true"] .wh {
+  animation: w4gz-breathe var(--idle-dur, 4s) ease-in-out var(--idle-delay, 0s)
+    infinite;
+}
+[data-motion="on"] .glyph[data-inview="false"] .gh,
+[data-motion="on"] .weave[data-inview="false"] .wh {
+  animation-play-state: paused;
+}
+@keyframes w4gz-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.028;
+  }
+}
 
 /* ── The WEAVE motif (brief Update 3) ───────────────────────────────────────
    Line draws on + nodes bleed in once on enter (holds); ONLY the travelling

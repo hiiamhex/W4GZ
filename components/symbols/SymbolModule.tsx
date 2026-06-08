@@ -8,15 +8,19 @@ import { useMotion } from "@/components/motion/MotionProvider";
  * assets/W4GZ_Symbol_System_v2.svg. Two atoms: the stroke (line = narrative) and
  * the node (ink dot = community); the line exits the frame (the story continues).
  *
- * Motion lifecycle (brief Update 2): the reveal is event-driven, NOT a loop.
- *  - One-shot: strokes draw on (stroke-dashoffset) + nodes bleed in (scale),
- *    fired once when the glyph enters the viewport, then it HOLDS the drawn state.
- *  - Re-trigger: pass a changing `replayKey` (e.g. the active chapter/route) to
- *    replay the one-shot once on a section/route transition.
- *  - Hover: `interactive` adds a single node pulse on hover (fires once per hover).
- *  - Reduced-motion / motion-off: the final drawn state is rendered, no animation.
- * All animation lives in globals.css, keyed off `[data-motion]` + `data-drawn`
- * (CSS/SVG first; JS only toggles the trigger attribute). Colour = currentColor.
+ * Motion lifecycle (brief Update 2 — the "appropriate approach"):
+ *  1. Reveal — ONE-SHOT: strokes draw on (stroke-dashoffset) + nodes bleed in
+ *     (scale), fired once when the glyph enters the viewport, then it HOLDS.
+ *  2. Re-trigger: pass a changing `replayKey` to replay the reveal on a section/
+ *     route transition.
+ *  3. Idle — EVERY glyph stays alive: after the reveal, each node's halo
+ *     "breathes" (a slow, low-amplitude scale + opacity pulse — the ink heartbeat).
+ *     Phase + duration are desynchronised per instance so it reads organic, and
+ *     the loop PAUSES off-screen.
+ *  4. Hover: `interactive` adds a single node pulse on hover.
+ * Reduced-motion / motion-off → final drawn state only, no reveal/idle/hover.
+ * All animation lives in globals.css (CSS/SVG first; JS only flips data-* attrs
+ * and seeds the per-instance idle timing). Colour follows currentColor.
  */
 export type ModuleName =
   | "narrative"
@@ -24,6 +28,9 @@ export type ModuleName =
   | "community"
   | "home"
   | "fit"
+  | "meaning"
+  | "honesty"
+  | "craft"
   | "courses"
   | "ecosystem"
   | "people"
@@ -73,6 +80,32 @@ const MODULES: Record<ModuleName, { strokes: Stroke[]; nodes: Node[]; label: str
     label: "The Fit — vòng cung gần khép, một node ở tâm",
     strokes: [{ d: "M84,33 A37,37 0 1 1 84,87", w: 5 }],
     nodes: [{ cx: 60, cy: 60, r: 7 }],
+  },
+  // THE FIT value-card glyphs (same vocabulary).
+  meaning: {
+    label: "Meaning over noise — một nét sáng rõ xuyên qua những nét nhiễu mờ",
+    strokes: [
+      { d: "M22,98 L98,28", w: 6 },
+      { d: "M24,54 L58,54", w: 3, o: 0.4 },
+      { d: "M46,82 L84,82", w: 3, o: 0.4 },
+    ],
+    nodes: [{ cx: 98, cy: 28, r: 6 }],
+  },
+  honesty: {
+    label: "Honesty — dây dọi thẳng đứng buông xuống một node",
+    strokes: [
+      { d: "M60,16 L60,92", w: 6 },
+      { d: "M40,40 L80,40", w: 3, o: 0.4 },
+    ],
+    nodes: [{ cx: 60, cy: 98, r: 7 }],
+  },
+  craft: {
+    label: "Craft — nét đục gọt gặp một node, một mặt cắt sắc",
+    strokes: [
+      { d: "M28,38 L66,88", w: 6 },
+      { d: "M66,88 L96,66", w: 5, o: 0.85 },
+    ],
+    nodes: [{ cx: 66, cy: 88, r: 6 }],
   },
   courses: {
     label: "Courses — các bậc đi lên, mỗi bậc một node",
@@ -166,34 +199,37 @@ export default function SymbolModule({
   const ref = useRef<SVGSVGElement>(null);
   const { enabled } = useMotion();
 
-  // The reveal is CSS-driven (globals.css, keyed off `data-drawn`); JS only
-  // toggles the trigger attribute. No `data-drawn` is rendered on the server, so
-  // with JS off (no `[data-motion="on"]`) the glyph shows its final drawn state.
+  // CSS-driven (globals.css, keyed off data-drawn / data-inview): JS only flips
+  // the trigger attrs + seeds a desynchronised idle timing per instance. No data
+  // attrs are server-rendered, so with JS off the glyph shows its final state.
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Desynchronise the idle "breathe" so a page of glyphs reads organic.
+    el.style.setProperty("--idle-dur", `${(3.2 + Math.random() * 1.8).toFixed(2)}s`);
+    el.style.setProperty("--idle-delay", `${(-Math.random() * 4).toFixed(2)}s`);
     if (!enabled) {
-      el.setAttribute("data-drawn", "true"); // final state, no reveal
+      el.setAttribute("data-drawn", "true"); // final state, no reveal/idle
+      el.setAttribute("data-inview", "false");
       return;
     }
     el.setAttribute("data-drawn", "false"); // re-arm (also on replayKey change)
-    let raf = 0;
+    el.setAttribute("data-inview", "false"); // idle paused until in view
+    let drawnOnce = false;
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            raf = requestAnimationFrame(() => el.setAttribute("data-drawn", "true"));
-            io.disconnect();
+          el.setAttribute("data-inview", entry.isIntersecting ? "true" : "false");
+          if (entry.isIntersecting && !drawnOnce) {
+            drawnOnce = true;
+            requestAnimationFrame(() => el.setAttribute("data-drawn", "true"));
           }
         }
       },
       { threshold: 0.2 },
     );
     io.observe(el);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-    };
+    return () => io.disconnect();
   }, [enabled, replayKey]);
 
   return (
@@ -211,6 +247,12 @@ export default function SymbolModule({
       aria-label={decorative ? undefined : def.label}
       aria-hidden={decorative ? true : undefined}
     >
+      {/* Breathing halos (the idle heartbeat) sit behind the nodes. */}
+      <g fill="currentColor" stroke="none">
+        {def.nodes.map((n, i) => (
+          <circle key={i} className="gh" cx={n.cx} cy={n.cy} r={n.r * 2.6} />
+        ))}
+      </g>
       {def.strokes.map((s, i) => (
         <path
           key={i}
