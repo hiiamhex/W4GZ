@@ -531,7 +531,7 @@ NOTE   Mọi con số cần Hex xác minh và cập nhật nguồn chính danh t
 Bản cập nhật này bổ sung lên Master Spec v2 (không thay thế) và đã được triển khai trong code. Nguồn nội dung chi tiết của trang mới: `docs/power-of-narrative.md`. Bộ biểu tượng nguồn: `assets/W4GZ_Symbol_System_v2.svg`.
 
 ### A · Trang deep-read mới — The Power of Narrative (`/power-of-narrative`)
-- Một trang "đọc sâu" độc lập, KHÔNG nằm trong top nav. Vào bằng hai đường: (1) auto-link mọi heading chứa "narrative" trên toàn site; (2) một link "Bài đọc sâu" cố định ở cuối Why Writing.
+- Một trang "đọc sâu". NẰM trong top nav nhưng ĐẶT TÁCH khỏi funnel (Cormorant italic + divider + tag — xem Addendum v2.2 §G). Cũng vào được bằng: (1) auto-link mọi heading chứa "narrative" trên toàn site; (2) một link "Bài đọc sâu" cố định ở cuối Why Writing.
 - Ba chương, hiện MỘT chương tại một thời điểm (không phải one-long-scroll). Chuyển chương bằng nút Next/Prev, các dot `I · II · III` trên top bar, và phím `←` / `→`. Thanh progress mảnh dưới top bar chạy `33% → 66% → 100%`.
 - Khi chuyển: ẩn chương cũ, chương mới chơi một "rise" reveal, cuộn về đầu trang; coi như một section transition (symbol module re-weave qua nó).
 - Mỗi chương: một GHOST Roman numeral mờ khổng lồ, các subhead, prose dày (nội dung đầy đủ, không rút gọn), và các figure slot `HÌNH` (khung hairline + hatch chéo + caption mono — placeholder thật, không bao giờ ảnh giả).
@@ -547,7 +547,8 @@ Bản cập nhật này bổ sung lên Master Spec v2 (không thay thế) và đ
 - Chính sách animation (event-driven, KHÔNG loop vĩnh viễn):
   1. Reveal ONE-SHOT: nét draw-on (stroke-dashoffset) + node bleed-in chạy MỘT lần khi glyph vào viewport (IntersectionObserver) hoặc khi mount; xong giữ trạng thái đã vẽ.
   2. Re-trigger khi transition: đổi route/section → module re-weave (chơi lại one-shot một lần) qua `replayKey`/route key.
-  3. Ambient loop CHỈ ở the weave: node "traveller" chạy liên tục (chậm, mờ). Không gì khác loop.
+  3. Idle — MỌI glyph luôn sống (cập nhật v2.2, thay cho chính sách "chỉ weave loop" trước đó): sau reveal, mỗi node giữ một halo "breathe" perpetual nhưng cực nhẹ (scale + opacity, ~3–5s), desync pha + chu kì theo từng instance, pause khi off-screen — không glyph nào là icon chết.
+  3b. Weave: ngoài idle trên còn một node "traveller" trượt dọc đường (chữ kí của weave).
   4. Hover (tùy chọn): một node pulse cho icon tương tác, một lần mỗi hover.
   - Pause off-screen (`IntersectionObserver` → `animation-play-state: paused`); `prefers-reduced-motion`/toggle off → chỉ render trạng thái đã vẽ. Ưu tiên CSS/SVG; JS chỉ bật/tắt attr trigger. Implement: `components/symbols/SymbolModule.tsx` + `app/globals.css` (keyed `[data-motion]` + `data-drawn`).
 
@@ -570,4 +571,21 @@ Bản cập nhật này bổ sung lên Master Spec v2 (không thay thế) và đ
 ### F · Guardrails (giữ nguyên)
 Mọi STAT/anchor lịch sử: verify-before-publish. Không nhắc nhánh đầu tư `-4GZ` công khai. Tư liệu wellbeing (anomie, distress Gen Z, TRC) xử lí điềm tĩnh, khái niệm, không chi tiết.
 
-Hết Master Spec v2 + Addendum v2.1. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.
+# Addendum v2.2 · IA 8 trang + The Fit · Nav set-apart essay · Idle-alive symbols · Brand logo
+Bổ sung lên v2.1, đã triển khai trong code.
+
+### G · IA & nav (8 trang funnel + deep-read tách riêng)
+- Thứ tự nav funnel: **Home · Why Writing · The Fit · Courses · Community · Ecosystem · People · Join**. Join là **CTA chính** (nút filled, nổi bật).
+- **The Fit** — trang fit người đăng kí: hero "ARE YOU W4GZ?" + 6 value card (Narrative / Writing / Meaning-over-noise / Honesty / Craft / Community), mỗi card mang glyph. Trang funnel thật, không bỏ. Chữ chốt theo Copy v5 (chưa có trong repo — xem GAPS/PLACEHOLDERS); bản hiện nêu đúng 6 giá trị + tinh thần.
+- **The Power of Narrative** vẫn ở nav nhưng ĐẶT TÁCH: sau một divider hairline, set bằng Cormorant italic + tag nhỏ ("đọc sâu") — báo hiệu một tier khác (essay), không phải bước funnel.
+- Glyph mới cho value-card: thêm `meaning`, `honesty`, `craft` vào bộ (cùng từ vựng nét + node), bên cạnh narrative / writing / community.
+
+### H · Idle-alive symbols (cập nhật chính sách motion §B.3)
+- Quy tắc mới: **mọi symbol instance phải sống — không icon chết**. Sau reveal one-shot, mỗi node giữ một halo "breathe" perpetual nhưng cực nhẹ (scale + opacity), desync pha + chu kì per-instance (JS seed `--idle-dur` / `--idle-delay`), pause off-screen, tắt hết dưới reduced-motion / toggle. Weave thêm traveller. Implement: halo `.gh` / `.wh` + `@keyframes w4gz-breathe` trong `app/globals.css`.
+
+### I · Brand logo & favicons (Update 6)
+- Logo render INLINE trong nav + footer: monogram **W** (theo từ vựng biểu tượng nét + node) + wordmark "W4GZ", đơn sắc theo `currentColor` — ink trên giấy, paper trên mực (`components/ui/Wordmark.tsx`). Không bao giờ tô màu; không ink-trên-ink / paper-trên-paper.
+- File logo "drop-in" (thay bằng artwork cuối ở cùng path): `public/logo/w4gz-{wordmark,mark}-{ink,paper}.svg`.
+- Favicon/app-icon sinh từ monogram (`scripts/gen-brand-assets.mjs`, dùng `sharp`): `app/icon.svg` (SVG favicon), `app/apple-icon.png` (180), `app/favicon.ico`, `public/icons/icon-{192,512}.png` (maskable) + `app/manifest.ts`. `<head>` do Next file-conventions tự chèn. OG giữ ở `app/opengraph-image.tsx` (wordmark-ink trên giấy).
+
+Hết Master Spec v2 + Addendum v2.1 + v2.2. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.

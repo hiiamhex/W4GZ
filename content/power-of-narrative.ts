@@ -38,6 +38,7 @@ export const dotLabels = ["I", "II", "III"];
 export const sourceLabels: Record<string, string> = {
   "/": "Home",
   "/why-writing": "Why Writing",
+  "/the-fit": "The Fit",
   "/courses": "Courses",
   "/community": "Community",
   "/ecosystem": "Ecosystem",

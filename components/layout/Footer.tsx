@@ -3,17 +3,19 @@ import { site } from "@/content/site";
 import { pick } from "@/lib/i18n";
 import { SITE } from "@/lib/config";
 import Container from "@/components/ui/Container";
+import { Monogram } from "@/components/ui/Wordmark";
 import MotionToggle from "@/components/motion/MotionToggle";
 
-/** Footer (brief 3.2): hairline top, full wordmark + motto, nav, mono copyright. */
+/** Footer (brief 3.2): hairline top, monogram + wordmark + motto, nav, mono copyright. */
 export default function Footer() {
-  const { nav, footer } = pick(site);
+  const { nav, cta, essay, footer } = pick(site);
 
   return (
     <footer className="hr-t">
       <Container className="flex flex-col gap-10 py-12 md:flex-row md:items-start md:justify-between md:py-16">
         <div className="space-y-2">
-          <p className="font-mono text-sm font-semibold tracking-[0.12em] text-ink">
+          <p className="flex items-center gap-2 font-mono text-sm font-semibold tracking-[0.12em] text-ink">
+            <Monogram className="h-4 w-auto" />
             {footer.wordmark}
           </p>
           <p className="font-display text-lg italic text-muted">{SITE.motto}</p>
@@ -21,7 +23,7 @@ export default function Footer() {
 
         <nav aria-label="Điều hướng chân trang">
           <ul className="grid grid-cols-2 gap-x-8 gap-y-3 sm:flex sm:flex-wrap sm:gap-x-6">
-            {nav.map((link) => (
+            {[...nav, cta].map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -31,6 +33,14 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href={essay.href}
+                className="font-display text-sm italic text-muted transition-colors hover:text-ink"
+              >
+                {essay.label}
+              </Link>
+            </li>
           </ul>
         </nav>
 

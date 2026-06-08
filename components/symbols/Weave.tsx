@@ -57,6 +57,8 @@ export default function Weave({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    el.style.setProperty("--idle-dur", `${(3.6 + Math.random() * 1.8).toFixed(2)}s`);
+    el.style.setProperty("--idle-delay", `${(-Math.random() * 4).toFixed(2)}s`);
     if (!enabled) {
       el.setAttribute("data-drawn", "true"); // drawn line + nodes, no travel
       el.setAttribute("data-inview", "false");
@@ -96,6 +98,9 @@ export default function Weave({
     >
       <polyline className="wv" pathLength={100} points={points} strokeWidth={strokeWidth} />
       <g fill="currentColor" stroke="none">
+        {innerNodes.map(([x, y], i) => (
+          <circle key={`h${i}`} className="wh" cx={x} cy={y} r={nodeRadius * 2.4} />
+        ))}
         {innerNodes.map(([x, y], i) => (
           <circle
             key={i}

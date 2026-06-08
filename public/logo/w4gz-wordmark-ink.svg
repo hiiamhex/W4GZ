@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 34">
+  <g fill="none" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3,5 L11,29 L20,13 L29,29 L37,5"/>
+  </g>
+  <g fill="#141414"><circle cx="3" cy="5" r="2.4"/><circle cx="11" cy="29" r="2.4"/><circle cx="20" cy="13" r="2.4"/><circle cx="29" cy="29" r="2.4"/><circle cx="37" cy="5" r="2.4"/></g>
+  <text x="50" y="24" fill="#141414" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="600" letter-spacing="2">W4GZ</text>
+</svg>

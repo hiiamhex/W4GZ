@@ -36,6 +36,8 @@ export default function SymbolLayer() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    el.style.setProperty("--idle-dur", `${(4 + Math.random() * 1.8).toFixed(2)}s`);
+    el.style.setProperty("--idle-delay", `${(-Math.random() * 4).toFixed(2)}s`);
     if (!enabled) {
       el.setAttribute("data-drawn", "true");
       return;
@@ -59,6 +61,9 @@ export default function SymbolLayer() {
     >
       <polyline className="wv" pathLength={100} points={POINTS} strokeWidth={2} />
       <g fill="currentColor" stroke="none">
+        {NODES.map(([cx, cy], i) => (
+          <circle key={`h${i}`} className="wh" cx={cx} cy={cy} r={9.5} />
+        ))}
         {NODES.map(([cx, cy], i) => (
           <circle
             key={i}

@@ -4,6 +4,7 @@ import { SITE } from "@/lib/config";
 const ROUTES = [
   "",
   "/why-writing",
+  "/the-fit",
   "/power-of-narrative",
   "/courses",
   "/community",

@@ -5,21 +5,21 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/content/site";
 import { pick } from "@/lib/i18n";
-import { ENROLL_HREF } from "@/lib/config";
 import Wordmark from "@/components/ui/Wordmark";
 import CTAButton from "@/components/ui/CTAButton";
 
 /**
- * Persistent nav (brief 3.1): fixed, blurred paper bg, hairline bottom. Wordmark
- * left, links centered, "Enroll →" always present. Collapses to a full-screen
- * menu on mobile.
+ * Persistent nav (brief 3.1 / IA): fixed, blurred paper bg, hairline bottom. Logo
+ * left; funnel links (Home…People) centred; **Join** as the dominant CTA button;
+ * then a hairline divider and **The Power of Narrative** set apart as a deep essay
+ * (Cormorant italic + small tag — a different tier, not a funnel step). Collapses
+ * to a full-screen menu below xl.
  */
 export default function Nav() {
-  const { nav, enrollLabel } = pick(site);
+  const { nav, cta, essay } = pick(site);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Lock body scroll while the mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -32,37 +32,59 @@ export default function Nav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <nav
-        aria-label="Điều hướng chính"
-        className="hr-b bg-paper/80 backdrop-blur-md"
-      >
-        <div className="mx-auto flex h-[var(--nav-h)] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-14">
+      <nav aria-label="Điều hướng chính" className="hr-b bg-paper/80 backdrop-blur-md">
+        <div className="mx-auto flex h-[var(--nav-h)] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-14">
           <Wordmark className="text-base tracking-[0.18em]" />
 
-          <ul className="hidden items-center gap-7 lg:flex">
-            {nav.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  aria-current={isActive(link.href) ? "page" : undefined}
-                  className={`font-mono text-xs uppercase tracking-[0.18em] transition-colors hover:text-ink ${
-                    isActive(link.href) ? "text-ink" : "text-muted"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="hidden items-center gap-6 xl:flex">
+            <ul className="flex items-center gap-6">
+              {nav.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                    className={`font-mono text-xs uppercase tracking-[0.18em] transition-colors hover:text-ink ${
+                      isActive(link.href) ? "text-ink" : "text-muted"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
-          <div className="flex items-center gap-2">
+            <CTAButton href={cta.href} variant="filled" size="sm">
+              {cta.label}
+            </CTAButton>
+
+            <span aria-hidden className="h-5 w-px bg-hairline" />
+
+            <Link
+              href={essay.href}
+              aria-current={isActive(essay.href) ? "page" : undefined}
+              className="group inline-flex items-baseline gap-1.5"
+            >
+              <span
+                className={`font-display text-[1.05rem] italic transition-colors ${
+                  isActive(essay.href) ? "text-ink" : "text-ink/85 group-hover:text-ink"
+                }`}
+              >
+                {essay.label}
+              </span>
+              <span className="font-mono text-[0.55rem] uppercase tracking-[0.18em] text-muted">
+                {essay.tag}
+              </span>
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2 xl:hidden">
             <CTAButton
-              href={ENROLL_HREF}
+              href={cta.href}
               variant="filled"
               size="sm"
               className="hidden sm:inline-flex"
             >
-              {enrollLabel}
+              {cta.label}
             </CTAButton>
             <button
               type="button"
@@ -70,7 +92,7 @@ export default function Nav() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Đóng menu" : "Mở menu"}
-              className="inline-flex h-10 w-10 items-center justify-center text-ink lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center text-ink"
             >
               <svg
                 width="22"
@@ -101,7 +123,7 @@ export default function Nav() {
       {open ? (
         <div
           id="mobile-menu"
-          className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-40 overflow-y-auto bg-paper lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-40 overflow-y-auto bg-paper xl:hidden"
         >
           <ul className="flex flex-col">
             {nav.map((link) => (
@@ -122,14 +144,27 @@ export default function Nav() {
               </li>
             ))}
           </ul>
+
+          {/* Set apart from the funnel: the deep essay, a different tier. */}
+          <Link
+            href={essay.href}
+            onClick={() => setOpen(false)}
+            className="hr-b flex items-center justify-between px-5 py-5 sm:px-8"
+          >
+            <span className="font-display text-xl italic text-ink">{essay.label}</span>
+            <span className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-muted">
+              {essay.tag}
+            </span>
+          </Link>
+
           <div className="px-5 py-8 sm:px-8">
             <CTAButton
-              href={ENROLL_HREF}
+              href={cta.href}
               variant="filled"
               className="w-full"
               onClick={() => setOpen(false)}
             >
-              {enrollLabel}
+              {cta.label}
             </CTAButton>
           </div>
         </div>

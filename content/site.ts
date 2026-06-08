@@ -6,32 +6,43 @@ export interface NavLink {
 }
 
 export interface SiteContent {
-  /** Center nav links — English labels by brand decision (brief 3.1). */
+  /** Funnel links shown as plain items (Home…People). English by brand decision. */
   nav: NavLink[];
+  /** Join — the primary CTA, rendered as the dominant button. */
+  cta: NavLink;
+  /** The Power of Narrative — a set-apart deep read (different tier, not a funnel step). */
+  essay: { label: string; tag: string; href: string };
   enrollLabel: string;
   footer: {
     wordmark: string;
-    /** Footer nav reuses the same routes. */
     copyright: string;
   };
 }
 
 /**
- * Brief 3.1 / 3.2. Nav labels are intentionally English; the Vietnamese
+ * Brief 3.1 / IA. Nav labels are intentionally English; the Vietnamese
  * alternatives (Trang chủ · Vì sao Viết · …) are recorded for the future `en`→`vi`
- * toggle but the brand ships English nav now.
+ * toggle. Funnel order: Home · Why Writing · The Fit · Courses · Community ·
+ * Ecosystem · People · Join (Join styled as the primary CTA). The Power of
+ * Narrative sits apart from the funnel — a deep essay, styled to its own tier.
  */
 export const site: Localized<SiteContent> = {
   vi: {
     nav: [
       { label: "Home", href: "/" },
       { label: "Why Writing", href: "/why-writing" },
+      { label: "The Fit", href: "/the-fit" },
       { label: "Courses", href: "/courses" },
       { label: "Community", href: "/community" },
       { label: "Ecosystem", href: "/ecosystem" },
       { label: "People", href: "/people" },
-      { label: "Join", href: "/join" },
     ],
+    cta: { label: "Join", href: "/join" },
+    essay: {
+      label: "The Power of Narrative",
+      tag: "đọc sâu",
+      href: "/power-of-narrative",
+    },
     enrollLabel: "Enroll",
     footer: {
       wordmark: "Writing4GenZ",
