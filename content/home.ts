@@ -19,7 +19,7 @@ export const tickerItems = [
 ];
 
 export const pillars: { name: string; line: string; module?: ModuleName }[] = [
-  { name: "Narrative", line: "bạn là câu chuyện bạn kể về mình." },
+  { name: "Narrative", line: "bạn là câu chuyện bạn kể về mình.", module: "narrative" },
   { name: "Writing", line: "kỉ luật để tự viết câu chuyện ấy.", module: "writing" },
   {
     name: "Community",

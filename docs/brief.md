@@ -4,7 +4,7 @@ WRITING4GENZ
 Website Narrative Script & Build Brief
 Bản kịch bản tự sự toàn site + brief hiện thực hóa cho team phát triển
 Motto:  “Creates narratives worth living.”
-Phiên bản: Script v1 (draft để review & chỉnh sửa)
+Phiên bản: Script v1 (draft để review & chỉnh sửa) — đã được Master Spec v2 (+ Addendum v2.1) thay thế làm nguồn chân lý. Cập nhật mới nhất: trang deep-read /power-of-narrative, Symbol System v2, wave motif, auto-link "narrative" — xem docs/master-spec.md (Addendum v2.1) và docs/power-of-narrative.md.
 Ngôn ngữ: Tiếng Việt (lớp tự sự) · English (lớp cấu trúc & thương hiệu)
 Kiến trúc: 7 trang · Single-page React (client-side routing)
 

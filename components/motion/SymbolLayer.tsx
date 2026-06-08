@@ -1,43 +1,49 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import { useEffect, useRef } from "react";
 import { useMotion } from "@/components/motion/MotionProvider";
 
 /**
- * The weave (brief v2 §2.6 / 3.4): one line threading many nodes — a single
- * narrative binding a community. Hoisted once at root; on each route change it
- * re-weaves (strokes redraw, nodes bleed in). Faint + decorative; static (fully
- * drawn) under reduced-motion / toggle-off. A full per-module detach/morph
- * re-weave is logged as a motion Gap.
+ * The site-wide weave (Master Spec §2.6 / §3.4): one line threading many nodes —
+ * a single narrative binding a community — hoisted once at root, faint and fixed
+ * along the foot. On each route change it RE-WEAVES (the line redraws + nodes
+ * bleed in: the "re-trigger on transition" tier). Its travelling node is the one
+ * ambient loop on the site (brief Update 2 — "the line never ends"); everything
+ * is CSS-driven and disabled under reduced-motion / the motion toggle.
  */
+const PATH =
+  "M0,55 L120,30 L240,55 L360,30 L480,55 L600,30 L720,55 L840,30 L960,55 L1000,38";
+const POINTS =
+  "0,55 120,30 240,55 360,30 480,55 600,30 720,55 840,30 960,55 1000,38";
+const NODES = [
+  [120, 30],
+  [240, 55],
+  [360, 30],
+  [480, 55],
+  [600, 30],
+  [720, 55],
+  [840, 30],
+];
+
 export default function SymbolLayer() {
   const { enabled } = useMotion();
   const pathname = usePathname();
   const ref = useRef<SVGSVGElement>(null);
 
-  useGSAP(
-    () => {
-      if (!enabled || !ref.current) return;
-      const paths = ref.current.querySelectorAll<SVGPathElement>("path");
-      paths.forEach((p) => {
-        const len = p.getTotalLength();
-        gsap.fromTo(
-          p,
-          { strokeDasharray: len, strokeDashoffset: len },
-          { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" },
-        );
-      });
-      gsap.fromTo(
-        ref.current.querySelectorAll("circle"),
-        { scale: 0, transformOrigin: "center" },
-        { scale: 1, duration: 0.5, stagger: 0.06, ease: "back.out(2)", delay: 0.3 },
-      );
-    },
-    { dependencies: [enabled, pathname] },
-  );
+  // Re-weave on each route change (CSS-driven; JS only flips `data-drawn`). With
+  // JS off there is no `[data-motion="on"]`, so the weave renders fully drawn.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (!enabled) {
+      el.setAttribute("data-drawn", "true");
+      return;
+    }
+    el.setAttribute("data-drawn", "false");
+    const raf = requestAnimationFrame(() => el.setAttribute("data-drawn", "true"));
+    return () => cancelAnimationFrame(raf);
+  }, [enabled, pathname]);
 
   return (
     <svg
@@ -45,21 +51,25 @@ export default function SymbolLayer() {
       aria-hidden
       viewBox="0 0 1000 80"
       preserveAspectRatio="none"
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-20 h-10 w-full text-ink/10"
+      className="weave pointer-events-none fixed inset-x-0 bottom-0 z-20 h-10 w-full text-ink/10"
+      style={{ "--travel-dur": "7s" } as React.CSSProperties}
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
       strokeLinecap="round"
     >
-      <path d="M0,55 L120,30 L240,55 L360,30 L480,55 L600,30 L720,55 L840,30 L960,55 L1000,38" />
+      <polyline className="wv" pathLength={100} points={POINTS} strokeWidth={2} />
       <g fill="currentColor" stroke="none">
-        <circle cx="120" cy="30" r="4" />
-        <circle cx="240" cy="55" r="4" />
-        <circle cx="360" cy="30" r="4" />
-        <circle cx="480" cy="55" r="4" />
-        <circle cx="600" cy="30" r="4" />
-        <circle cx="720" cy="55" r="4" />
-        <circle cx="840" cy="30" r="4" />
+        {NODES.map(([cx, cy], i) => (
+          <circle
+            key={i}
+            className="wn"
+            cx={cx}
+            cy={cy}
+            r={4}
+            style={{ "--i": i } as React.CSSProperties}
+          />
+        ))}
+        <circle className="wtrav" r={4.5} style={{ offsetPath: `path('${PATH}')` } as React.CSSProperties} />
       </g>
     </svg>
   );

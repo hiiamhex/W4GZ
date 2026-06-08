@@ -3,6 +3,12 @@
 > Standalone deep-read page for the W4GZ landing site.
 > This document is the source of truth for the page's content, structure, and behavior.
 > Prototype implementation: `prototypes/power-of-narrative.html`.
+>
+> **Status: IMPLEMENTED** at `/power-of-narrative` (`app/power-of-narrative/`,
+> `components/power-of-narrative/`, `content/power-of-narrative.ts`). The chapter
+> mechanic, motto climax, weave motif, and auto-link rule are live; the `HÌNH`
+> slots remain honest captioned placeholders pending rights-cleared assets (§8).
+> See the Master Spec **Addendum v2.1** for the system-level summary.
 
 ---
 

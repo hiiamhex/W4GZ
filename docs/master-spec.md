@@ -6,7 +6,8 @@ Bản đặc tả hợp nhất toàn bộ mô tả landing page tới thời đi
 Motto:  “Creates narratives worth living.”
 Phiên bản: Master Spec v2 — hợp nhất và thay thế Script v1
 Ba trụ thông điệp: Narrative · Writing · Community
-Kiến trúc: 7 trang · Next.js + View Transitions + Lenis + GSAP
+Kiến trúc: 7 trang funnel + 1 trang deep-read độc lập (/power-of-narrative, ngoài nav) · Next.js + View Transitions + Lenis + GSAP
+Cập nhật: xem Addendum v2.1 ở cuối (The Power of Narrative · Symbol System v2 · Wave motif · Auto-link)
 
 ### Mục lục
 PART 0 · Cách đọc · những gì đã thay đổi so với v1
@@ -526,4 +527,47 @@ NOTE   Mọi con số cần Hex xác minh và cập nhật nguồn chính danh t
 - Xác nhận đặt Media Team ở Ecosystem hay People.
 - Chốt: 7 trang hay 5; Việt-primary hay song ngữ toggle đầy đủ; mức độ WebGL.
 
-Hết Master Spec v2. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief) tham chiếu tài liệu này.
+# Addendum v2.1 · The Power of Narrative · Symbol System v2 · Wave motif · Auto-link
+Bản cập nhật này bổ sung lên Master Spec v2 (không thay thế) và đã được triển khai trong code. Nguồn nội dung chi tiết của trang mới: `docs/power-of-narrative.md`. Bộ biểu tượng nguồn: `assets/W4GZ_Symbol_System_v2.svg`.
+
+### A · Trang deep-read mới — The Power of Narrative (`/power-of-narrative`)
+- Một trang "đọc sâu" độc lập, KHÔNG nằm trong top nav. Vào bằng hai đường: (1) auto-link mọi heading chứa "narrative" trên toàn site; (2) một link "Bài đọc sâu" cố định ở cuối Why Writing.
+- Ba chương, hiện MỘT chương tại một thời điểm (không phải one-long-scroll). Chuyển chương bằng nút Next/Prev, các dot `I · II · III` trên top bar, và phím `←` / `→`. Thanh progress mảnh dưới top bar chạy `33% → 66% → 100%`.
+- Khi chuyển: ẩn chương cũ, chương mới chơi một "rise" reveal, cuộn về đầu trang; coi như một section transition (symbol module re-weave qua nó).
+- Mỗi chương: một GHOST Roman numeral mờ khổng lồ, các subhead, prose dày (nội dung đầy đủ, không rút gọn), và các figure slot `HÌNH` (khung hairline + hatch chéo + caption mono — placeholder thật, không bao giờ ảnh giả).
+- Chương III kết bằng MOTTO CLIMAX: panel mực nghịch (nền mực, chữ giấy) với weave paper-on-ink hoạt họa ngay trên dòng **"Creates narratives worth living."**; kicker `Ba chương · một kết luận`; sub định khung motto là **hệ điều hành**, không phải khẩu hiệu; endnav `← Chương II · Bắt đầu viết →`.
+- Breadcrumb trên-trái `↩ {nguồn}` là ĐỘNG — phản ánh trang người xem vừa rời (qua `document.referrer`, không dùng storage).
+- Tiến bộ hóa: SSR render cả ba chương (copy server-rendered, chọn được, đọc được khi tắt JS); sau hydrate mới hiện một-chương-một-lần.
+
+### B · Symbol System v2 (sửa bất đối xứng + animate)
+- Thêm glyph còn thiếu: **Narrative** (spine — đường luồn qua các node, the weave thu nhỏ), **Home**, **The Fit**, **Courses**, **Join**. Giữ: Writing, Community, Ecosystem, People, Hub, Media Team.
+- Sửa defect: spine ba trụ (Narrative × Writing × Community) nay cả ba đều mang glyph (trước đây Narrative thiếu).
+- Mọi page/section header mang glyph module: Home, Why Writing→Writing, Courses, Community, Ecosystem, People, Join; Hub + Media Team trong section của chúng. The Fit value-cards mang glyph (chờ trang The Fit từ Copy v5 — xem GAPS.md).
+- Quy tắc: không list/set icon nào được bất đối xứng — đã có icon ở một item thì mọi item phải có.
+- Chính sách animation (event-driven, KHÔNG loop vĩnh viễn):
+  1. Reveal ONE-SHOT: nét draw-on (stroke-dashoffset) + node bleed-in chạy MỘT lần khi glyph vào viewport (IntersectionObserver) hoặc khi mount; xong giữ trạng thái đã vẽ.
+  2. Re-trigger khi transition: đổi route/section → module re-weave (chơi lại one-shot một lần) qua `replayKey`/route key.
+  3. Ambient loop CHỈ ở the weave: node "traveller" chạy liên tục (chậm, mờ). Không gì khác loop.
+  4. Hover (tùy chọn): một node pulse cho icon tương tác, một lần mỗi hover.
+  - Pause off-screen (`IntersectionObserver` → `animation-play-state: paused`); `prefers-reduced-motion`/toggle off → chỉ render trạng thái đã vẽ. Ưu tiên CSS/SVG; JS chỉ bật/tắt attr trigger. Implement: `components/symbols/SymbolModule.tsx` + `app/globals.css` (keyed `[data-motion]` + `data-drawn`).
+
+### C · Wave / Weave motif
+- Component sản xuất dùng chung: `components/symbols/Weave.tsx` (một đường luồn qua nhiều node, thoát hai mép, tile vô hạn).
+- Tại motto (chính): weave paper-on-ink ngay trên dòng motto — draw-on, node bleed-in, rồi một node travel liên tục; pause khi off-screen.
+- Toàn trang (mảnh): một weave ink-on-paper mờ dưới breadcrumb làm signature của trang.
+- Site-wide: `components/motion/SymbolLayer.tsx` là weave cố định ở chân trang, re-weave mỗi lần đổi route, với node traveller ambient (loop duy nhất của site — "đường không bao giờ kết thúc").
+
+### D · Auto-link rule cho heading "narrative"
+- Toàn site: mọi heading mà text chứa `narrative` / `narratives` (không phân biệt hoa thường) được bọc trong link tới `/power-of-narrative`. Implement như một heading transform (`lib/narrativeLink.tsx`) cắm vào renderer heading dùng chung (PageHero h1, SectorView h2) + các anchor đã biết (trụ Narrative ở Home, "Narrative Structure" ở Courses) → heading tương lai tự được phủ.
+
+### E · Design-system additions
+- Inverted-ink **motto-climax panel** (điểm nghịch đảo duy nhất của trang).
+- **Ghost chapter numeral** (số La Mã mờ khổng lồ phá lưới).
+- **Chapter mechanic**: one-at-a-time + dots + arrows + progress bar.
+- **HÌNH figure-slot**: khung hairline + hatch chéo + caption mono (placeholder thật).
+- **Font stack** (đã chốt trong build): Cormorant Garamond (display) / Plus Jakarta Sans (body — thay Outfit vì Outfit thiếu subset tiếng Việt) / IBM Plex Mono (mono — thay DM Mono cùng lý do).
+
+### F · Guardrails (giữ nguyên)
+Mọi STAT/anchor lịch sử: verify-before-publish. Không nhắc nhánh đầu tư `-4GZ` công khai. Tư liệu wellbeing (anomie, distress Gen Z, TRC) xử lí điềm tĩnh, khái niệm, không chi tiết.
+
+Hết Master Spec v2 + Addendum v2.1. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.

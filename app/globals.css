@@ -283,4 +283,106 @@
   animation: none !important;
 }
 
+/* ── Symbol glyphs: one-shot reveal (Symbol System v2 / brief Update 2) ─────
+   Event-driven, NOT looping. Default (no JS / motion-off / reduced-motion) =
+   the final drawn state, so glyphs are always visible. When motion is on the
+   strokes start undrawn and pen on + nodes bleed in once `data-drawn="true"`
+   is set on enter (or re-set on a section/route transition via `replayKey`). */
+[data-motion="on"] .glyph .gs {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.6, 0, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 0.08s);
+}
+[data-motion="on"] .glyph .gn {
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1.2);
+  transition-delay: calc(0.45s + var(--i, 0) * 0.07s);
+}
+[data-motion="on"] .glyph[data-drawn="true"] .gs {
+  stroke-dashoffset: 0;
+}
+[data-motion="on"] .glyph[data-drawn="true"] .gn {
+  transform: scale(1);
+}
+/* Hover micro-interaction (tier 4): one node pulse, never a loop. */
+[data-motion="on"] .glyph-interactive {
+  transition: opacity 0.3s ease;
+}
+[data-motion="on"] .glyph-interactive:hover .gn {
+  transform: scale(1.22);
+}
+
+/* ── The WEAVE motif (brief Update 3) ───────────────────────────────────────
+   Line draws on + nodes bleed in once on enter (holds); ONLY the travelling
+   node loops (ambient), and that loop pauses off-screen. Motion-off / reduced =
+   drawn line + nodes, no draw-on, no travel. */
+[data-motion="on"] .weave .wv {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.6, 0, 0.2, 1);
+}
+[data-motion="on"] .weave .wn {
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.5s ease;
+  transition-delay: calc(0.6s + var(--i, 0) * 0.06s);
+}
+[data-motion="on"] .weave[data-drawn="true"] .wv {
+  stroke-dashoffset: 0;
+}
+[data-motion="on"] .weave[data-drawn="true"] .wn {
+  transform: scale(1);
+}
+.weave .wtrav {
+  opacity: 0;
+}
+[data-motion="on"] .weave .wtrav {
+  opacity: 1;
+  animation: weave-travel var(--travel-dur, 5s) cubic-bezier(0.45, 0, 0.55, 1) 1.4s
+    infinite;
+}
+[data-motion="on"] .weave[data-inview="false"] .wtrav {
+  animation-play-state: paused;
+}
+@keyframes weave-travel {
+  to {
+    offset-distance: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .weave .wtrav {
+    display: none;
+  }
+}
+[data-motion="off"] .weave .wtrav {
+  display: none;
+}
+
+/* ── Power of Narrative: chapter mechanic + figure slots (brief Update 1/5) ── */
+@keyframes pon-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+[data-motion="on"] .pon-rise {
+  animation: pon-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+/* HÌNH figure slot: hairline frame + faint diagonal hatch (a real placeholder). */
+.hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 11px,
+    rgba(20, 20, 20, 0.035) 11px 12px
+  );
+}
+
 /* Native cursor only (brief v2 §2.2) — the custom caret cursor was removed. */

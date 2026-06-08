@@ -26,7 +26,7 @@ export const metadata = buildMetadata({
 export default function PeoplePage() {
   return (
     <>
-      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} />
+      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} module="people" />
 
       {/* VI.2 · Về sự ẩn danh */}
       <Section topRule>

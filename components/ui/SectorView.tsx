@@ -8,6 +8,7 @@ import ArtSlot from "./ArtSlot";
 import CTAButton from "./CTAButton";
 import SymbolModule from "@/components/symbols/SymbolModule";
 import Reveal from "@/components/motion/Reveal";
+import { NarrativeHeading } from "@/lib/narrativeLink";
 
 /**
  * Generic renderer for a prose sector (brief v2 §5 Section). Heroes and card
@@ -41,9 +42,11 @@ export default function SectorView({
 
             {s.heading ? (
               <Reveal>
-                <h2 className="mb-6 font-display text-3xl italic leading-tight text-ink md:text-4xl">
-                  {s.heading}
-                </h2>
+                <NarrativeHeading
+                  as="h2"
+                  text={s.heading}
+                  className="mb-6 font-display text-3xl italic leading-tight text-ink md:text-4xl"
+                />
               </Reveal>
             ) : null}
 
@@ -114,13 +117,7 @@ export default function SectorView({
               )}
               {s.module && !s.art?.length ? (
                 <div className="hidden justify-center lg:flex">
-                  <SymbolModule
-                    name={s.module}
-                    size={180}
-                    draw
-                    bleed
-                    className="text-ink/15"
-                  />
+                  <SymbolModule name={s.module} size={180} className="text-ink/15" />
                 </div>
               ) : null}
             </div>
