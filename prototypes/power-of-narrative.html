@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Power of Narrative — W4GZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Outfit:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F1EB; --paper2:#EDE9E0; --ink:#141414; --ink-soft:#33312c;
+  --soft:#5a574f; --faint:#8f8b80; --hair:rgba(20,20,20,.16); --hair-soft:rgba(20,20,20,.08);
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Outfit',system-ui,-apple-system,sans-serif;
+  --mono:'DM Mono','SFMono-Regular',ui-monospace,monospace;
+  --col:46rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--sans);
+  font-weight:300; line-height:1.74; -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(20,20,20,.018) 1px,transparent 1px);
+  background-size:4px 4px;
+}
+::selection{background:var(--ink);color:var(--paper)}
+
+/* ── TOP BAR ── */
+.bar{position:sticky;top:0;z-index:40;background:rgba(244,241,235,.86);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+.bar-in{max-width:74rem;margin:0 auto;padding:.85rem 1.6rem;display:flex;align-items:center;gap:1.2rem}
+.brand{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.02em}
+.brand span{color:var(--faint);font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:400;margin-left:.55rem}
+.dots{margin-left:auto;display:flex;align-items:center;gap:.2rem}
+.dot{appearance:none;border:none;background:none;cursor:pointer;font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.12em;color:var(--faint);padding:.3rem .5rem;
+  border-bottom:1.5px solid transparent;transition:.25s}
+.dot:hover{color:var(--ink)}
+.dot.on{color:var(--ink);border-color:var(--ink)}
+.dot .sep{color:var(--hair)}
+.progress{height:1.5px;background:var(--ink);width:33.33%;transition:width .55s cubic-bezier(.6,0,.2,1)}
+
+.bread{max-width:var(--col);margin:1.7rem auto -.2rem;padding:0 1.6rem}
+.bread a{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--faint);text-decoration:none;transition:.2s}
+.bread a:hover{color:var(--ink)}
+
+/* ── CHAPTER ── */
+main{position:relative;max-width:var(--col);margin:0 auto;padding:2.2rem 1.6rem 5rem}
+.chapter{display:none;position:relative}
+.chapter.on{display:block;animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.ghost{position:absolute;top:-2.2rem;right:-1rem;font-family:var(--serif);font-weight:600;
+  font-size:clamp(9rem,26vw,17rem);line-height:.8;color:rgba(20,20,20,.045);
+  pointer-events:none;z-index:0;animation:ghostin 1.1s ease .15s both}
+@keyframes ghostin{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.chapter>*{position:relative;z-index:1}
+
+.klabel{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--soft);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.klabel::before{content:"";width:1.7rem;height:1px;background:var(--ink)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.3rem,6vw,3.5rem);
+  line-height:1.04;letter-spacing:-.01em;margin-bottom:1.3rem}
+.lead{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,2.6vw,1.6rem);
+  line-height:1.42;color:var(--ink-soft);margin-bottom:1.5rem}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.45rem,3vw,1.85rem);
+  line-height:1.15;margin:2.6rem 0 .9rem}
+p{font-size:1.035rem;margin-bottom:1.05rem;color:#23211d;max-width:40rem}
+p.first{margin-top:.2rem}
+
+/* ── FIGURE SLOT ── */
+figure.slot{margin:1.6rem 0 1.7rem;max-width:40rem}
+.slot-frame{border:1px solid var(--hair);background:
+  repeating-linear-gradient(135deg,transparent 0 11px,rgba(20,20,20,.022) 11px 12px);
+  aspect-ratio:16/6.4;display:flex;align-items:center;justify-content:center;border-radius:2px}
+.slot-frame span{font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--faint)}
+figure.slot.tall .slot-frame{aspect-ratio:16/8.4}
+figcaption{font-family:var(--mono);font-size:.72rem;line-height:1.6;color:var(--soft);
+  margin-top:.6rem;padding-left:.1rem}
+figcaption b{color:var(--ink);font-weight:500;letter-spacing:.14em;margin-right:.5rem}
+
+/* ── CHAPTER FOOT / BRIDGE ── */
+.foot{margin-top:3.4rem;padding-top:2rem;border-top:1px solid var(--hair)}
+.bridge{font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:clamp(1.18rem,2.4vw,1.4rem);line-height:1.45;color:var(--ink-soft);max-width:38rem}
+.cnav{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:2.2rem}
+.btn{appearance:none;cursor:pointer;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;background:none;border:1px solid var(--ink);color:var(--ink);
+  padding:.7rem 1.15rem;border-radius:2px;transition:.22s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn[disabled]{opacity:0;pointer-events:none}
+.btn.ghost{border-color:var(--hair);color:var(--soft)}
+.btn.ghost:hover{border-color:var(--ink);background:none;color:var(--ink)}
+.btn.fwd{border-color:transparent;background:var(--ink);color:var(--paper)}
+.btn.fwd:hover{opacity:.85}
+
+/* ── MOTTO CLIMAX (Chapter III end) ── */
+.motto{margin:3rem -1.6rem 0;background:var(--ink);color:var(--paper);
+  padding:clamp(3rem,8vw,5.5rem) 1.6rem;border-radius:3px;text-align:center;
+  animation:rise .7s ease both}
+.motto .pre{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(244,241,235,.55);margin-bottom:1.6rem}
+.motto .big{font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:clamp(2rem,6vw,3.4rem);line-height:1.12;color:var(--paper);max-width:24rem;margin:0 auto}
+.motto .sub{font-family:var(--sans);font-weight:300;font-size:.96rem;line-height:1.6;
+  color:rgba(244,241,235,.62);max-width:30rem;margin:1.7rem auto 0}
+.motto .sub b{color:var(--paper);font-weight:400}
+.endnav{display:flex;justify-content:center;gap:.8rem;margin-top:2.4rem}
+
+/* ── WEAVE MOTIF ("wave": lines + dots) ── */
+.page-weave{max-width:var(--col);margin:.5rem auto 0;padding:0 1.6rem;opacity:.45}
+.page-weave svg{width:100%;height:26px;display:block;overflow:visible}
+.mwave{width:min(360px,72%);height:36px;display:block;margin:.2rem auto 1.7rem;overflow:visible}
+.wv{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;animation:wvdraw 1.7s cubic-bezier(.6,0,.2,1) .25s forwards}
+.wn{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:wvbleed .5s ease both}
+.trav{animation:wvtravel 4.6s cubic-bezier(.45,0,.55,1) 1.5s infinite}
+@keyframes wvdraw{to{stroke-dashoffset:0}}
+@keyframes wvbleed{to{transform:scale(1)}}
+@keyframes wvtravel{to{offset-distance:100%}}
+@media(prefers-reduced-motion:reduce){
+  .wv,.wn,.trav,.chapter.on,.ghost,.motto{animation:none!important}
+  .wv{stroke-dashoffset:0}.wn{transform:none}
+}
+@media(max-width:560px){
+  .ghost{font-size:7rem;top:-1rem;right:-.4rem}
+  .bar-in{padding:.7rem 1.1rem;gap:.7rem}
+  .dot{padding:.3rem .35rem}
+  main{padding:1.8rem 1.2rem 4rem}
+  .bread{padding:0 1.2rem}
+  .motto{margin-left:-1.2rem;margin-right:-1.2rem}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand">The Power of Narrative<span>W4GZ</span></div>
+    <nav class="dots" id="dots">
+      <button class="dot on" data-i="0">I</button><span class="sep">·</span>
+      <button class="dot" data-i="1">II</button><span class="sep">·</span>
+      <button class="dot" data-i="2">III</button>
+    </nav>
+  </div>
+  <div class="progress" id="bar"></div>
+</header>
+
+<div class="bread"><a href="#" onclick="return false">↩ Why Writing</a></div>
+
+<div class="page-weave" aria-hidden="true">
+  <svg viewBox="0 0 600 30" xmlns="http://www.w3.org/2000/svg">
+    <polyline class="wv" pathLength="100" stroke="#141414" points="0,15 75,25 150,15 225,25 300,15 375,25 450,15 525,25 600,15"/>
+    <g fill="#141414">
+      <circle class="wn" style="animation-delay:.9s" cx="75" cy="25" r="3.4"/>
+      <circle class="wn" style="animation-delay:.98s" cx="150" cy="15" r="3.4"/>
+      <circle class="wn" style="animation-delay:1.06s" cx="225" cy="25" r="3.4"/>
+      <circle class="wn" style="animation-delay:1.14s" cx="300" cy="15" r="3.4"/>
+      <circle class="wn" style="animation-delay:1.22s" cx="375" cy="25" r="3.4"/>
+      <circle class="wn" style="animation-delay:1.3s" cx="450" cy="15" r="3.4"/>
+      <circle class="wn" style="animation-delay:1.38s" cx="525" cy="25" r="3.4"/>
+      <circle class="trav" r="4.2" style="offset-path:path('M0 15 L75 25 L150 15 L225 25 L300 15 L375 25 L450 15 L525 25 L600 15')"/>
+    </g>
+  </svg>
+</div>
+
+<main id="main">
+
+  <!-- ══════════ CHƯƠNG I ══════════ -->
+  <section class="chapter on" data-ch="1">
+    <div class="ghost">I</div>
+    <div class="klabel">Chương I — Narrative dệt nên thế giới</div>
+    <h1>Tự sự không mô tả thế giới.<br>Nó dệt nên thế giới.</h1>
+    <p class="lead">Năm 1688, trong một quán cà phê nhỏ trên phố Tower của London, người ta truyền tay nhau tin tức tàu bè: con tàu nào vừa rời cảng, vùng biển nào đang có bão, chuyến hàng nào chưa thấy về.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Tranh khắc / ảnh tư liệu quán cà phê Lloyd's, hoặc toà nhà Lloyd's of London thời đầu (thế kỉ 17–18).</figcaption></figure>
+    <p class="first">Edward Lloyd không buôn tàu; ông chỉ bán cà phê và để khách kể cho nhau nghe. Nhưng từ những mẩu tin ấy, một việc chưa từng có đã thành hình: người ta bắt đầu đặt cược, rồi bảo đảm, cho những điều chưa xảy ra. Một con tàu chưa chìm vẫn được trả tiền nếu nó chìm. Quán cà phê đó trở thành Lloyd's of London, và cùng với nó, cả một nền kinh tế học được cách nắm giữ một tương lai nó không nhìn thấy.</p>
+    <p>Điều khiến chuyện này khả dĩ không phải tiền, cũng không phải tàu. Đó là một câu chuyện chung đủ vững để nhiều người cùng đặt cược lên: một hình dung được chia sẻ về điều gì có thể xảy ra, và ai chịu phần nào nếu nó xảy ra. Tự sự đã làm một việc mà không công cụ vật chất nào làm được — biến một tương lai bất định thành thứ con người có thể cam kết.</p>
+    <p>Ta quen nghĩ narrative là kĩ năng kể chuyện, một lớp trang trí cho nội dung. Đó là cách hiểu nhỏ nhất, và sai nhất, về nó. Narrative là cơ chế nhờ đó một cái tôi, một dòng thời gian, và một thế giới trở nên mạch lạc — đủ mạch lạc để sống được trong đó. Quyền lực thật của nó lộ ra ở những điều nó dệt.</p>
+
+    <h2>Trật tự là thứ ta áp vào, không phải thứ ta tìm thấy</h2>
+    <p>Đời sống đến với ta dưới dạng hỗn mang: những mảnh rời rạc, đứt đoạn, chồng chéo, phần lớn vô nghĩa khi đứng một mình. Cái khiến chuỗi mảnh ấy thành một đời — của tôi, đáng kể, đang đi đâu đó — là việc ta kể nó thành chuyện. Alasdair MacIntyre cho rằng con người về bản chất là một sinh vật kể chuyện; Paul Ricoeur gọi tính thống nhất của một đời chính là tính thống nhất của một tự sự.</p>
+    <p>Bộ não không lưu kinh nghiệm như một kho dữ liệu trung tính. Nó không ngừng biên tập chúng thành cốt truyện — nhân quả, trước sau, ý nghĩa — kể cả khi ta không để ý. Vậy nên câu hỏi không phải bạn có sống bằng narrative hay không; bạn không có lựa chọn đó. Câu hỏi là narrative ấy do ai viết, và bạn có đọc lại được nó không.</p>
+
+    <h2>Cái tôi được dệt, không phải được tìm thấy</h2>
+    <p>Ta hình dung có một cái “tôi” cố định ngồi sẵn bên trong, rồi mới kể chuyện về nó. Trật tự thật gần với điều ngược lại: cái tôi phần lớn là sản phẩm của những câu chuyện, không phải một tác giả có trước chúng. Ludwig Wittgenstein lập luận rằng không tồn tại một ngôn ngữ riêng tư — mọi khái niệm ta dùng để hiểu chính mình đều mượn từ một cộng đồng đã có trước ta. Ta nghĩ về bản thân bằng những từ ta không tự đặt ra, trong những khuôn chuyện ta thừa hưởng.</p>
+    <p>Điều này thoạt nghe như một sự tước đoạt, nhưng nó là tin tốt nhất ở đây: nếu cái tôi được viết nên, thì nó viết lại được. Tự sự không chạm vào con người ở bề mặt hành vi; nó chạm ở tầng con người là ai. Đó là lí do viết về đời mình không phải là tự biểu đạt một cái tôi có sẵn — nó là tự kiến tạo.</p>
+
+    <h2>Tương lai được dệt, không phải được tìm thấy</h2>
+    <p>Quay lại quán cà phê của Lloyd. Điều nó hé lộ không chỉ về bảo hiểm, mà về bản chất của tương lai. Ta nói về tương lai như một nơi phía trước đang chờ ta đi tới. Nhưng ta không bao giờ thấy một tương lai trống; ta chỉ thấy được những gì có thể lặp lại từ điều đã biết. Ta tin có “ngày mai” vì đêm và ngày đã quay vòng đủ lâu để tin được.</p>
+    <p>Phần lớn bức tranh tương lai của một người được dệt từ những điều lặp đi lặp lại — và từ những điều nhiều người cùng cam kết sẽ giữ. Một hợp đồng, một lời thề, một thể chế, một loại tiền: tất cả đều là những tự sự chung đủ vững để dựa vào. Tương lai ổn định của một cá nhân, vì thế, phụ thuộc vào năng lực của tập thể quanh họ trong việc dệt một tương lai chung. Nơi câu chuyện chung rách, tương lai cá nhân cũng mỏng đi theo.</p>
+
+    <h2>Quá khứ được dệt lại, không phải được cất giữ</h2>
+    <p>Đền Ise ở Nhật được dỡ xuống và dựng lại y nguyên, trên mảnh đất bên cạnh, đều đặn mỗi hai mươi năm — đã hơn một nghìn ba trăm năm như thế. Cái “cổ” nhất ở đó chưa bao giờ quá hai mươi tuổi, mà cũng chưa bao giờ thật sự mới. Quá khứ, hóa ra, vận hành gần với điều đó: không phải một kho cố định nằm sau lưng, mà là vật liệu sống được dệt lại mỗi lần ta chạm vào.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Ảnh đền Ise (Ise Jingū) và nghi thức Shikinen Sengū — dựng lại đền 20 năm một lần.</figcaption></figure>
+    <p>Khoa học thần kinh về tái củng cố trí nhớ cho thấy mỗi lần một kí ức được gợi ra, nó được ghi lại một lần nữa, và có thể đổi đi trong chính lúc ấy. Một sang chấn là một câu chuyện lặp lại không mời, và nó cai trị tương lai: ai từng mang một nỗi đau đủ sâu đều biết nó tái diễn mỗi khi họ bước tới. Nhưng nếu quá khứ sống trong cách nó được kể lại, thì đó cũng là nơi duy nhất nó có thể được sửa. Quyền tác giả với đời mình vươn cả về phía sau.</p>
+
+    <h2>Một đời là một thực hành, không phải một hành trình</h2>
+    <p>Gộp ba điều lại — cái tôi, tương lai, và quá khứ đều được dệt chứ không được tìm thấy — và một hệ quả hiện ra. Thời gian không phải con đường ta đi trên đó; nó là tấm vải ta dệt. Đời không phải một hành trình từ điểm này tới điểm kia. Nó là một thực hành. Câu hỏi trung tâm đổi từ “tôi sẽ đi đâu” thành “tôi sẽ làm gì, lặp đi lặp lại”.</p>
+    <p>Aristotle gọi phẩm chất có được qua lặp lại đến mức thành bản năng là hexis. Một đời được tự viết không phải là một quyết định lớn duy nhất; nó là một sợi chỉ được kéo đều mỗi ngày. Điều này nghe kém hùng tráng hơn một bước ngoặt, nhưng nó là cách thật sự một con người đổi khác.</p>
+
+    <h2>Trong thời đại máy viết, đây là chủ quyền cuối cùng</h2>
+    <p>Tất cả những điều trên đã đúng từ lâu trước khi có máy. Nhưng một điều kiện mới làm chúng thành cấp bách. Khi máy sinh ra văn bản ở quy mô vô hạn, hai việc xảy ra cùng lúc. Thứ nhất, cái tôi bị dìm trong những tự sự nó không viết: dòng feed chọn điều ta thấy, ta muốn, ta sợ, và lặng lẽ kể đời ta thay ta.</p>
+    <p>Năm 1936, Walter Benjamin đã tách thông tin khỏi truyện — một thứ đòi tiêu thụ tức thì rồi vứt, một thứ giữ lại nghĩa và nhả ra chậm; Byung-Chul Han gọi thời ta là một cuộc khủng hoảng tự sự, nơi thông tin tràn bờ còn năng lực kể một câu chuyện thật thì teo lại. Thứ hai, việc sản xuất chữ một cách cơ học mất giá, trong khi việc con người dệt nghĩa trở nên khan hiếm.</p>
+    <p>Giữa bối cảnh đó, năng lực tự viết tự sự của mình không còn là một kĩ năng mềm. Nó là hình thức chủ quyền cuối cùng mà máy không thực hiện thay được — vì máy có thể viết câu thay bạn, nhưng không thể sống đời bạn, và không thể quyết nghĩa của đời ấy.</p>
+
+    <h2>Tự sự là việc chung</h2>
+    <p>Có một lí do cuối khiến narrative không phải việc của riêng một người. Nếu cái tôi được dệt từ một ngôn ngữ chung, và nếu một tương lai ổn định cần một câu chuyện tập thể, thì tự viết đời mình không phải là một hành vi cô lập — nó là việc tham gia vào một tấm dệt lớn hơn. Trong mọi cách tạo tự sự, viết là kỉ luật khắc nghiệt nhất: nó buộc thứ hỗn mang trong đầu thành một thứ mạch lạc, tuần tự, và chịu trách nhiệm trước một người đọc.</p>
+    <p>Đó là vì sao một cộng đồng người viết không phải một tiện nghi — nó là điều kiện. Người ta học cách cầm cây bút trên tấm vải chung bằng cách ngồi cạnh những người khác cũng đang cầm cây bút của họ.</p>
+
+    <div class="foot">
+      <p class="bridge">Narrative dệt nên một cái tôi và một dòng thời gian. Nhưng quyền lực ấy chưa bao giờ dừng lại ở một con người — nhìn ra ngoài, vào lịch sử và văn hóa, sẽ thấy chính nó đã dệt nên những thứ lớn hơn rất nhiều.</p>
+      <div class="cnav">
+        <button class="btn ghost" data-go="prev" disabled>← Trước</button>
+        <button class="btn fwd" data-go="next">Chương II — Công nghệ của thực tại →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CHƯƠNG II ══════════ -->
+  <section class="chapter" data-ch="2">
+    <div class="ghost">II</div>
+    <div class="klabel">Chương II — Narrative là công nghệ của thực tại</div>
+    <h1>Bộ não không nhìn thấy sự vật.<br>Nó nhìn thấy câu chuyện.</h1>
+    <p class="lead">Năm 1944, hai nhà tâm lí học Fritz Heider và Marianne Simmel cho người xem một đoạn phim ngắn: vài hình tam giác và một vòng tròn di chuyển quanh một hình chữ nhật. Không có gì khác — chỉ những hình khối trượt trên màn hình.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Vài khung hình từ phim hình khối chuyển động của Heider &amp; Simmel (1944) — tam giác lớn, tam giác nhỏ, vòng tròn quanh một hình chữ nhật.</figcaption></figure>
+    <p class="first">Gần như tất cả người xem kể lại cùng một thứ: một kẻ bắt nạt, một cuộc rượt đuổi, một đôi trốn thoát, một kẻ ra tay nghĩa hiệp. Họ không thấy hình học. Họ thấy một câu chuyện, đầy đủ động cơ, phe phái, và một kết cục.</p>
+    <p>Thí nghiệm ấy phơi bày một điều ta hiếm khi để ý: tâm trí con người không tiếp nhận thế giới như một chuỗi dữ kiện trung tính rồi mới gán nghĩa. Nó kể. Kể là chế độ mặc định, bật sẵn, chạy cả khi chẳng có gì để kể. Và nếu narrative là cách thế giới đến với ta, thì ai định hình được câu chuyện sẽ định hình được chính cái thực tại ta sống trong đó. Quyền lực ấy hiện ra rõ nhất khi nhìn nó vận hành ngoài đời — qua nhận thức, qua xã hội, qua lịch sử.</p>
+
+    <h2>Không ai có thể không kể</h2>
+    <p>Nhà tâm lí học Jerome Bruner dành phần lớn sự nghiệp để chỉ ra rằng con người có hai cách nghĩ tách biệt: một lối luận lí, dùng cho chứng minh và phân loại; và một lối tự sự, dùng để hiểu con người, ý định, và đời sống. Hầu hết những gì quan trọng với một người — họ là ai, vì sao họ làm điều họ làm, điều gì đáng — đều được xử lí bằng lối thứ hai.</p>
+    <p>Ta không nhớ một ngày như một bảng số liệu; ta nhớ nó như một cảnh có mở đầu, khúc ngoặt, và một nghĩa. Những hình tam giác của Heider và Simmel chỉ làm lộ ra cơ chế vẫn luôn chạy ngầm. Vì thế câu hỏi chưa bao giờ là có nên sống bằng câu chuyện hay không. Câu hỏi là câu chuyện ấy được viết một cách tỉnh táo, hay bị bỏ mặc cho nó tự viết.</p>
+
+    <h2>Câu chuyện biến người lạ thành một “chúng ta”</h2>
+    <p>Năm 1983, Benedict Anderson đưa ra một ý đã đổi cách ta hiểu về quốc gia: một dân tộc là một cộng đồng tưởng tượng. Không phải tưởng tượng theo nghĩa giả, mà theo nghĩa nó sống nhờ một câu chuyện chung — hàng triệu người chưa bao giờ gặp nhau vẫn thấy mình thuộc về cùng một “chúng ta”, vì cùng đọc một thứ tiếng, cùng một mặt báo mỗi sáng, cùng một dòng kể về mình là ai và từ đâu tới. Anderson chỉ ra chính máy in, tờ báo và cuốn tiểu thuyết đã làm cái “chúng ta” ấy khả dĩ.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Trang nhất một tờ báo cũ và/hoặc máy in thời đầu — biểu tượng của “cộng đồng tưởng tượng”.</figcaption></figure>
+    <p>Tiền tệ, luật pháp, một thương hiệu, một tôn giáo cũng vận hành như thế: tất cả là những câu chuyện chung đủ vững để người lạ phối hợp với nhau ở một quy mô không bầy đàn sinh học nào đạt tới. Narrative không phải lớp sơn phủ trên nền văn minh. Nó là kết cấu chịu lực.</p>
+
+    <h2>Một câu chuyện đủ người tin sẽ tự thành sự thật</h2>
+    <p>Năm 1948, nhà xã hội học Robert Merton đặt tên cho một cơ chế: lời tiên tri tự ứng nghiệm. Ví dụ của ông là một ngân hàng vốn lành mạnh. Một tin đồn vô căn cứ rằng nó sắp vỡ nợ khiến người gửi đổ xô rút tiền; và chính việc rút tiền đồng loạt làm ngân hàng vỡ nợ thật. Câu chuyện sai đã tự biến mình thành sự thật.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Ảnh tư liệu đám đông xếp hàng rút tiền trước một ngân hàng (bank run, thời Đại Khủng Hoảng những năm 1930).</figcaption></figure>
+    <p>Nhà kinh tế học Robert Shiller, trong cái ông gọi là kinh tế học tự sự, cho thấy các cuộc suy thoái, bong bóng, và cơn sốt đầu tư phần lớn lan như những câu chuyện truyền từ người sang người, chứ không chỉ chạy theo con số. Đây là tầng quyền lực mà phần đầu chưa chạm tới: narrative không chỉ giúp ta hình dung tương lai — một câu chuyện được tin đủ rộng sẽ sản xuất ra chính tương lai đó.</p>
+
+    <h2>Một đời, và một dân tộc, có thể được kể lại</h2>
+    <p>Thập niên 1980, hai nhà trị liệu Michael White và David Epston dựng một trường phái trên một câu đơn giản: con người không phải là vấn đề; vấn đề mới là vấn đề. Họ giúp thân chủ tách mình khỏi câu chuyện đang giam mình — “tôi là kẻ thất bại”, “tôi là nỗi lo của mọi người” — rồi kể lại đời mình theo một cách khác, vẫn thật nhưng rộng hơn.</p>
+    <p>Cùng một nguyên lí, ở quy mô một quốc gia: khi Nam Phi bước ra khỏi chế độ apartheid năm 1996, một trong những công cụ họ chọn cho sự chuyển tiếp là một ủy ban sự thật, nơi nạn nhân và cả người gây ra tội ác cùng kể công khai điều đã xảy ra. Một xã hội tự kể lại mình để có thể sống tiếp. Narrative, hóa ra, là dụng cụ để tái cấu trúc cả nỗi đau — của một người, và của một cộng đồng.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Ảnh một phiên điều trần của Ủy ban Sự thật và Hoà giải Nam Phi (1996) — xử lí trang trọng, tiết chế.</figcaption></figure>
+
+    <h2>Câu chuyện là công nghệ đầu tiên của loài người</h2>
+    <p>Rất lâu trước máy in hay con chữ, đã có một công nghệ để giữ và truyền cả một nền văn hóa: kể. Thập niên 1930, học giả Milman Parry sang vùng Balkan ghi lại những người hát rong còn thuộc lòng các thiên sử thi dài hàng nghìn câu. Ông chứng minh rằng Iliad và Odyssey, trước khi được viết ra, đã sống và lưu truyền bằng một bộ khuôn tự sự cho phép trí nhớ con người mang theo cả một thế giới.</p>
+    <figure class="slot tall"><div class="slot-frame"><span>chùm hình — sử thi &amp; thần thoại</span></div>
+      <figcaption><b>HÌNH</b>Chùm ảnh “sử thi &amp; thần thoại đan vào văn hóa loài người”, trải nhiều nền văn minh: bản chép tay Iliad/Odyssey và bình gốm Hy Lạp vẽ cảnh sử thi; bảng đất sét sử thi Gilgamesh (Lưỡng Hà); tranh/phù điêu Mahabharata–Ramayana (Ấn Độ); tranh thần thoại từ các nền văn hóa khác (Bắc Âu, Tây Phi, bản địa châu Mỹ…). Mục đích thị giác: mọi nền văn hóa đều dựng mình quanh những câu chuyện lớn.</figcaption></figure>
+    <p>Câu chuyện là ổ cứng đầu tiên của loài người. Và như mọi ổ cứng, ai ghi vào đó thì quyết định cái gì được nhớ và cái gì biến mất. Quyền kể, ngay từ buổi đầu, đã là quyền quyết định cái gì sống sót.</p>
+
+    <h2>Trong nền kinh tế chú ý, trận chiến thật là giành câu chuyện</h2>
+    <p>Năm 1922, Walter Lippmann viết rằng con người không phản ứng với thế giới, mà với những “bức tranh trong đầu” về thế giới — và những bức tranh ấy phần lớn do người khác đặt vào. Một thế kỉ sau, việc đặt tranh vào đầu người khác đã thành một ngành công nghiệp vận hành ở tốc độ máy.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Áp phích tuyên truyền hoặc hình ảnh truyền thông đại chúng đầu thế kỉ 20 — minh hoạ “bức tranh trong đầu”.</figcaption></figure>
+    <p>Dòng feed không đưa cho bạn sự kiện; nó đưa một phiên bản đã được dựng về điều đáng chú ý, đáng muốn, đáng sợ — và nó dựng phiên bản ấy hàng tỉ lần mỗi ngày. Khi câu chuyện có thể được chế tạo và phát tán ở quy mô đó, trận chiến thật không phải giành lấy sự thật, mà giành lấy việc ai kể. Trong một thế giới như thế, tự mình kể lấy đời mình một cách tỉnh táo không phải một thú chơi tinh thần — nó là cách duy nhất để cây bút viết nên bạn nằm trong tay bạn.</p>
+
+    <div class="foot">
+      <p class="bridge">Hai chương đầu đúng với mọi thời đại. Chương cuối nói về một thời đại cụ thể — và về thế hệ đầu tiên phải lớn lên trọn vẹn bên trong nó.</p>
+      <div class="cnav">
+        <button class="btn ghost" data-go="prev">← Chương I</button>
+        <button class="btn fwd" data-go="next">Chương III — La bàn để định hướng →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CHƯƠNG III ══════════ -->
+  <section class="chapter" data-ch="3">
+    <div class="ghost">III</div>
+    <div class="klabel">Chương III — Narrative là la bàn để định hướng</div>
+    <h1>La bàn không được trao.<br>Nó được viết.</h1>
+    <p class="lead">Có một điều chưa từng xảy ra trong lịch sử loài người đang diễn ra mỗi sáng: hàng tỉ người mở điện thoại, và mỗi người thấy một thế giới khác nhau.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Nhiều màn hình điện thoại đặt cạnh nhau, mỗi cái một feed khác hẳn — “thực tại chung” bị tách thành hàng tỉ thực tại riêng.</figcaption></figure>
+    <p class="first">Không còn một trang nhất chung, một bản tin chung, một câu chuyện chung mà cả một thế hệ cùng thức dậy bên trong. Thuật toán dệt cho mỗi người một dòng riêng, đo theo điều giữ được mắt họ lâu nhất — và không dòng nào giống dòng nào. Lần đầu tiên, “thực tại chung” của một xã hội bị tách thành hàng tỉ thực tại riêng tư, mỗi cái vừa khít một người.</p>
+    <p>Thế hệ Z là thế hệ đầu tiên lớn lên trọn vẹn bên trong điều kiện đó: nhiều thông tin hơn bất kì thế hệ nào từng có, và ít câu chuyện chung hơn để hiểu nó. Họ trưởng thành đúng vào lúc nhiều người gọi là thời các đại tự sự sụp đổ. Và chính trong điều kiện ấy, narrative — câu chuyện một người tự dệt cho đời mình — trở thành thứ đáng tin cậy nhất còn lại để định hướng.</p>
+
+    <h2>Những tấm bản đồ chung đã tan</h2>
+    <p>Năm 1979, triết gia Jean-François Lyotard mô tả điều kiện hậu hiện đại bằng một câu ngắn: sự hoài nghi với các đại tự sự. Những câu chuyện lớn từng trao cho một đời phương hướng — một đức tin chung, vòng cung của một dân tộc, lời hứa rằng học hành rồi sẽ có một chỗ đứng, một cái thang rõ ràng dẫn tới trưởng thành, thậm chí niềm tin chung rằng ngày mai sẽ tốt hơn hôm nay — đều đã rạn và phân mảnh.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Hình ý niệm: một tấm bản đồ cũ bị rách / phân mảnh — “các đại tự sự sụp đổ”.</figcaption></figure>
+    <p>Lyotard viết điều này trước cả khi có internet. Nền tảng và thuật toán chỉ đẩy nó tới cực hạn: từ vài đại tự sự rạn nứt, tới hàng tỉ dòng feed riêng tư. Một thế hệ thừa hưởng không phải một tấm bản đồ sai, mà là không có tấm bản đồ mặc định nào cả.</p>
+
+    <h2>Mất câu chuyện chung không chỉ là tự do</h2>
+    <p>Việc không bị trói vào một câu chuyện áp đặt nghe như giải phóng, và phần nào đúng. Nhưng nhà xã hội học Émile Durkheim từ lâu đã đặt tên cho mặt còn lại: anomie — trạng thái mất phương hướng xảy ra khi cái khung chung cho biết điều gì đáng và mình đang đứng ở đâu trở nên mỏng đi.</p>
+    <p>Khi câu chuyện chung tan, thứ thay vào chỗ nó không tự động là sự tự do sáng tạo; thường là sự hoang mang. Đó là điều kiện nền mà thế hệ này phải khởi hành từ đó — không phải vì họ yếu hơn, mà vì họ là những người đầu tiên phải tự định hướng giữa một khoảng trống mà các thế hệ trước được lấp sẵn.</p>
+
+    <h2>Nền tảng khiến tự kể khó hơn, không dễ hơn</h2>
+    <p>Thoạt nhìn, feed cho mọi người một sân khấu để kể câu chuyện của mình. Nhưng nó làm một việc tinh vi và ngược lại. Các nhà nghiên cứu gọi đó là sự sụp đổ ngữ cảnh: trên một nền tảng, mọi khán giả của bạn dồn vào làm một — cha mẹ, sếp, người lạ, người cũ, tất cả cùng nhìn một bài đăng. Trong điều kiện đó, người ta không kể một câu chuyện thật; người ta trình diễn một phiên bản phẳng, thủ thế, an toàn cho mọi ánh mắt cùng lúc.</p>
+    <figure class="slot"><div class="slot-frame"><span>hình ảnh</span></div>
+      <figcaption><b>HÌNH</b>Sơ đồ “sụp đổ ngữ cảnh”: nhiều nhóm khán giả (gia đình, sếp, bạn bè, người lạ) dồn vào một điểm/một bài đăng.</figcaption></figure>
+    <p>Sherry Turkle còn chỉ ra rằng sự kết nối thường trực bẻ vụn sự chú ý, để lại một cái tôi làm từ những phản ứng rời rạc thay vì một cái tôi giữ được một mạch xuyên suốt. Nền tảng cho bạn phương tiện phát sóng, không cho bạn quyền tác giả.</p>
+
+    <h2>Nhưng một câu chuyện tự dệt lại đúng là thứ dự báo việc đi qua được</h2>
+    <p>Đây là chỗ chẩn đoán biến thành quyền lực. Hàng chục năm nghiên cứu của Dan McAdams và nhiều người khác cho thấy những người dựng được một câu chuyện đời mạch lạc — một câu chuyện trong đó họ là tác giả, nơi vấp ngã trở thành một phần của vòng cung lớn hơn chứ không phải dấu chấm hết — cho thấy sức khỏe tinh thần và độ bền bỉ tốt hơn rõ rệt so với những người không có.</p>
+    <p>Cái la bàn sống sót qua sự tan rã của các tấm bản đồ chung là cái la bàn người ta tự dựng. Narrative ở đây không phải nỗi nhớ về một thời chắc chắn đã mất; nó là một năng lực đo được, thứ giữ cho một người không lạc khi không còn gì bên ngoài là cố định.</p>
+
+    <h2>Khi máy biết kể chuyện, quyền tác giả của con người là thứ khan hiếm và quyết định</h2>
+    <p>Một điều kiện mới làm tất cả gấp gáp hơn. Máy giờ sinh ra được vô tận những câu chuyện nghe lọt tai, theo yêu cầu, trong vài giây. Điều đó khiến một thứ thành rẻ — việc tạo ra văn bản có hình hài câu chuyện — và một thứ thành quý: một con người quyết định câu chuyện nào là thật với đời mình, rồi cam kết sống theo nó.</p>
+    <p>Với một thế hệ ngập trong nội dung do máy sinh, lằn ranh không còn nằm giữa người biết viết và người không. Nó nằm giữa người tự cầm bút và người để hệ thống cầm thay — giữa việc điều hướng và việc bị điều hướng.</p>
+
+    <h2>Vì sao là thế hệ này, và vì sao là bây giờ</h2>
+    <p>Thế hệ nào cũng phải tự tạo nghĩa. Nhưng thế hệ này là thế hệ đầu tiên phải làm điều đó với các tấm bản đồ đã tan sẵn và một cỗ máy đang làm ngập kênh truyền. Đó là cái khó đặc thù của họ — và cũng chính là lí do, với họ, tự dệt lấy tự sự không phải một kĩ năng mềm mà là năng lực sống còn cốt lõi. Người học được cách giữ một mạch riêng của mình sẽ đi qua được; người không, sẽ bị dòng chảy mang đi.</p>
+
+    <div class="foot">
+      <p>Narrative dệt nên một cái tôi, đã dệt nên cả một nền văn minh, và giờ là sợi dây đủ chắc duy nhất để một người trẻ bám vào giữa cơn lũ. Những thế hệ trước được trao sẵn một tấm bản đồ. Thế hệ này được trao một biển thông tin và không tấm bản đồ nào. Điều đó nghe như thiệt thòi, và phần nào đúng. Nhưng nó cũng có nghĩa: thứ duy nhất còn đáng tin không nằm ngoài kia, ở một thẩm quyền chung nào đó đã tan — nó nằm ở năng lực tự dệt một câu chuyện đủ vững để đứng lên trên.</p>
+      <p class="bridge">Thế giới sẽ kể rất nhiều câu chuyện về bạn, và sẽ kể chúng nhanh hơn bao giờ hết. Câu hỏi duy nhất là bạn có viết được câu của mình đủ rõ để không lạc giữa chúng.</p>
+    </div>
+
+    <!-- MOTTO CLIMAX -->
+    <div class="motto">
+      <div class="pre">Ba chương · một kết luận</div>
+      <svg class="mwave" viewBox="0 0 360 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polyline class="wv" pathLength="100" stroke="#F4F1EB" points="0,17 45,27 90,17 135,27 180,17 225,27 270,17 315,27 360,17"/>
+        <g fill="#F4F1EB">
+          <circle class="wn" style="animation-delay:1.0s" cx="45" cy="27" r="3.6"/>
+          <circle class="wn" style="animation-delay:1.1s" cx="90" cy="17" r="3.6"/>
+          <circle class="wn" style="animation-delay:1.2s" cx="135" cy="27" r="3.6"/>
+          <circle class="wn" style="animation-delay:1.3s" cx="180" cy="17" r="3.6"/>
+          <circle class="wn" style="animation-delay:1.4s" cx="225" cy="27" r="3.6"/>
+          <circle class="wn" style="animation-delay:1.5s" cx="270" cy="17" r="3.6"/>
+          <circle class="wn" style="animation-delay:1.6s" cx="315" cy="27" r="3.6"/>
+          <circle class="trav" fill="#F4F1EB" r="4.4" style="offset-path:path('M0 17 L45 27 L90 17 L135 27 L180 17 L225 27 L270 17 L315 27 L360 17')"/>
+        </g>
+      </svg>
+      <div class="big">Creates narratives worth living.</div>
+      <div class="sub">Đó là lí do W4GZ tồn tại — và là <b>hệ điều hành</b> của nó, không phải một khẩu hiệu: xây những con người tự viết nên một đời đáng sống.</div>
+      <div class="endnav">
+        <button class="btn" data-go="prev" style="border-color:rgba(244,241,235,.4);color:var(--paper)">← Chương II</button>
+        <button class="btn" data-go="top" style="border-color:rgba(244,241,235,.4);color:var(--paper)">Bắt đầu viết →</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  var chapters=[].slice.call(document.querySelectorAll('.chapter'));
+  var dots=[].slice.call(document.querySelectorAll('.dot'));
+  var bar=document.getElementById('bar');
+  var idx=0;
+  function render(){
+    chapters.forEach(function(c,i){ c.classList.toggle('on', i===idx); });
+    dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
+    bar.style.width=((idx+1)/chapters.length*100)+'%';
+    // re-fire reveal
+    var on=chapters[idx];
+    on.style.animation='none'; void on.offsetWidth; on.style.animation='';
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  function go(n){ if(n<0||n>=chapters.length) return; idx=n; render(); }
+  document.getElementById('main').addEventListener('click',function(e){
+    var b=e.target.closest('[data-go]'); if(!b) return;
+    var a=b.getAttribute('data-go');
+    if(a==='next') go(idx+1);
+    else if(a==='prev') go(idx-1);
+    else if(a==='top') go(0);
+  });
+  dots.forEach(function(d){ d.addEventListener('click',function(){ go(+d.getAttribute('data-i')); }); });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight') go(idx+1);
+    else if(e.key==='ArrowLeft') go(idx-1);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
