@@ -33,11 +33,11 @@ export default function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <nav aria-label="Điều hướng chính" className="hr-b bg-paper/80 backdrop-blur-md">
-        <div className="mx-auto flex h-[var(--nav-h)] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-14">
+        <div className="mx-auto flex h-[var(--nav-h)] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-8 xl:px-14">
           <Wordmark className="text-base tracking-[0.18em]" />
 
-          <div className="hidden items-center gap-6 xl:flex">
-            <ul className="flex items-center gap-6">
+          <div className="hidden items-center gap-4 lg:flex xl:gap-6">
+            <ul className="flex items-center gap-4 xl:gap-6">
               {nav.map((link) => (
                 <li key={link.href}>
                   <Link
@@ -65,19 +65,19 @@ export default function Nav() {
               className="group inline-flex items-baseline gap-1.5"
             >
               <span
-                className={`font-display text-[1.05rem] italic transition-colors ${
+                className={`font-display text-base italic transition-colors xl:text-[1.05rem] ${
                   isActive(essay.href) ? "text-ink" : "text-ink/85 group-hover:text-ink"
                 }`}
               >
                 {essay.label}
               </span>
-              <span className="font-mono text-[0.55rem] uppercase tracking-[0.18em] text-muted">
+              <span className="hidden font-mono text-[0.55rem] uppercase tracking-[0.18em] text-muted xl:inline">
                 {essay.tag}
               </span>
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 xl:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <CTAButton
               href={cta.href}
               variant="filled"
@@ -123,7 +123,7 @@ export default function Nav() {
       {open ? (
         <div
           id="mobile-menu"
-          className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-40 overflow-y-auto bg-paper xl:hidden"
+          className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-40 overflow-y-auto bg-paper lg:hidden"
         >
           <ul className="flex flex-col">
             {nav.map((link) => (
