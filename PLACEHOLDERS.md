@@ -38,6 +38,13 @@ or `/lib/config.ts`, so editing is one-file-per-concern.
 ## Imagery — `/public/sketches/` (brief 2.5)
 - [ ] **Member sketches (kí họa)** — every `SketchSlot` currently renders an empty captioned frame. Drop real files into `/public/sketches/` and set `sketch.src` on each entry in the content files. Confirm whether an archive exists or art must be produced.
 
+## The Power of Narrative — `content/power-of-narrative.ts` + `/power-of-narrative`
+- [ ] **≈11 `HÌNH` figures** — each `HÌNH` slot renders an honest captioned hatch placeholder. Source rights-cleared / public-domain images or own kí-họa (Lloyd's, Ise, Heider–Simmel, print/news, bank run, TRC, epics-&-myths cluster, Lippmann, phone feeds, torn map, context-collapse diagram) per `docs/power-of-narrative.md` §8, then wire them into the figure slots. **Public-domain / licensed / own kí-họa only.**
+- [ ] **Source verification** — confirm every historical/academic anchor in the three chapters before publish (doc §8). Handle wellbeing-adjacent material (anomie, TRC) soberly.
+
+## The Fit page — Copy v5 (not yet in repo)
+- [ ] **The Fit funnel page** — `W4GZ_Landing_Content_v5.docx` adds an 8th funnel page ("The Fit"). The `fit` glyph already exists in the symbol set; supply the v5 docx so the page + its glyph-bearing value cards can be built.
+
 ## Copy / rights notes (no action unless you disagree)
 - Benjamin (The Storyteller) and Han (Die Krise der Narration) are **paraphrased on purpose** in Why Writing (in-copyright → no direct quotation). Wittgenstein, Nietzsche, Kipling, Didion, Aristotle are quoted directly (public domain / short fair quotation).
 - Nav labels are English by brand decision; the Vietnamese alternatives are recorded in the brief for a future locale toggle (`en` is stubbed in the content layer).

@@ -43,6 +43,10 @@ npm run lint
 ("Community is the answer") · `/ecosystem` (The -4GZ Ecosystem) · `/people` · `/join`
 (The Covenant). Per-route metadata + OG; lang `vi`.
 
+Plus one **standalone deep-read** — `/power-of-narrative` (three chapters, one visible at
+a time; **not** in the nav). Reached via the auto-link rule and a fixed "deep read" link at
+the end of Why Writing. See `docs/power-of-narrative.md` + Master Spec Addendum v2.1.
+
 ## Structure
 
 ```
@@ -74,6 +78,16 @@ Tokens in `app/globals.css` (`--ink/--paper/--paper-dark/--muted/--hairline/--am
 0.5px `hr-*` hairlines, giant ghost serif words. The **symbol system** (line = narrative,
 node = community) is the visual engine: per-page `SymbolModule`s draw on, and the **weave**
 re-draws on every route change.
+
+**Symbol System v2** (`components/symbols/SymbolModule.tsx` ← `assets/W4GZ_Symbol_System_v2.svg`):
+the full glyph vocabulary — Narrative, Home, The Fit, Courses, Join added to Writing, Community,
+Ecosystem, People, Hub, Media Team — so the spine (Narrative × Writing × Community) and every
+page/section header carry their glyph and **no icon list is asymmetric**. Motion is event-driven,
+CSS-first (keyed off `[data-motion]` + `data-drawn`): the draw-on + node-bleed **reveal plays once**
+on enter and **re-fires on a route/section transition**; **only the weave's travelling node loops**
+(ambient, paused off-screen — `components/symbols/Weave.tsx`); all motion is disabled under
+`prefers-reduced-motion` / the toggle. Auto-link rule: every heading containing "narrative" links to
+`/power-of-narrative` (`lib/narrativeLink.tsx`, wired into `PageHero` + `SectorView`).
 
 ## Motion (progressive enhancement)
 

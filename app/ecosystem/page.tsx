@@ -31,7 +31,7 @@ export default function EcosystemPage() {
 
   return (
     <>
-      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} />
+      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} module="ecosystem" />
 
       {/* V.2 · Sự giàu có chính là bằng chứng + verticals */}
       <Section topRule className="relative overflow-hidden">

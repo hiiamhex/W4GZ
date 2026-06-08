@@ -33,7 +33,7 @@ const HREFS: Record<string, string> = {
 export default function JoinPage() {
   return (
     <>
-      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} />
+      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} module="join" />
 
       {/* VII.2 · Lời tuyên */}
       <Section topRule>

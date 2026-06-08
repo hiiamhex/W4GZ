@@ -20,6 +20,7 @@ import CourseCard from "@/components/ui/CourseCard";
 import ChapterTransition from "@/components/ui/ChapterTransition";
 import PageHero from "@/components/ui/PageHero";
 import Reveal from "@/components/motion/Reveal";
+import { NarrativeText } from "@/lib/narrativeLink";
 
 export const metadata = buildMetadata({
   title: "Courses",
@@ -30,7 +31,7 @@ export const metadata = buildMetadata({
 export default function CoursesPage() {
   return (
     <>
-      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} />
+      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} module="courses" />
 
       {/* III.2 · Sáu trụ cột */}
       <Section topRule>
@@ -44,7 +45,7 @@ export default function CoursesPage() {
                 </span>
                 <div>
                   <h2 className="font-display text-2xl italic leading-tight text-ink">
-                    {p.nameEn}
+                    <NarrativeText text={p.nameEn} />
                   </h2>
                   <p className="mt-1 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">
                     {p.nameVi}

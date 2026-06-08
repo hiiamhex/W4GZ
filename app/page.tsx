@@ -19,6 +19,7 @@ import Ticker from "@/components/motion/Ticker";
 import Reveal from "@/components/motion/Reveal";
 import HeroStagger from "@/components/motion/HeroStagger";
 import SymbolModule from "@/components/symbols/SymbolModule";
+import { NarrativeText } from "@/lib/narrativeLink";
 
 export const metadata: Metadata = {
   description: home.description,
@@ -33,9 +34,8 @@ export default function HomePage() {
       {/* I.1 · Hero — two columns split by a hairline; symbol mark faint in corner */}
       <section className="relative scroll-mt-[var(--nav-h)]">
         <SymbolModule
-          name="writing"
+          name="home"
           size={160}
-          draw
           className="pointer-events-none absolute top-6 right-5 hidden text-ink/10 lg:block"
         />
         <Container>
@@ -91,13 +91,13 @@ export default function HomePage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
-                    {p.name}
+                    <NarrativeText text={p.name} />
                   </span>
                   {p.module ? (
                     <SymbolModule
                       name={p.module}
                       size={40}
-                      draw
+                      replayKey={p.name}
                       className="text-ink/40"
                     />
                   ) : null}

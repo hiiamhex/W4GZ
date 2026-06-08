@@ -1,23 +1,33 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import { useEffect, useRef } from "react";
 import { useMotion } from "@/components/motion/MotionProvider";
 
 /**
- * W4GZ symbol modules (brief v2 §2.6) — ported from public/symbols/
- * W4GZ_Symbol_System.svg. Two atoms: the stroke (line = narrative) and the node
- * (ink dot = community). One module per page. `draw` animates the strokes on
- * (penned) via stroke-dashoffset; `bleed` blooms the nodes — both motion-gated.
- * Colour follows `currentColor`, so set text-ink / text-paper on the wrapper.
- * Production-grade redraw of the specimen is a Gap (symbols/production-set).
+ * W4GZ symbol modules (Master Spec §2.6 / Symbol System v2) — generated from
+ * assets/W4GZ_Symbol_System_v2.svg. Two atoms: the stroke (line = narrative) and
+ * the node (ink dot = community); the line exits the frame (the story continues).
+ *
+ * Motion lifecycle (brief Update 2): the reveal is event-driven, NOT a loop.
+ *  - One-shot: strokes draw on (stroke-dashoffset) + nodes bleed in (scale),
+ *    fired once when the glyph enters the viewport, then it HOLDS the drawn state.
+ *  - Re-trigger: pass a changing `replayKey` (e.g. the active chapter/route) to
+ *    replay the one-shot once on a section/route transition.
+ *  - Hover: `interactive` adds a single node pulse on hover (fires once per hover).
+ *  - Reduced-motion / motion-off: the final drawn state is rendered, no animation.
+ * All animation lives in globals.css, keyed off `[data-motion]` + `data-drawn`
+ * (CSS/SVG first; JS only toggles the trigger attribute). Colour = currentColor.
  */
 export type ModuleName =
+  | "narrative"
   | "writing"
   | "community"
+  | "home"
+  | "fit"
+  | "courses"
   | "ecosystem"
   | "people"
+  | "join"
   | "hub"
   | "media";
 
@@ -25,6 +35,15 @@ type Stroke = { d: string; w?: number; o?: number };
 type Node = { cx: number; cy: number; r: number };
 
 const MODULES: Record<ModuleName, { strokes: Stroke[]; nodes: Node[]; label: string }> = {
+  // SPINE — Narrative × Writing × Community (all three now carry a glyph).
+  narrative: {
+    label: "Narrative — một đường luồn qua các node, the weave thu nhỏ",
+    strokes: [{ d: "M-4,74 C26,40 44,40 60,62 S96,86 124,48", w: 6 }],
+    nodes: [
+      { cx: 60, cy: 62, r: 6 },
+      { cx: 96, cy: 63, r: 6 },
+    ],
+  },
   writing: {
     label: "Writing — nét ngòi bút buông xuống một node mực",
     strokes: [
@@ -43,6 +62,26 @@ const MODULES: Record<ModuleName, { strokes: Stroke[]; nodes: Node[]; label: str
       { d: "M60,18 L60,60", w: 6 },
     ],
     nodes: [{ cx: 60, cy: 60, r: 7 }],
+  },
+  // PAGE MODULES.
+  home: {
+    label: "Home — mái nhà, một node tụ ở đỉnh",
+    strokes: [{ d: "M28,104 L28,52 Q60,20 92,52 L92,104", w: 5 }],
+    nodes: [{ cx: 60, cy: 34, r: 6 }],
+  },
+  fit: {
+    label: "The Fit — vòng cung gần khép, một node ở tâm",
+    strokes: [{ d: "M84,33 A37,37 0 1 1 84,87", w: 5 }],
+    nodes: [{ cx: 60, cy: 60, r: 7 }],
+  },
+  courses: {
+    label: "Courses — các bậc đi lên, mỗi bậc một node",
+    strokes: [{ d: "M22,98 L46,98 L46,74 L70,74 L70,50 L94,50", w: 5 }],
+    nodes: [
+      { cx: 46, cy: 74, r: 5 },
+      { cx: 70, cy: 50, r: 5 },
+      { cx: 94, cy: 50, r: 5 },
+    ],
   },
   ecosystem: {
     label: "Ecosystem — một thân nhánh ra nhiều đầu mở",
@@ -72,6 +111,15 @@ const MODULES: Record<ModuleName, { strokes: Stroke[]; nodes: Node[]; label: str
       { cx: 88, cy: 58, r: 5 },
     ],
   },
+  join: {
+    label: "Join — hai nét chụm vào một node rồi mở ra ngoài khung",
+    strokes: [
+      { d: "M20,38 L58,62", w: 5 },
+      { d: "M20,86 L58,62", w: 5 },
+      { d: "M58,62 L116,62", w: 5 },
+    ],
+    nodes: [{ cx: 58, cy: 62, r: 7 }],
+  },
   hub: {
     label: "Hub — khung không gian có cửa mở, nét hướng vào tâm",
     strokes: [
@@ -100,55 +148,53 @@ const MODULES: Record<ModuleName, { strokes: Stroke[]; nodes: Node[]; label: str
 export default function SymbolModule({
   name,
   size = 120,
-  draw = false,
-  bleed = false,
   decorative = true,
+  interactive = false,
+  replayKey,
   className = "",
 }: {
   name: ModuleName;
   size?: number;
-  draw?: boolean;
-  bleed?: boolean;
   decorative?: boolean;
+  /** Adds a one-off node pulse on hover (for nav items / cards). */
+  interactive?: boolean;
+  /** Change this (e.g. active chapter / pathname) to replay the reveal once. */
+  replayKey?: string | number;
   className?: string;
 }) {
   const def = MODULES[name];
   const ref = useRef<SVGSVGElement>(null);
   const { enabled } = useMotion();
 
-  useGSAP(
-    () => {
-      if (!enabled || !draw || !ref.current) return;
-      const paths = ref.current.querySelectorAll<SVGPathElement>("path");
-      paths.forEach((p) => {
-        const len = p.getTotalLength();
-        gsap.fromTo(
-          p,
-          { strokeDasharray: len, strokeDashoffset: len },
-          {
-            strokeDashoffset: 0,
-            duration: 1.0,
-            ease: "power2.out",
-            scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
-          },
-        );
-      });
-      if (bleed) {
-        gsap.fromTo(
-          ref.current.querySelectorAll("circle"),
-          { scale: 0, transformOrigin: "center" },
-          {
-            scale: 1,
-            duration: 0.5,
-            stagger: 0.08,
-            ease: "back.out(2)",
-            scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
-          },
-        );
-      }
-    },
-    { dependencies: [enabled, draw, bleed, name] },
-  );
+  // The reveal is CSS-driven (globals.css, keyed off `data-drawn`); JS only
+  // toggles the trigger attribute. No `data-drawn` is rendered on the server, so
+  // with JS off (no `[data-motion="on"]`) the glyph shows its final drawn state.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (!enabled) {
+      el.setAttribute("data-drawn", "true"); // final state, no reveal
+      return;
+    }
+    el.setAttribute("data-drawn", "false"); // re-arm (also on replayKey change)
+    let raf = 0;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            raf = requestAnimationFrame(() => el.setAttribute("data-drawn", "true"));
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [enabled, replayKey]);
 
   return (
     <svg
@@ -156,7 +202,7 @@ export default function SymbolModule({
       viewBox="0 0 120 120"
       width={size}
       height={size}
-      className={className}
+      className={`glyph ${interactive ? "glyph-interactive" : ""} ${className}`}
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -166,10 +212,27 @@ export default function SymbolModule({
       aria-hidden={decorative ? true : undefined}
     >
       {def.strokes.map((s, i) => (
-        <path key={i} d={s.d} strokeWidth={s.w ?? 5} strokeOpacity={s.o ?? 1} />
+        <path
+          key={i}
+          className="gs"
+          d={s.d}
+          pathLength={100}
+          strokeWidth={s.w ?? 5}
+          strokeOpacity={s.o ?? 1}
+          style={{ "--i": i } as React.CSSProperties}
+        />
       ))}
       {def.nodes.map((n, i) => (
-        <circle key={i} cx={n.cx} cy={n.cy} r={n.r} fill="currentColor" stroke="none" />
+        <circle
+          key={i}
+          className="gn"
+          cx={n.cx}
+          cy={n.cy}
+          r={n.r}
+          fill="currentColor"
+          stroke="none"
+          style={{ "--i": i } as React.CSSProperties}
+        />
       ))}
     </svg>
   );

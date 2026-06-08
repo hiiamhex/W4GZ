@@ -10,6 +10,7 @@ import EntryCard from "@/components/ui/EntryCard";
 import ChapterTransition from "@/components/ui/ChapterTransition";
 import PageHero from "@/components/ui/PageHero";
 import SectorView from "@/components/ui/SectorView";
+import SymbolModule from "@/components/symbols/SymbolModule";
 import Reveal from "@/components/motion/Reveal";
 
 export const metadata = buildMetadata({
@@ -21,7 +22,7 @@ export const metadata = buildMetadata({
 export default function CommunityPage() {
   return (
     <>
-      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} />
+      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} module="community" />
 
       {community.sectors.map((s) => (
         <SectorView key={s.id} sector={s} />
@@ -43,7 +44,10 @@ export default function CommunityPage() {
               />
             </Reveal>
             <div className="flex flex-col gap-5">
-              <SectionLabel>{hub.label}</SectionLabel>
+              <div className="flex items-center gap-3">
+                <SectionLabel>{hub.label}</SectionLabel>
+                <SymbolModule name="hub" size={30} className="shrink-0 text-ink/35" />
+              </div>
               <h2 className="font-display text-3xl italic leading-tight text-ink md:text-4xl">
                 {hub.heading}
               </h2>

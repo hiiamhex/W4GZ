@@ -14,6 +14,7 @@ import SketchInk from "@/components/motion/SketchInk";
 import MagneticButtons from "@/components/motion/MagneticButtons";
 import InkCanvas from "@/components/motion/InkCanvas";
 import SymbolLayer from "@/components/motion/SymbolLayer";
+import RouteMemory from "@/components/motion/RouteMemory";
 import { warnUnverifiedStats } from "@/lib/verifyStats";
 
 // Build/SSR guardrail: warn about any STAT still needing verification.
@@ -87,6 +88,7 @@ export default function RootLayout({
             }}
           />
           <MotionProvider>
+            <RouteMemory />
             <Preloader />
             <ScrollVelocity />
             <GhostParallax />
