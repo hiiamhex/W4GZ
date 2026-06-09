@@ -6,6 +6,7 @@ import SectorView from "@/components/ui/SectorView";
 import Section from "@/components/ui/Section";
 import Container from "@/components/ui/Container";
 import SectionLabel from "@/components/ui/SectionLabel";
+import ChapterTransition from "@/components/ui/ChapterTransition";
 import SymbolModule from "@/components/symbols/SymbolModule";
 import Weave from "@/components/symbols/Weave";
 
@@ -49,6 +50,11 @@ export default function WhyWritingPage() {
           </Link>
         </Container>
       </Section>
+
+      {/* Next step in the funnel → The Fit (Patch 3). */}
+      <ChapterTransition href="/the-fit">
+        Trước khi học cách viết — xem bạn có phải là một W4GZ không.
+      </ChapterTransition>
     </>
   );
 }

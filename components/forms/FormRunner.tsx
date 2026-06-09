@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "next-view-transitions";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type ReactNode } from "react";
 import { fields as allFields, type Field, type FormSpec } from "@/lib/forms/schema";
 import Container from "@/components/ui/Container";
 import FormField from "./FormField";
@@ -46,7 +46,16 @@ function fieldErrors(list: Field[], values: Values): Record<string, string> {
   return e;
 }
 
-export default function FormRunner({ spec, endpoint }: { spec: FormSpec; endpoint: string }) {
+export default function FormRunner({
+  spec,
+  endpoint,
+  renderDone,
+}: {
+  spec: FormSpec;
+  endpoint: string;
+  /** Custom post-submit view (e.g. the Join route choice). Defaults to a confirmation. */
+  renderDone?: ReactNode;
+}) {
   const stepper = spec.layout === "stepper";
   const N = spec.steps.length;
 
@@ -167,6 +176,7 @@ export default function FormRunner({ spec, endpoint }: { spec: FormSpec; endpoin
   );
 
   if (done) {
+    if (renderDone) return <>{renderDone}</>;
     return (
       <Container>
         <div className="pon-rise mx-auto max-w-xl py-24 text-center">

@@ -1,6 +1,7 @@
 import { buildMetadata } from "@/lib/seo";
 import { applyForm } from "@/content/apply";
 import FormRunner from "@/components/forms/FormRunner";
+import ApplyOutcome from "@/components/forms/ApplyOutcome";
 
 export const metadata = buildMetadata({
   title: "Đăng ký",
@@ -10,5 +11,6 @@ export const metadata = buildMetadata({
 });
 
 export default function ApplyPage() {
-  return <FormRunner spec={applyForm} endpoint="/api/apply" />;
+  // After submit, choose a route (Introduction / Advanced) — see ApplyOutcome.
+  return <FormRunner spec={applyForm} endpoint="/api/apply" renderDone={<ApplyOutcome />} />;
 }

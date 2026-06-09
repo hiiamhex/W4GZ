@@ -621,4 +621,10 @@ Thay đổi DUY NHẤT ở trang The Fit; phần còn lại của site giữ ngu
 - **Lơ lửng sau khi mở**: bob dọc + xoay nhẹ + bóng "thở", loop vô hạn, desync mỗi thẻ; thẻ chưa mở đứng yên.
 - **prefers-reduced-motion / toggle off**: charcoal chỉ **fade** (không tan bụi), không float/breathe; vẫn click-to-reveal, khung tĩnh. Đơn sắc; CSS/WAAPI, không thư viện.
 
-Hết Master Spec v2 + Addendum v2.1 → v2.4 + Patch 2. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.
+# Patch 3 · CTA bug · Join page flow · The Fit link · scroll-jitter
+- **A · CTA**: mọi nút đăng ký/Join điều hướng THẲNG tới `/dang-ky` một hop (CTAButton dùng `next/link` thường, bỏ wrapper view-transition gây "bounce").
+- **B · Join page** (`/dang-ky`): thêm field **chuyên môn/chức danh** (placeholder ví dụ + hint "đón đúng nhịp & kết nối người hợp gu, không phải để đánh giá", vẫn optional). Sau khi submit (POST tới backend bảo mật của UPDATE 8) → bước **chọn lối**: W4GZ Introduction (→ link nền tảng học, placeholder **đang cập nhật** + ghi chú gửi link qua email) hoặc W4GZ Advanced (**QR placeholder** + xin **cọc 50% học phí** + báo sẽ có email xác nhận & liên hệ thêm). `components/forms/ApplyOutcome.tsx` qua prop `renderDone` của FormRunner; QR & link là placeholder, nối thật sau.
+- **C · The Fit có lối vào**: đặt ngay sau Why Writing trong nav (đã có) và trong flow — slot "Vì sao cần một cộng đồng" sau Why Writing đổi thành link tới The Fit, và "next" cuối trang Why Writing → The Fit. Community vẫn vào được (nav + Courses→Community).
+- **D · Hết jitter chữ khi cuộn**: promote wrapper cuộn `#main` lên layer GPU (`will-change/translateZ/backface`) để composite thay vì re-raster chữ ở offset lẻ; `scrollbar-gutter: stable` chống nhảy ngang; bỏ parallax translateY trên ghost-text (GhostParallax thành no-op). Đơn sắc, không thêm màu.
+
+Hết Master Spec v2 + Addendum v2.1 → v2.4 + Patch 2 + Patch 3. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.

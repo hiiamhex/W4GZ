@@ -86,6 +86,35 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
 .done p{color:var(--soft);max-width:28rem;margin:0 auto .5rem}
 .done a{color:var(--ink)}
 @media(prefers-reduced-motion:reduce){.step-sec,.done{animation:none}}
+/* ── post-form flow ── */
+.flow{display:none;text-align:center;padding:2.4rem 0 1rem;animation:rise .55s ease both}
+.flow.on{display:block}
+.flow-mark{font-family:var(--serif);font-style:italic;font-size:2.6rem;line-height:1;margin-bottom:1rem}
+.flow-h{font-family:var(--serif);font-weight:600;font-size:2rem;margin-bottom:.6rem}
+.flow-note{color:var(--soft);max-width:30rem;margin:0 auto .6rem}
+.flow-note.small{font-size:.9rem}
+.flow-note b{color:var(--ink)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1.9rem;text-align:left}
+@media(max-width:560px){.opts{grid-template-columns:1fr}}
+.opt-card{appearance:none;cursor:pointer;background:transparent;border:1px solid var(--hair);border-radius:6px;
+  padding:1.4rem 1.3rem;display:flex;flex-direction:column;gap:.45rem;font-family:inherit;color:inherit;transition:.2s}
+.opt-card:hover{border-color:var(--ink);transform:translateY(-3px)}
+.opt-t{font-family:var(--serif);font-weight:600;font-size:1.3rem}
+.opt-d{font-size:.92rem;color:var(--soft);line-height:1.5}
+.opt-go{margin-top:.4rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.qr{width:200px;height:200px;margin:1.6rem auto 1rem;border:1px solid var(--hair);border-radius:6px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
+  background-image:repeating-linear-gradient(45deg,rgba(20,20,20,.045) 0 7px,transparent 7px 14px)}
+.qr span{font-size:.6rem;opacity:.75}
+.deposit{display:inline-block;border:1px solid var(--hair);border-radius:100px;padding:.5rem 1.1rem;
+  font-size:.95rem;color:var(--ink-soft);margin-bottom:1rem}
+.deposit b{color:var(--ink)}
+.ph-btn{display:inline-block;border:1px dashed var(--hair);border-radius:3px;padding:.8rem 1.4rem;margin:.5rem 0;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);cursor:not-allowed}
+.back-soft{display:block;margin:1.7rem auto 0;appearance:none;background:none;border:none;cursor:pointer;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.back-soft:hover{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -114,8 +143,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
         <input type="text" id="city" placeholder="Ví dụ: TP. Hồ Chí Minh"><div class="hint">Hỏi để biết khi nào có buổi gặp gần bạn — hoàn toàn tuỳ bạn chia sẻ.</div></div>
       <div class="field"><label for="age">Bạn thuộc nhóm tuổi nào? <span class="opt">(tuỳ bạn)</span></label>
         <select id="age"><option value="">— chọn nếu bạn muốn —</option><option>Dưới 18</option><option>18–22</option><option>23–27</option><option>28–34</option><option>35 trở lên</option><option>Mình không muốn nói</option></select></div>
-      <div class="field"><label for="work">Hiện tại bạn đang học hay làm gì?</label>
-        <input type="text" id="work" placeholder="Một dòng ngắn cũng được"></div>
+      <div class="field"><label for="work">Bạn đang làm trong lĩnh vực nào, hoặc giữ vai trò gì?</label>
+        <input type="text" id="work" placeholder="Ví dụ: sinh viên Báo chí · luật sư · product manager · giáo viên · freelancer viết lách…">
+        <div class="hint">Chúng tôi hỏi điều này chỉ để đón bạn vào đúng nhịp và kết nối bạn với những người hợp gu trong cộng đồng — không phải để đánh giá. Cứ trả lời thoải mái, ngắn gọn cũng được.</div></div>
     </section>
 
     <!-- STEP 2 — needs / motivations -->
@@ -175,12 +205,42 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
     </div>
   </form>
 
-  <!-- confirmation -->
-  <div class="done" id="done">
-    <div class="mark">W.</div>
-    <h2>Cảm ơn bạn đã kể.</h2>
-    <p>Chúng tôi đọc mọi đơn, bằng sự chú tâm, và sẽ hồi âm theo đợt xét mỗi quý. Hãy để mắt tới hộp thư của bạn.</p>
-    <p style="margin-top:1.2rem">Trong lúc chờ, bạn có thể đọc <a href="#" onclick="return false">The Power of Narrative →</a></p>
+  <!-- post-form flow: choose route, then route-specific outcome -->
+  <div class="flow" id="choice">
+    <div class="flow-mark">W.</div>
+    <h2 class="flow-h">Cảm ơn bạn đã kể.</h2>
+    <p class="flow-note">Giờ, chọn lối bạn muốn bước vào W4GZ.</p>
+    <div class="opts">
+      <button type="button" class="opt-card" id="pickIntro">
+        <span class="opt-t">W4GZ Introduction</span>
+        <span class="opt-d">Khóa học online, tự học theo nhịp của bạn. Có thể bắt đầu ngay hôm nay.</span>
+        <span class="opt-go">Chọn lối này →</span>
+      </button>
+      <button type="button" class="opt-card" id="pickAdv">
+        <span class="opt-t">W4GZ Advanced</span>
+        <span class="opt-d">Lớp offline tại TP.HCM, nhóm nhỏ. Giữ chỗ bằng một khoản cọc.</span>
+        <span class="opt-go">Chọn lối này →</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="flow" id="outIntro">
+    <div class="flow-mark">W.</div>
+    <h2 class="flow-h">Chào mừng tới W4GZ Introduction.</h2>
+    <p class="flow-note">Bạn sẽ học trên nền tảng khóa học của chúng tôi. Nhấn để tới đó và bắt đầu.</p>
+    <span class="ph-btn" role="link" aria-disabled="true">Tới nền tảng học · đang cập nhật</span>
+    <p class="flow-note small">Chúng tôi cũng sẽ gửi đường dẫn vào khóa học qua email cho bạn.</p>
+    <button type="button" class="back-soft" data-back>← Quay lại lựa chọn</button>
+  </div>
+
+  <div class="flow" id="outAdvanced">
+    <div class="flow-mark">W.</div>
+    <h2 class="flow-h">Giữ chỗ cho W4GZ Advanced.</h2>
+    <p class="flow-note">Quét mã QR bên dưới để chuyển khoản <b>cọc giữ chỗ — 50% học phí</b>.</p>
+    <div class="qr" aria-label="Mã QR chuyển khoản — đang cập nhật">Mã QR chuyển khoản<span>đang cập nhật</span></div>
+    <div class="deposit">Cọc giữ chỗ · <b>50% học phí</b></div>
+    <p class="flow-note small">Sau khi chuyển khoản, bạn sẽ sớm nhận được email xác nhận, và chúng tôi sẽ liên hệ thêm để sắp xếp lớp cho bạn.</p>
+    <button type="button" class="back-soft" data-back>← Quay lại lựa chọn</button>
   </div>
 </main>
 
@@ -221,7 +281,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
   function buildReview(){
     var hopes=[].slice.call(document.querySelectorAll('#hopes .chip.on')).map(function(c){return c.textContent;}).join(', ');
     var rows=[['Tên',val('name')],['Email',val('email')],['Thành phố',val('city')],['Nhóm tuổi',val('age')],
-      ['Đang học/làm',val('work')],['Vì sao viết quan trọng',val('why')],['Mong điều gì',hopes],
+      ['Chuyên môn / vai trò',val('work')],['Vì sao viết quan trọng',val('why')],['Mong điều gì',hopes],
       ['Hành trình viết',val('level')],['Biết tới qua',val('heard')],['Về bạn',val('about')],['Câu chuyện ngắn',val('story')]];
     var html='<dl>'; rows.forEach(function(r){ if(r[1]) html+='<dt>'+r[0]+'</dt><dd>'+r[1].replace(/</g,'&lt;')+'</dd>'; }); html+='</dl>';
     document.getElementById('review').innerHTML=html;
@@ -233,16 +293,24 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
   });
   back.addEventListener('click',function(){ if(idx>0){ idx--; show(); } });
 
+  function showFlow(id){
+    ['choice','outIntro','outAdvanced'].forEach(function(f){
+      document.getElementById(f).classList.toggle('on', f===id);
+    });
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
   function submit(){
-    // PROTOTYPE: no real submission. In production this POSTs to your own secure backend.
+    // PROTOTYPE: production POSTs to your own secure backend, then shows this choice step.
     document.getElementById('form').style.display='none';
     document.getElementById('nav').style.display='none';
     document.getElementById('formTop').style.display='none';
-    document.getElementById('done').style.display='block';
     document.getElementById('pbar').style.width='100%';
     document.getElementById('stepLabel').textContent='Đã gửi';
-    window.scrollTo({top:0,behavior:'smooth'});
+    showFlow('choice');
   }
+  document.getElementById('pickIntro').addEventListener('click',function(){ showFlow('outIntro'); });
+  document.getElementById('pickAdv').addEventListener('click',function(){ showFlow('outAdvanced'); });
+  document.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click',function(){ showFlow('choice'); }); });
   show();
 })();
 </script>
