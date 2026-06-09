@@ -614,4 +614,11 @@ Bổ sung lên v2.3, đã triển khai. Prototype: `prototypes/apply.html`, `pro
 - **A11y/motion**: label gắn input, `aria-invalid`/`aria-describedby`, bàn phím; honor `prefers-reduced-motion`. **Đơn sắc** — lỗi hiển thị bằng ink + viền đậm + thông điệp (không dùng đỏ của prototype). Không browser storage (state ở React).
 - **Degrade gọn**: thiếu env (dev) → submission được nhận + log (chưa lưu/email), Turnstile bỏ qua; production đặt env trong `.env.example`.
 
-Hết Master Spec v2 + Addendum v2.1 → v2.4. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.
+# Patch 2 · The Fit — thẻ lật (charcoal disintegrate) + soft frame + icon + lơ lửng
+Thay đổi DUY NHẤT ở trang The Fit; phần còn lại của site giữ nguyên. Prototype: `prototypes/the-fit-cards.html`. Implement: `components/the-fit/FitCard.tsx` + `.fit-*` trong `app/globals.css`.
+- Sáu value-card thành **click-to-reveal**: mỗi thẻ khởi đầu là một panel **charcoal** (mực có grain `feTurbulence` đơn sắc) phủ nội dung; trên charcoal là một **icon đại diện** (paper-on-ink, không chữ) theo từ vựng nét+node, có idle breathe desync. Bấm/Enter/Space → charcoal **tan chậm + đặc thành bụi** (~100+ speck, WAAPI) rồi lộ nội dung; giữ trạng thái đã mở; `aria-expanded` cập nhật; nội dung luôn nằm trong DOM (opacity, không `display:none`); charcoal rời khỏi hit/tab khi mở.
+- **Khung mềm**: hairline bo tròn kép + curl bốn góc (đường cong kết một node) + panel bo tròn; ink-on-paper, luôn hiển thị.
+- **Lơ lửng sau khi mở**: bob dọc + xoay nhẹ + bóng "thở", loop vô hạn, desync mỗi thẻ; thẻ chưa mở đứng yên.
+- **prefers-reduced-motion / toggle off**: charcoal chỉ **fade** (không tan bụi), không float/breathe; vẫn click-to-reveal, khung tĩnh. Đơn sắc; CSS/WAAPI, không thư viện.
+
+Hết Master Spec v2 + Addendum v2.1 → v2.4 + Patch 2. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.

@@ -4,6 +4,7 @@ import {
   description,
   hero,
   valuesLabel,
+  tapHint,
   values,
   note,
   transition,
@@ -13,8 +14,7 @@ import Section from "@/components/ui/Section";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ChapterTransition from "@/components/ui/ChapterTransition";
 import PageHero from "@/components/ui/PageHero";
-import SymbolModule from "@/components/symbols/SymbolModule";
-import { NarrativeText } from "@/lib/narrativeLink";
+import FitCard from "@/components/the-fit/FitCard";
 
 export const metadata = buildMetadata({ title, description, path: "/the-fit" });
 
@@ -23,37 +23,18 @@ export default function TheFitPage() {
     <>
       <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} module="fit" />
 
-      {/* Six value cards — each carries its glyph (no asymmetry). */}
+      {/* Six value cards — click-to-reveal (Patch 2): a charcoal cover with a
+          representative icon disintegrates into dust to reveal each value. */}
       <Section topRule>
         <Container>
-          <SectionLabel className="mb-10">{valuesLabel}</SectionLabel>
-          <div className="hr-t hr-l grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionLabel className="mb-3">{valuesLabel}</SectionLabel>
+          <p className="mb-10 max-w-xl text-base text-muted">{tapHint}</p>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((v) => (
-              <div key={v.index} className="hr-r hr-b flex flex-col gap-4 p-6 md:p-8">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs tracking-[0.2em] text-muted">
-                    {v.index}
-                  </span>
-                  <SymbolModule
-                    name={v.glyph}
-                    size={36}
-                    interactive
-                    className="text-ink/40"
-                  />
-                </div>
-                <div>
-                  <h2 className="font-display text-2xl italic leading-tight text-ink">
-                    <NarrativeText text={v.name} />
-                  </h2>
-                  <p className="mt-1 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted">
-                    {v.nameVi}
-                  </p>
-                </div>
-                <p className="text-sm leading-relaxed text-ink/80">{v.line}</p>
-              </div>
+              <FitCard key={v.index} name={v.name} nameVi={v.nameVi} line={v.line} glyph={v.glyph} />
             ))}
           </div>
-          <p className="mt-6 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted">
+          <p className="mt-8 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted">
             {note}
           </p>
         </Container>
