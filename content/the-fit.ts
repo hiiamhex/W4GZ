@@ -2,19 +2,19 @@ import type { ModuleName } from "@/components/symbols/SymbolModule";
 
 /**
  * Chapter "The Fit" — the registrant-fit funnel page (nav between Why Writing and
- * Courses). Hero "ARE YOU W4GZ?" + six value cards, each carrying its glyph.
- * The six values are the brand's existing principles (Master Spec / Manifesto);
- * final wording is locked from Copy v5 (see NOTE) — not yet in the repo.
+ * Courses). Hero "Bạn có phải là một W không?" + six value cards, each carrying
+ * its glyph. Self-recognition wording is "W" (a member is a W); "W4GZ" stays the
+ * org/brand + course names. The six values are the brand's existing principles.
  */
 
 export const title = "The Fit";
 export const description =
-  "ARE YOU W4GZ? Sáu giá trị của một người W4GZ: Narrative, Writing, Meaning over noise, Honesty, Craft, Community.";
+  "Bạn có phải là một W không? Sáu giá trị của một người W: Narrative, Writing, Meaning over noise, Honesty, Craft, Community.";
 
 export const hero = {
   label: "The Fit",
-  heading: "ARE YOU W4GZ?",
-  sub: "Sáu điều một người W4GZ mang trong mình. Nếu bạn thấy mình trong cả sáu, đây là nhà.",
+  heading: "Bạn có phải là một W không?",
+  sub: "Sáu điều một người W mang trong mình. Nếu bạn thấy mình trong cả sáu, đây là nhà.",
 };
 
 export const valuesLabel = "Sáu giá trị";
