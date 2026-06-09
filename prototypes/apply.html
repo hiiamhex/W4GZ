@@ -115,6 +115,18 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
 .back-soft{display:block;margin:1.7rem auto 0;appearance:none;background:none;border:none;cursor:pointer;
   font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
 .back-soft:hover{color:var(--ink)}
+.cohort{max-width:30rem;margin:1.4rem auto;border:1px solid var(--hair);border-radius:8px;padding:.8rem 1.2rem;text-align:left}
+.cohort-row{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-bottom:1px solid var(--hair-soft);font-size:.95rem}
+.cohort-row:last-child{border-bottom:none}
+.ck{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.cv{color:var(--ink-soft)}
+.pay{max-width:32rem;margin:1.6rem auto 0}
+.flow .btn{text-decoration:none;display:inline-block;margin-top:.4rem}
+.cta-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:1.6rem}
+.btn-ghost{appearance:none;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--mono);
+  font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--hair);color:var(--soft);
+  background:none;padding:.75rem 1.3rem;border-radius:2px;transition:.2s}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -235,12 +247,32 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
 
   <div class="flow" id="outAdvanced">
     <div class="flow-mark">W.</div>
-    <h2 class="flow-h">Giữ chỗ cho W4GZ Advanced.</h2>
-    <p class="flow-note">Quét mã QR bên dưới để chuyển khoản <b>cọc giữ chỗ — 50% học phí</b>.</p>
-    <div class="qr" aria-label="Mã QR chuyển khoản — đang cập nhật">Mã QR chuyển khoản<span>đang cập nhật</span></div>
-    <div class="deposit">Cọc giữ chỗ · <b>50% học phí</b></div>
-    <p class="flow-note small">Sau khi chuyển khoản, bạn sẽ sớm nhận được email xác nhận, và chúng tôi sẽ liên hệ thêm để sắp xếp lớp cho bạn.</p>
+    <h2 class="flow-h">W4GZ Advanced</h2>
+    <p class="flow-note">Lớp chuyên sâu gần nhất, và nơi bạn giữ chỗ.</p>
+    <div class="cohort">
+      <div class="cohort-row"><span class="ck">Khóa gần nhất</span><span class="cv">đang cập nhật</span></div>
+      <div class="cohort-row"><span class="ck">Thời gian</span><span class="cv">đang cập nhật</span></div>
+      <div class="cohort-row"><span class="ck">Địa điểm</span><span class="cv">TP. Hồ Chí Minh</span></div>
+      <div class="cohort-row"><span class="ck">Quy mô</span><span class="cv">nhóm nhỏ</span></div>
+    </div>
+    <div class="pay">
+      <p class="flow-note">Để giữ chỗ, chuyển khoản <b>cọc 50% học phí</b> qua mã QR bên dưới. Phần còn lại đóng khi nhập học.</p>
+      <div class="qr" aria-label="Mã QR thanh toán — đang cập nhật">Mã QR thanh toán<span>đang cập nhật</span></div>
+      <p class="flow-note small">Nội dung chuyển khoản: tên + email bạn vừa điền. Cần hỗ trợ gì, cứ trả lời email xác nhận của chúng tôi.</p>
+      <button type="button" class="btn" id="paid">Tôi đã thanh toán</button>
+    </div>
     <button type="button" class="back-soft" data-back>← Quay lại lựa chọn</button>
+  </div>
+
+  <div class="flow" id="outConfirm">
+    <div class="flow-mark">W.</div>
+    <h2 class="flow-h">Cảm ơn bạn. Chúng tôi đã nhận được.</h2>
+    <p class="flow-note">Một chỗ trong W4GZ Advanced đang được giữ cho bạn. Chúng tôi sẽ kiểm tra khoản chuyển và gửi thông tin nhập học cụ thể qua email <b>trong vòng 48 giờ</b>.</p>
+    <p class="flow-note small">Nếu sau 48 giờ vẫn chưa thấy email, hãy ngó qua hộp thư spam hoặc trả lời email này để chúng tôi hỗ trợ.</p>
+    <div class="cta-row">
+      <a class="btn" href="#" onclick="return false">Về trang chủ</a>
+      <a class="btn-ghost" href="#" onclick="return false">Đọc The Power of Narrative</a>
+    </div>
   </div>
 </main>
 
@@ -294,7 +326,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
   back.addEventListener('click',function(){ if(idx>0){ idx--; show(); } });
 
   function showFlow(id){
-    ['choice','outIntro','outAdvanced'].forEach(function(f){
+    ['choice','outIntro','outAdvanced','outConfirm'].forEach(function(f){
       document.getElementById(f).classList.toggle('on', f===id);
     });
     window.scrollTo({top:0,behavior:'smooth'});
@@ -310,6 +342,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
   }
   document.getElementById('pickIntro').addEventListener('click',function(){ showFlow('outIntro'); });
   document.getElementById('pickAdv').addEventListener('click',function(){ showFlow('outAdvanced'); });
+  document.getElementById('paid').addEventListener('click',function(){ showFlow('outConfirm'); });
   document.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click',function(){ showFlow('choice'); }); });
   show();
 })();

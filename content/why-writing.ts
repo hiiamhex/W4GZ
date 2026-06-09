@@ -144,7 +144,7 @@ export const whyWriting: Page = {
       cta: [
         { label: "Học cách viết", href: "/courses", variant: "filled" },
         {
-          label: "Bạn có phải là một W4GZ?",
+          label: "Bạn có phải là một W?",
           href: "/the-fit",
           variant: "outline",
         },

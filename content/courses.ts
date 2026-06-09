@@ -107,7 +107,7 @@ export const tracks: {
         value: "Lối A vào cộng đồng — duyệt theo kì onboarding",
       },
     ],
-    cta: { label: "Enroll online", href: "/join#enroll", variant: "filled" },
+    cta: { label: "Đăng ký", href: "/dang-ky", variant: "filled" },
   },
   {
     tone: "dark",
@@ -124,8 +124,8 @@ export const tracks: {
       { label: "Vai trò", value: "Lối B vào cộng đồng" },
     ],
     cta: {
-      label: "Apply for Advanced",
-      href: "/join#apply",
+      label: "Đăng ký",
+      href: "/dang-ky",
       variant: "inverse",
     },
   },

@@ -198,17 +198,38 @@ export const applyOutcome = {
   },
   advanced: {
     mark: "W.",
-    heading: "Giữ chỗ cho W4GZ Advanced.",
-    notePre: "Quét mã QR bên dưới để chuyển khoản ",
-    noteStrong: "cọc giữ chỗ — 50% học phí",
-    notePost: ".",
+    heading: "W4GZ Advanced",
+    note: "Lớp chuyên sâu gần nhất, và nơi bạn giữ chỗ.",
+    // Cohort details are placeholders for now.
+    cohort: [
+      { k: "Khóa gần nhất", v: "đang cập nhật" },
+      { k: "Thời gian", v: "đang cập nhật" },
+      { k: "Địa điểm", v: "TP. Hồ Chí Minh" },
+      { k: "Quy mô", v: "nhóm nhỏ" },
+    ],
+    payPre: "Để giữ chỗ, chuyển khoản ",
+    payStrong: "cọc 50% học phí",
+    payPost: " qua mã QR bên dưới. Phần còn lại đóng khi nhập học.",
     // Placeholder — add the real transfer QR later.
-    qrLabel: "Mã QR chuyển khoản",
+    qrLabel: "Mã QR thanh toán",
     qrSub: "đang cập nhật",
-    depositPre: "Cọc giữ chỗ · ",
-    depositStrong: "50% học phí",
-    confirmNote:
-      "Sau khi chuyển khoản, bạn sẽ sớm nhận được email xác nhận, và chúng tôi sẽ liên hệ thêm để sắp xếp lớp cho bạn.",
+    transferNote:
+      "Nội dung chuyển khoản: tên + email bạn vừa điền. Cần hỗ trợ gì, cứ trả lời email xác nhận của chúng tôi.",
+    paid: "Tôi đã thanh toán",
     back: "← Quay lại lựa chọn",
+  },
+  confirm: {
+    mark: "W.",
+    heading: "Cảm ơn bạn. Chúng tôi đã nhận được.",
+    notePre:
+      "Một chỗ trong W4GZ Advanced đang được giữ cho bạn. Chúng tôi sẽ kiểm tra khoản chuyển và gửi thông tin nhập học cụ thể qua email ",
+    noteStrong: "trong vòng 48 giờ",
+    notePost: ".",
+    small:
+      "Nếu sau 48 giờ vẫn chưa thấy email, hãy ngó qua hộp thư spam hoặc trả lời email này để chúng tôi hỗ trợ.",
+    homeLabel: "Về trang chủ",
+    homeHref: "/",
+    readLabel: "Đọc The Power of Narrative",
+    readHref: "/power-of-narrative",
   },
 };
