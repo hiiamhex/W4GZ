@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W — W4GZ Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F1EB; --ink:#141414; --soft:#5a574f; --faint:#8f8b80; --hair:rgba(20,20,20,.16);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',system-ui,-apple-system,sans-serif;
+  --mono:'DM Mono','SFMono-Regular',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:radial-gradient(rgba(20,20,20,.018) 1px,transparent 1px);background-size:4px 4px;
+}
+::selection{background:var(--ink);color:var(--paper)}
+
+.bar{border-bottom:1px solid var(--hair)}
+.bar-in{max-width:74rem;margin:0 auto;padding:.85rem 1.6rem;display:flex;align-items:center;gap:1rem}
+.brand{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.02em}
+.bar .tag{margin-left:auto;font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--soft);
+  padding-left:1.1rem;border-left:1px solid var(--hair)}
+.bar .tag small{font-family:var(--mono);font-style:normal;font-size:.58rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--faint);display:block;margin-top:.1rem}
+
+.hero{max-width:74rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) 1.6rem;
+  display:grid;grid-template-columns:1fr 1.1fr;gap:2rem;align-items:center}
+.kick{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--soft);margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem}
+.kick::before{content:"";width:1.7rem;height:1px;background:var(--ink)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.02;
+  letter-spacing:-.01em;margin-bottom:1.2rem}
+h1 .w{font-style:italic}
+.lead{font-family:var(--serif);font-weight:500;font-size:clamp(1.2rem,2.4vw,1.5rem);line-height:1.45;
+  color:#2a2823;max-width:30rem}
+.lead+.lead{font-size:1.05rem;color:var(--soft);margin-top:.9rem}
+
+/* ── ORBIT ── */
+.orbit-wrap{position:relative;width:min(540px,88vw);aspect-ratio:1;margin:0 auto;overflow:visible}
+.wmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(120px,26%,160px);
+  height:auto;z-index:3}
+.word{position:absolute;left:0;top:0;white-space:nowrap;font-family:var(--sans);font-weight:400;
+  color:var(--ink);will-change:transform;user-select:none;-webkit-user-select:none;cursor:default;
+  z-index:2;letter-spacing:.01em}
+
+/* W mark animation: draw once + breathing node halos (per W4GZ motion policy) */
+.wmark .s{fill:none;stroke:var(--ink);stroke-width:8;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:100;stroke-dashoffset:100;animation:draw 1.6s cubic-bezier(.6,0,.2,1) .2s forwards}
+.wmark .n{fill:var(--ink);transform-box:fill-box;transform-origin:center;transform:scale(0);
+  animation:bleed .5s ease var(--bd,1.3s) forwards}
+.wmark .halo{fill:var(--ink);fill-opacity:.10;transform-box:fill-box;transform-origin:center;
+  animation:breathe var(--dur,3.4s) ease-in-out var(--hd,1.6s) infinite}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes bleed{to{transform:scale(1)}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.10}50%{transform:scale(1.7);opacity:.04}}
+
+@media(max-width:760px){
+  .hero{grid-template-columns:1fr;gap:.5rem}
+  .orbit-wrap{order:2;margin-top:1.5rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .wmark .s{animation:none;stroke-dashoffset:0}
+  .wmark .n{animation:none;transform:none}
+  .wmark .halo{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand">W4GZ</div>
+    <div class="tag">W<small>đọc · cộng đồng</small></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="copy">
+    <div class="kick">Bản sắc · W4GZ</div>
+    <h1>Mỗi người<br>là một <span class="w">W</span>.</h1>
+    <p class="lead">Mỗi người trong cộng đồng W4GZ đều có thể tự gọi mình là một W.</p>
+    <p class="lead">Người dệt, người viết, người chứng, người dẫn đường — quanh một chữ, là mọi vai mà một người cầm bút có thể mang.</p>
+  </div>
+
+  <div class="orbit-wrap" id="orbit" aria-label="Các vai trò của một W, xoay quanh chữ W">
+    <svg class="wmark" viewBox="0 0 120 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle class="halo" cx="14" cy="20" r="11" style="--dur:3.2s;--hd:1.6s"/>
+      <circle class="halo" cx="38" cy="80" r="11" style="--dur:4.1s;--hd:1.9s"/>
+      <circle class="halo" cx="60" cy="36" r="12" style="--dur:3.6s;--hd:2.2s"/>
+      <circle class="halo" cx="82" cy="80" r="11" style="--dur:4.4s;--hd:1.7s"/>
+      <circle class="halo" cx="106" cy="20" r="11" style="--dur:3.9s;--hd:2.4s"/>
+      <path class="s" pathLength="100" d="M14,20 L38,80 L60,36 L82,80 L106,20"/>
+      <circle class="n" cx="14" cy="20" r="5" style="--bd:1.2s"/>
+      <circle class="n" cx="38" cy="80" r="5" style="--bd:1.35s"/>
+      <circle class="n" cx="60" cy="36" r="5.5" style="--bd:1.5s"/>
+      <circle class="n" cx="82" cy="80" r="5" style="--bd:1.65s"/>
+      <circle class="n" cx="106" cy="20" r="5" style="--bd:1.8s"/>
+    </svg>
+  </div>
+</section>
+
+<script>
+(function(){
+  var WORDS=["Weaver","Writer","Watcher","Welder","Win","Wright","Whisperer","Witness","Walker",
+    "Wonderer","Wisdom-keeper","Web-keeper","What","Wordsmith","Wanderer","Waveform","Welcomer",
+    "Window","Wayfinder","Who","When","Would","Where","Why","Within"];
+  // ring config: radius-factor (of half-size), angular speed (rad/s), font px, opacity
+  var RINGS=[
+    {count:7, rf:0.44, speed: 0.085, size:17,  op:0.95},
+    {count:9, rf:0.66, speed:-0.060, size:14.5,op:0.78},
+    {count:9, rf:0.86, speed: 0.045, size:13,  op:0.58}
+  ];
+  var wrap=document.getElementById('orbit');
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var THf=0.22, PUSHf=0.13;           // threshold & max-push as fraction of size
+  var items=[], ringAng=[0,0,0];
+  var mouse={x:0,y:0,active:false};
+
+  // build words, distributed across rings in order
+  var wi=0;
+  RINGS.forEach(function(r,ri){
+    for(var k=0;k<r.count && wi<WORDS.length;k++,wi++){
+      var el=document.createElement('span');
+      el.className='word'; el.textContent=WORDS[wi];
+      el.style.fontSize=r.size+'px'; el.style.opacity=r.op;
+      wrap.appendChild(el);
+      var a0=(k/r.count)*Math.PI*2 + (ri*0.5) + (Math.random()*0.18-0.09);
+      items.push({el:el,ri:ri,a0:a0,sway:Math.random()*Math.PI*2,radius:0,curX:0,curY:0,init:false});
+    }
+  });
+
+  function size(){ return wrap.clientWidth; }
+  function layout(){
+    var s=size(), half=s/2;
+    items.forEach(function(it){
+      it.radius=RINGS[it.ri].rf*half;
+      if(!it.init){ // seed at base so there is no flash from 0,0
+        it.curX=Math.cos(it.a0)*it.radius; it.curY=Math.sin(it.a0)*it.radius; it.init=true;
+        it.el.style.transform='translate('+(half+it.curX)+'px,'+(half+it.curY)+'px) translate(-50%,-50%)';
+      }
+    });
+  }
+
+  var last=performance.now(), raf=null, visible=true;
+  function frame(now){
+    var dt=Math.min((now-last)/1000,0.05); last=now;
+    var s=size(), cx=s/2, cy=s/2;
+    if(!reduce && visible){ RINGS.forEach(function(r,i){ ringAng[i]+=r.speed*dt; }); }
+    var TH=THf*s, PUSH=PUSHf*s;
+    for(var i=0;i<items.length;i++){
+      var it=items[i];
+      var ang=it.a0 + (reduce?0:ringAng[it.ri]);
+      var sway=reduce?0:Math.sin(now/1100 + it.sway)*5;
+      var bx=Math.cos(ang)*(it.radius+sway);
+      var by=Math.sin(ang)*(it.radius+sway);
+      if(mouse.active && !reduce){
+        var wx=cx+bx, wy=cy+by, dx=wx-mouse.x, dy=wy-mouse.y;
+        var d=Math.sqrt(dx*dx+dy*dy)||1;
+        if(d<TH){ var p=(1-d/TH)*PUSH; bx+=dx/d*p; by+=dy/d*p; }
+      }
+      it.curX += (bx-it.curX)*0.15; it.curY += (by-it.curY)*0.15;
+      it.el.style.transform='translate('+(cx+it.curX)+'px,'+(cy+it.curY)+'px) translate(-50%,-50%)';
+    }
+    raf=requestAnimationFrame(frame);
+  }
+
+  wrap.addEventListener('mousemove',function(e){
+    var r=wrap.getBoundingClientRect();
+    mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top; mouse.active=true;
+  });
+  wrap.addEventListener('mouseleave',function(){ mouse.active=false; });
+  window.addEventListener('resize',layout);
+
+  layout();
+  if(reduce){ // place once, no loop
+    var s=size(),half=s/2;
+    items.forEach(function(it){ it.el.style.transform='translate('+(half+it.curX)+'px,'+(half+it.curY)+'px) translate(-50%,-50%)'; });
+  } else {
+    // pause when off-screen (per motion policy)
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        es.forEach(function(en){
+          visible=en.isIntersecting;
+          if(visible && !raf){ last=performance.now(); raf=requestAnimationFrame(frame); }
+          else if(!visible && raf){ cancelAnimationFrame(raf); raf=null; }
+        });
+      },{threshold:0.05}).observe(wrap);
+    }
+    last=performance.now(); raf=requestAnimationFrame(frame);
+  }
+})();
+</script>
+</body>
+</html>
