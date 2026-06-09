@@ -34,6 +34,17 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* Reserve the scrollbar gutter so content never jumps horizontally when the
+       bar appears/disappears (Patch D). */
+    scrollbar-gutter: stable;
+  }
+  /* Promote the scrolled content to its own GPU layer so the browser composites
+     it (moves it as a texture) instead of re-rasterising thin serif text at
+     fractional scroll offsets each frame — kills the scroll shimmer (Patch D). */
+  #main {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   body {
     background-color: var(--color-paper);

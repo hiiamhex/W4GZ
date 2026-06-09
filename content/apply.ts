@@ -51,9 +51,11 @@ export const applyForm: FormSpec = {
         },
         {
           id: "work",
-          label: "Hiện tại bạn đang học hay làm gì?",
+          label: "Bạn đang làm trong lĩnh vực nào, hoặc giữ vai trò gì?",
           type: "text",
-          placeholder: "Một dòng ngắn cũng được",
+          placeholder:
+            "Ví dụ: sinh viên Báo chí · luật sư · product manager · giáo viên · freelancer viết lách…",
+          hint: "Chúng tôi hỏi điều này chỉ để đón bạn vào đúng nhịp và kết nối bạn với những người hợp gu trong cộng đồng — không phải để đánh giá. Cứ trả lời thoải mái, ngắn gọn cũng được.",
         },
       ],
     },
@@ -157,5 +159,56 @@ export const applyForm: FormSpec = {
     lines: [
       "Chúng tôi đọc mọi đơn, bằng sự chú tâm, và sẽ hồi âm theo đợt xét mỗi quý. Hãy để mắt tới hộp thư của bạn.",
     ],
+  },
+};
+
+/**
+ * Post-submit flow (Patch 3): after the application POSTs, the user chooses a
+ * route, then sees a route-specific outcome. The course-host link and the QR are
+ * placeholders to be wired later. Copy from prototypes/apply.html.
+ */
+export const applyOutcome = {
+  choice: {
+    mark: "W.",
+    heading: "Cảm ơn bạn đã kể.",
+    note: "Giờ, chọn lối bạn muốn bước vào W4GZ.",
+    options: [
+      {
+        id: "intro" as const,
+        title: "W4GZ Introduction",
+        desc: "Khóa học online, tự học theo nhịp của bạn. Có thể bắt đầu ngay hôm nay.",
+        go: "Chọn lối này →",
+      },
+      {
+        id: "advanced" as const,
+        title: "W4GZ Advanced",
+        desc: "Lớp offline tại TP.HCM, nhóm nhỏ. Giữ chỗ bằng một khoản cọc.",
+        go: "Chọn lối này →",
+      },
+    ],
+  },
+  intro: {
+    mark: "W.",
+    heading: "Chào mừng tới W4GZ Introduction.",
+    note: "Bạn sẽ học trên nền tảng khóa học của chúng tôi. Nhấn để tới đó và bắt đầu.",
+    // Placeholder — wire the real course-host URL later.
+    placeholder: "Tới nền tảng học · đang cập nhật",
+    emailNote: "Chúng tôi cũng sẽ gửi đường dẫn vào khóa học qua email cho bạn.",
+    back: "← Quay lại lựa chọn",
+  },
+  advanced: {
+    mark: "W.",
+    heading: "Giữ chỗ cho W4GZ Advanced.",
+    notePre: "Quét mã QR bên dưới để chuyển khoản ",
+    noteStrong: "cọc giữ chỗ — 50% học phí",
+    notePost: ".",
+    // Placeholder — add the real transfer QR later.
+    qrLabel: "Mã QR chuyển khoản",
+    qrSub: "đang cập nhật",
+    depositPre: "Cọc giữ chỗ · ",
+    depositStrong: "50% học phí",
+    confirmNote:
+      "Sau khi chuyển khoản, bạn sẽ sớm nhận được email xác nhận, và chúng tôi sẽ liên hệ thêm để sắp xếp lớp cho bạn.",
+    back: "← Quay lại lựa chọn",
   },
 };
