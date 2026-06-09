@@ -652,4 +652,168 @@
   opacity: 0.16;
 }
 
+/* ── Ecosystem cards: hover/tap banner (Patch G) ───────────────────────────── */
+.eco-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 184px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-hairline);
+  border-radius: 10px;
+  background: var(--color-paper);
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.eco-card:hover,
+.eco-card:focus-visible {
+  border-color: var(--color-ink);
+}
+.eco-dot {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  opacity: 0.5;
+}
+.eco-base {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  padding: 1.3rem;
+}
+.eco-banner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-paper);
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.4s ease;
+}
+.eco-card:hover .eco-banner,
+.eco-card.is-open .eco-banner {
+  transform: translateY(0);
+  opacity: 1;
+}
+.eco-banner-img {
+  position: relative;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.eco-banner-img::after {
+  content: "hình ảnh · cập nhật sau";
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 235, 0.4);
+}
+@media (prefers-reduced-motion: reduce) {
+  .eco-banner {
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* ── W4GZ Media: glitch / "reality disrupted" (Patch H) ─────────────────────
+   Static inverted panel by default (no motion); slices/flicker/disrupt only when
+   `[data-motion="on"]`. Monochrome — ink/paper offsets + a brief inversion. */
+.media-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(244, 241, 235, 0.045) 0 1px,
+    transparent 1px 3px
+  );
+}
+[data-motion="on"] .media-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--color-paper);
+  mix-blend-mode: difference;
+  opacity: 0;
+  animation: w4gz-disrupt 7s infinite;
+}
+.media-gl::before,
+.media-gl::after {
+  display: none;
+}
+[data-motion="on"] .media-gl::before,
+[data-motion="on"] .media-gl::after {
+  content: attr(data-text);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--color-paper);
+  background: var(--color-ink);
+  overflow: hidden;
+}
+[data-motion="on"] .media-gl {
+  animation: w4gz-flick 5s infinite steps(1);
+}
+[data-motion="on"] .media-gl::before {
+  left: 3px;
+  animation: w4gz-glA 2.4s infinite linear alternate-reverse;
+}
+[data-motion="on"] .media-gl::after {
+  left: -3px;
+  animation: w4gz-glB 3.3s infinite linear alternate-reverse;
+}
+@keyframes w4gz-disrupt {
+  0%, 92%, 100% { opacity: 0; }
+  94% { opacity: 0.14; }
+  96% { opacity: 0.08; }
+  98% { opacity: 0.05; }
+}
+@keyframes w4gz-flick {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.45; }
+  98% { opacity: 0.9; }
+  99% { opacity: 0.6; }
+}
+@keyframes w4gz-glA {
+  0% { clip-path: inset(2% 0 90% 0); }
+  25% { clip-path: inset(40% 0 44% 0); }
+  50% { clip-path: inset(64% 0 22% 0); }
+  75% { clip-path: inset(20% 0 70% 0); }
+  100% { clip-path: inset(48% 0 38% 0); }
+}
+@keyframes w4gz-glB {
+  0% { clip-path: inset(78% 0 8% 0); }
+  25% { clip-path: inset(46% 0 38% 0); }
+  50% { clip-path: inset(18% 0 66% 0); }
+  75% { clip-path: inset(58% 0 28% 0); }
+  100% { clip-path: inset(30% 0 56% 0); }
+}
+
 /* Native cursor only (brief v2 §2.2) — the custom caret cursor was removed. */

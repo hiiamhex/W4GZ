@@ -8,7 +8,7 @@ import ArtSlot from "./ArtSlot";
 import CTAButton from "./CTAButton";
 import SymbolModule from "@/components/symbols/SymbolModule";
 import Reveal from "@/components/motion/Reveal";
-import { NarrativeHeading } from "@/lib/narrativeLink";
+import { AutoHeading, WText } from "@/lib/autolink";
 
 /**
  * Generic renderer for a prose sector (brief v2 §5 Section). Heroes and card
@@ -42,7 +42,7 @@ export default function SectorView({
 
             {s.heading ? (
               <Reveal>
-                <NarrativeHeading
+                <AutoHeading
                   as="h2"
                   text={s.heading}
                   className="mb-6 font-display text-3xl italic leading-tight text-ink md:text-4xl"
@@ -59,7 +59,7 @@ export default function SectorView({
             <div className="max-w-2xl space-y-5">
               {s.body?.map((p, i) => (
                 <p key={i} className="text-lg leading-relaxed text-ink/80">
-                  {p}
+                  <WText text={p} />
                 </p>
               ))}
             </div>

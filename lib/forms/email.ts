@@ -19,10 +19,14 @@ async function send(payload: { to: string; subject: string; text: string }) {
   });
 }
 
-const LABEL = { apply: "đơn đăng ký", graduation: "bài tốt nghiệp" } as const;
+const LABEL = {
+  apply: "đơn đăng ký",
+  graduation: "bài tốt nghiệp",
+  contact: "tin nhắn liên hệ",
+} as const;
 
 export async function sendSubmissionEmails(
-  kind: "apply" | "graduation",
+  kind: "apply" | "graduation" | "contact",
   data: Record<string, unknown>,
 ) {
   if (!KEY || !FROM) {
@@ -45,19 +49,19 @@ export async function sendSubmissionEmails(
       });
     }
     if (email) {
-      await send({
-        to: email,
-        subject:
-          kind === "apply"
-            ? "Cảm ơn bạn đã kể — W4GZ đã nhận đơn của bạn"
-            : "Bài tốt nghiệp của bạn đã tới tay W4GZ",
-        text:
-          `Chào ${name},\n\n` +
-          (kind === "apply"
-            ? "Chúng tôi đã nhận đơn của bạn và sẽ đọc bằng sự chú tâm. W4GZ xét theo đợt mỗi quý — hãy để mắt tới hộp thư của bạn.\n\n"
-            : "Chúng tôi đã nhận bài tốt nghiệp của bạn. Cảm ơn vì đã đi đến đây — chúng tôi sẽ đọc và hồi âm theo đợt xét mỗi quý.\n\n") +
-          "— W4GZ",
-      });
+      const subject =
+        kind === "apply"
+          ? "Cảm ơn bạn đã kể — W4GZ đã nhận đơn của bạn"
+          : kind === "graduation"
+            ? "Bài tốt nghiệp của bạn đã tới tay W4GZ"
+            : "Cảm ơn bạn đã ngỏ lời — W4GZ đã nhận tin nhắn";
+      const lead =
+        kind === "apply"
+          ? "Chúng tôi đã nhận đơn của bạn và sẽ đọc bằng sự chú tâm. W4GZ xét theo đợt mỗi quý — hãy để mắt tới hộp thư của bạn."
+          : kind === "graduation"
+            ? "Chúng tôi đã nhận bài tốt nghiệp của bạn. Cảm ơn vì đã đi đến đây — chúng tôi sẽ đọc và hồi âm theo đợt xét mỗi quý."
+            : "Mỗi tin nhắn gửi tới W4GZ đều được đọc, bằng sự chú tâm. Chúng tôi sẽ hồi âm bạn sớm.";
+      await send({ to: email, subject, text: `Chào ${name},\n\n${lead}\n\n— W4GZ` });
     }
   } catch (err) {
     console.warn("[forms] email send failed (non-blocking):", err);

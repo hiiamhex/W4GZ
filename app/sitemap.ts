@@ -13,6 +13,8 @@ const ROUTES = [
   "/join",
   "/dang-ky",
   "/privacy",
+  "/terms",
+  "/lien-he",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

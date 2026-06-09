@@ -3,7 +3,7 @@ import SectionLabel from "./SectionLabel";
 import CTAButton from "./CTAButton";
 import HeroStagger from "@/components/motion/HeroStagger";
 import SymbolModule, { type ModuleName } from "@/components/symbols/SymbolModule";
-import { NarrativeHeading } from "@/lib/narrativeLink";
+import { AutoHeading, WText } from "@/lib/autolink";
 import type { CtaSpec } from "@/content/model";
 
 /** Shared chapter hero (brief v2 §5): mono label (the cross-route morph target),
@@ -44,14 +44,14 @@ export default function PageHero({
                 />
               ) : null}
             </div>
-            <NarrativeHeading
+            <AutoHeading
               as="h1"
               text={heading}
               className="max-w-4xl font-display text-[2.4rem] italic leading-[1.05] text-ink sm:text-5xl lg:text-7xl"
             />
             {sub ? (
               <p className="max-w-2xl text-lg leading-relaxed text-ink/80 md:text-xl">
-                {sub}
+                <WText text={sub} />
               </p>
             ) : null}
             {ctas?.length ? (

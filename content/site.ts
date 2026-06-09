@@ -12,6 +12,8 @@ export interface SiteContent {
   cta: NavLink;
   /** The Power of Narrative — a set-apart deep read (different tier, not a funnel step). */
   essay: { label: string; tag: string; href: string };
+  /** Footer legal / contact links. */
+  legal: NavLink[];
   enrollLabel: string;
   footer: {
     wordmark: string;
@@ -43,6 +45,11 @@ export const site: Localized<SiteContent> = {
       tag: "đọc sâu",
       href: "/power-of-narrative",
     },
+    legal: [
+      { label: "Quyền riêng tư", href: "/privacy" },
+      { label: "Điều khoản Sử dụng", href: "/terms" },
+      { label: "Liên hệ", href: "/lien-he" },
+    ],
     enrollLabel: "Enroll",
     footer: {
       wordmark: "Writing4GenZ",

@@ -16,8 +16,10 @@ const SUPABASE_URL = process.env.SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const TABLE = process.env.SUBMISSIONS_TABLE ?? "form_submissions";
 
+export type SubmissionKind = "apply" | "graduation" | "contact";
+
 export interface SubmissionRecord {
-  kind: "apply" | "graduation";
+  kind: SubmissionKind;
   data: Record<string, unknown>;
   ip_hash: string;
 }
@@ -74,7 +76,7 @@ export async function saveSubmission(rec: SubmissionRecord): Promise<{ stored: b
 }
 
 /** Team read access for the quarterly review (used by the protected export route). */
-export async function listSubmissions(kind?: "apply" | "graduation") {
+export async function listSubmissions(kind?: SubmissionKind) {
   if (!SUPABASE_URL || !SERVICE_KEY) return [];
   const filter = kind ? `kind=eq.${kind}&` : "";
   const res = await fetch(
