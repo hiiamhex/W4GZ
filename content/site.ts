@@ -37,7 +37,7 @@ export const site: Localized<SiteContent> = {
       { label: "Ecosystem", href: "/ecosystem" },
       { label: "W", href: "/people" },
     ],
-    cta: { label: "Join", href: "/join" },
+    cta: { label: "Join", href: "/dang-ky" },
     essay: {
       label: "The Power of Narrative",
       tag: "đọc sâu",

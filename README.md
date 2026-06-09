@@ -122,11 +122,25 @@ onboarding, 4 intakes/year) **or Advanced**. No CTA/copy/flow implies joining th
 community without a course; "join"-style CTAs route to `/courses` or `/join`
 (`ENROLL_URL`/`APPLY_URL` in `lib/config.ts`, fallback `/courses`).
 
+## On-site forms & data (Update 8)
+
+Two **self-owned** forms, no third-party form vendor: the **application** (`/dang-ky`, the
+primary CTA — multi-step, gentle) and the **graduation-essay submission**
+(`/nop-bai-tot-nghiep`, noindex). One `FormSpec` (`lib/forms/schema.ts`) drives both the UI
+(`components/forms/`) and the server re-validation. Submissions POST to **Route Handlers**
+(`app/api/apply`, `app/api/graduation`) which run honeypot → Turnstile → validation → persist
+→ email. Persistence is your **own Postgres** via Supabase/PostgREST (`docs/forms-schema.sql`,
+RLS, optional AES-256-GCM on free-text); email via **Resend**; spam via **Cloudflare Turnstile**
+— all `fetch`-based and **env-gated** (see `.env.example`): with nothing set, dev accepts +
+logs (no persist/email) and skips the challenge. A `/privacy` page, required consent, no
+third-party trackers on form pages, hashed IPs, and a token-locked `/api/admin/export`. Errors
+are monochrome (ink, not red); no browser storage; accessible + reduced-motion honored.
+
 ## Law III (privacy, non-negotiable)
 
-On `/people` and anywhere members appear: sketch portraits + single-initial aliases +
-cohort only. Never names, never photos — enforced structurally (`PersonCard` has no such
-fields).
+On `/people` (the **W** page) and anywhere members appear: sketch portraits + single-initial
+aliases + cohort only. Never names, never photos — enforced structurally (`PersonCard` has no
+such fields).
 
 ## Gaps & before launch
 

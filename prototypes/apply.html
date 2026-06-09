@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trở thành một W — Đăng ký · W4GZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F1EB;--paper2:#EDE9E0;--ink:#141414;--ink-soft:#2a2823;--soft:#5a574f;--faint:#8f8b80;
+  --hair:rgba(20,20,20,.18);--hair-soft:rgba(20,20,20,.10);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;
+  --mono:'DM Mono','SFMono-Regular',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.65;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:radial-gradient(rgba(20,20,20,.018) 1px,transparent 1px);background-size:4px 4px}
+::selection{background:var(--ink);color:var(--paper)}
+
+.bar{border-bottom:1px solid var(--hair)}
+.bar-in{max-width:48rem;margin:0 auto;padding:.85rem 1.6rem;display:flex;align-items:center;gap:1rem}
+.brand{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.02em}
+.bar .step{margin-left:auto;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--faint)}
+.pbar{height:1.5px;background:var(--ink);width:20%;transition:width .5s cubic-bezier(.6,0,.2,1)}
+
+main{max-width:40rem;margin:0 auto;padding:2.4rem 1.6rem 5rem}
+.kick{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);
+  margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem}
+.kick::before{content:"";width:1.7rem;height:1px;background:var(--ink)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,5.5vw,3rem);line-height:1.05;margin-bottom:.7rem}
+.intro{font-family:var(--serif);font-weight:500;font-size:1.2rem;line-height:1.45;color:var(--ink-soft);
+  max-width:32rem;margin-bottom:2.4rem}
+
+.step-sec{display:none;animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+.step-sec.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.step-h{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin-bottom:.3rem}
+.step-note{font-size:.96rem;color:var(--soft);margin-bottom:1.7rem;max-width:30rem}
+
+.field{margin-bottom:1.5rem}
+label{display:block;font-size:.95rem;color:var(--ink-soft);margin-bottom:.45rem}
+label .opt{color:var(--faint);font-size:.82rem;font-style:italic;margin-left:.4rem}
+.hint{font-size:.82rem;color:var(--faint);margin-top:.35rem;font-style:italic}
+input[type=text],input[type=email],select,textarea{
+  width:100%;font-family:var(--sans);font-size:1rem;color:var(--ink);background:transparent;
+  border:none;border-bottom:1.5px solid var(--hair);padding:.55rem .1rem;transition:border-color .2s}
+select{appearance:none;border:1px solid var(--hair);border-radius:2px;padding:.65rem .8rem;cursor:pointer}
+textarea{border:1px solid var(--hair);border-radius:3px;padding:.8rem;line-height:1.6;resize:vertical;min-height:7rem}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
+::placeholder{color:#b7b2a6}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.2rem}
+.chip{font-family:var(--sans);font-size:.9rem;color:var(--ink-soft);background:transparent;cursor:pointer;
+  border:1px solid var(--hair);border-radius:100px;padding:.42rem .9rem;transition:.18s}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.err{color:#7a2e2e;font-size:.82rem;margin-top:.35rem;display:none}
+.field.bad input,.field.bad textarea,.field.bad select{border-color:#9a5151}
+.field.bad .err{display:block}
+
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:2.4rem;
+  padding-top:1.6rem;border-top:1px solid var(--hair)}
+.btn{appearance:none;cursor:pointer;font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;
+  text-transform:uppercase;border:1px solid var(--ink);color:var(--ink);background:none;
+  padding:.75rem 1.3rem;border-radius:2px;transition:.2s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.fwd{background:var(--ink);color:var(--paper)}.btn.fwd:hover{opacity:.85}
+.btn.ghost{border-color:var(--hair);color:var(--soft)}.btn.ghost:hover{border-color:var(--ink);background:none;color:var(--ink)}
+.btn[disabled]{opacity:0;pointer-events:none}
+
+.consent{display:flex;gap:.7rem;align-items:flex-start;font-size:.92rem;color:var(--ink-soft);margin-top:.4rem}
+.consent input{margin-top:.25rem;accent-color:var(--ink)}
+.consent a{color:var(--ink)}
+
+.review dl{margin:0}.review dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--faint);margin-top:1rem}
+.review dd{font-size:1rem;color:var(--ink-soft);white-space:pre-wrap}
+
+/* confirmation */
+.done{display:none;text-align:center;padding:3rem 0;animation:rise .6s ease both}
+.done .mark{font-family:var(--serif);font-style:italic;font-size:3rem;line-height:1;margin-bottom:1.2rem}
+.done h2{font-family:var(--serif);font-weight:600;font-size:2rem;margin-bottom:.8rem}
+.done p{color:var(--soft);max-width:28rem;margin:0 auto .5rem}
+.done a{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){.step-sec,.done{animation:none}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in"><div class="brand">W4GZ</div><div class="step" id="stepLabel">Bước 1 / 5</div></div>
+  <div class="pbar" id="pbar"></div>
+</header>
+
+<main>
+  <div id="formTop">
+    <div class="kick">Đăng ký · Trở thành một W</div>
+    <h1>Hãy kể cho chúng tôi nghe về bạn.</h1>
+    <p class="intro">Chúng tôi đọc từng đơn, bằng sự chú tâm. Không có câu trả lời đúng hay sai ở đây — chỉ có giọng của chính bạn. Cứ thong thả.</p>
+  </div>
+
+  <form id="form" novalidate>
+    <!-- STEP 1 — demographics, gentle -->
+    <section class="step-sec on" data-step="0">
+      <div class="step-h">Để chúng tôi biết bạn một chút</div>
+      <p class="step-note">Vài điều cơ bản thôi, để chúng tôi gọi đúng tên và hồi âm đúng chỗ.</p>
+      <div class="field"><label for="name">Chúng tôi nên gọi bạn là gì?</label>
+        <input type="text" id="name" data-req placeholder="Tên hoặc cách bạn muốn được gọi"><div class="err">Cho chúng tôi một cái tên để xưng hô nhé.</div></div>
+      <div class="field"><label for="email">Email để chúng tôi hồi âm</label>
+        <input type="email" id="email" data-req data-email placeholder="ban@email.com"><div class="err">Một email hợp lệ giúp chúng tôi quay lại với bạn.</div></div>
+      <div class="field"><label for="city">Bạn đang sống ở thành phố nào?</label>
+        <input type="text" id="city" placeholder="Ví dụ: TP. Hồ Chí Minh"><div class="hint">Hỏi để biết khi nào có buổi gặp gần bạn — hoàn toàn tuỳ bạn chia sẻ.</div></div>
+      <div class="field"><label for="age">Bạn thuộc nhóm tuổi nào? <span class="opt">(tuỳ bạn)</span></label>
+        <select id="age"><option value="">— chọn nếu bạn muốn —</option><option>Dưới 18</option><option>18–22</option><option>23–27</option><option>28–34</option><option>35 trở lên</option><option>Mình không muốn nói</option></select></div>
+      <div class="field"><label for="work">Hiện tại bạn đang học hay làm gì?</label>
+        <input type="text" id="work" placeholder="Một dòng ngắn cũng được"></div>
+    </section>
+
+    <!-- STEP 2 — needs / motivations -->
+    <section class="step-sec" data-step="1">
+      <div class="step-h">Điều đưa bạn tới đây</div>
+      <p class="step-note">Không cần hoa mỹ. Cứ thành thật là đủ.</p>
+      <div class="field"><label for="why">Vì sao viết lại quan trọng với bạn, ngay lúc này?</label>
+        <textarea id="why" data-req placeholder="Vài câu thôi…"></textarea><div class="err">Chia sẻ giúp chúng tôi một chút nhé — ngắn cũng được.</div></div>
+      <div class="field"><label>Bạn mong điều gì khi đến với W4GZ? <span class="opt">(chọn bao nhiêu tuỳ bạn)</span></label>
+        <div class="chips" id="hopes">
+          <button type="button" class="chip">Viết tốt hơn</button>
+          <button type="button" class="chip">Tư duy rõ ràng hơn</button>
+          <button type="button" class="chip">Tìm một cộng đồng</button>
+          <button type="button" class="chip">Kể được câu chuyện của mình</button>
+          <button type="button" class="chip">Sống có chủ đích hơn</button>
+          <button type="button" class="chip">Điều khác</button>
+        </div></div>
+      <div class="field"><label for="level">Bạn đang ở đâu trên hành trình viết?</label>
+        <select id="level"><option value="">— chọn một —</option><option>Mình mới bắt đầu</option><option>Mình viết thỉnh thoảng</option><option>Mình viết khá đều</option><option>Viết là việc/nghề của mình</option></select></div>
+      <div class="field"><label for="heard">Bạn biết tới W4GZ qua đâu? <span class="opt">(tuỳ bạn)</span></label>
+        <input type="text" id="heard" placeholder="Một người bạn, một bài viết, mạng xã hội…"></div>
+    </section>
+
+    <!-- STEP 3 — about you -->
+    <section class="step-sec" data-step="2">
+      <div class="step-h">Một chút về bạn</div>
+      <p class="step-note">Bằng giọng của chính bạn. Đây không phải bài kiểm tra — chúng tôi đọc để hiểu, không để chấm.</p>
+      <div class="field"><label for="about">Bạn là ai, nếu kể bằng vài dòng?</label>
+        <textarea id="about" data-req style="min-height:9rem" placeholder="Điều gì làm nên bạn lúc này — một mối bận tâm, một niềm vui, một câu hỏi bạn đang mang theo…"></textarea>
+        <div class="hint">Khoảng 100–200 từ là vừa, nhưng cứ viết theo cách bạn thấy thoải mái.</div><div class="err">Chúng tôi rất muốn nghe — vài dòng thôi cũng được.</div></div>
+    </section>
+
+    <!-- STEP 4 — short story -->
+    <section class="step-sec" data-step="3">
+      <div class="step-h">Kể một câu chuyện ngắn</div>
+      <p class="step-note">Bất kỳ điều gì thật với bạn: một khoảnh khắc, một thay đổi, một điều bạn từng tin rồi thôi không tin nữa. Chúng tôi không chấm văn phong — chúng tôi đọc để gặp bạn.</p>
+      <div class="field"><label for="story">Câu chuyện của bạn</label>
+        <textarea id="story" data-req style="min-height:12rem" placeholder="Bắt đầu từ chỗ nào bạn muốn…"></textarea>
+        <div class="hint">Vài đoạn là đủ. Không cần mở bài kết bài — chỉ cần thật.</div><div class="err">Một câu chuyện ngắn thôi cũng được — chúng tôi đang lắng nghe.</div></div>
+    </section>
+
+    <!-- STEP 5 — review & consent -->
+    <section class="step-sec" data-step="4">
+      <div class="step-h">Xem lại và gửi</div>
+      <p class="step-note">Đọc lại nếu bạn muốn. Bạn luôn có thể quay lại sửa.</p>
+      <div class="review" id="review"></div>
+      <div class="field" style="margin-top:1.8rem">
+        <label class="consent"><input type="checkbox" id="consent" data-req>
+          <span>Mình đã đọc và đồng ý với <a href="#" onclick="return false">Nine Laws</a> và <a href="#" onclick="return false">cách W4GZ giữ gìn dữ liệu</a> của mình. Dữ liệu này thuộc về W4GZ, được lưu an toàn và chỉ dùng để xét đơn.</span></label>
+        <div class="err">Cần đồng ý điều này để chúng tôi tiếp nhận đơn nhé.</div>
+      </div>
+    </section>
+
+    <div class="nav" id="nav">
+      <button type="button" class="btn ghost" id="back" disabled>← Quay lại</button>
+      <button type="button" class="btn fwd" id="next">Tiếp →</button>
+    </div>
+  </form>
+
+  <!-- confirmation -->
+  <div class="done" id="done">
+    <div class="mark">W.</div>
+    <h2>Cảm ơn bạn đã kể.</h2>
+    <p>Chúng tôi đọc mọi đơn, bằng sự chú tâm, và sẽ hồi âm theo đợt xét mỗi quý. Hãy để mắt tới hộp thư của bạn.</p>
+    <p style="margin-top:1.2rem">Trong lúc chờ, bạn có thể đọc <a href="#" onclick="return false">The Power of Narrative →</a></p>
+  </div>
+</main>
+
+<script>
+(function(){
+  var steps=[].slice.call(document.querySelectorAll('.step-sec'));
+  var idx=0, N=steps.length;
+  var pbar=document.getElementById('pbar'), label=document.getElementById('stepLabel');
+  var back=document.getElementById('back'), next=document.getElementById('next');
+
+  // chips toggle
+  document.getElementById('hopes').addEventListener('click',function(e){
+    var c=e.target.closest('.chip'); if(c) c.classList.toggle('on');
+  });
+
+  function show(){
+    steps.forEach(function(s,i){ s.classList.toggle('on', i===idx); });
+    pbar.style.width=((idx+1)/N*100)+'%';
+    label.textContent='Bước '+(idx+1)+' / '+N;
+    back.disabled = idx===0;
+    next.textContent = idx===N-1 ? 'Gửi đơn' : 'Tiếp →';
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(idx===N-1) buildReview();
+  }
+  function validate(){
+    var sec=steps[idx], ok=true;
+    sec.querySelectorAll('[data-req]').forEach(function(el){
+      var f=el.closest('.field'); var bad=false;
+      if(el.type==='checkbox') bad=!el.checked;
+      else bad=!el.value.trim();
+      if(!bad && el.hasAttribute('data-email')) bad=!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim());
+      if(f){ f.classList.toggle('bad',bad); }
+      if(bad) ok=false;
+    });
+    return ok;
+  }
+  function val(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+  function buildReview(){
+    var hopes=[].slice.call(document.querySelectorAll('#hopes .chip.on')).map(function(c){return c.textContent;}).join(', ');
+    var rows=[['Tên',val('name')],['Email',val('email')],['Thành phố',val('city')],['Nhóm tuổi',val('age')],
+      ['Đang học/làm',val('work')],['Vì sao viết quan trọng',val('why')],['Mong điều gì',hopes],
+      ['Hành trình viết',val('level')],['Biết tới qua',val('heard')],['Về bạn',val('about')],['Câu chuyện ngắn',val('story')]];
+    var html='<dl>'; rows.forEach(function(r){ if(r[1]) html+='<dt>'+r[0]+'</dt><dd>'+r[1].replace(/</g,'&lt;')+'</dd>'; }); html+='</dl>';
+    document.getElementById('review').innerHTML=html;
+  }
+  next.addEventListener('click',function(){
+    if(!validate()) return;
+    if(idx<N-1){ idx++; show(); }
+    else submit();
+  });
+  back.addEventListener('click',function(){ if(idx>0){ idx--; show(); } });
+
+  function submit(){
+    // PROTOTYPE: no real submission. In production this POSTs to your own secure backend.
+    document.getElementById('form').style.display='none';
+    document.getElementById('nav').style.display='none';
+    document.getElementById('formTop').style.display='none';
+    document.getElementById('done').style.display='block';
+    document.getElementById('pbar').style.width='100%';
+    document.getElementById('stepLabel').textContent='Đã gửi';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  show();
+})();
+</script>
+</body>
+</html>

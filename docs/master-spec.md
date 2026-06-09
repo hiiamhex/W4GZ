@@ -597,4 +597,21 @@ Bổ sung lên v2.2, đã triển khai trong code. Prototype tham chiếu: `prot
 - **Cursor-repel**: chữ trong bán kính con trỏ bị **đẩy ra** (độ dời ∝ độ gần, có easing) rồi **bật về** khi con trỏ rời. Vanilla rAF + lerp, KHÔNG thư viện.
 - **Đơn sắc** (ink trên giấy); KHÔNG dùng lavender/pink của slide nguồn. **Reduced-motion / toggle off**: đóng băng quỹ đạo + tắt repel, hiện đám chữ tĩnh. **Pause** vòng lặp rAF khi hero off-screen (IntersectionObserver). Không storage. Implement: `components/people/WHero.tsx` + glyph `master` trong `SymbolModule`.
 
-Hết Master Spec v2 + Addendum v2.1 + v2.2 + v2.3. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.
+# Addendum v2.4 · Biểu mẫu on-site: đăng ký & nộp bài tốt nghiệp (dữ liệu tự chủ, bảo mật)
+Bổ sung lên v2.3, đã triển khai. Prototype: `prototypes/apply.html`, `prototypes/graduation.html`.
+
+### K · Hai biểu mẫu on-site (KHÔNG nhúng form bên thứ ba)
+- **Đăng ký** — `/dang-ky` (CTA chính "Join" trỏ vào đây). Multi-step nhẹ nhàng: (1) nhân khẩu, (2) nhu cầu/động lực, (3) đôi dòng về bản thân, (4) một câu chuyện ngắn, (5) xem lại + đồng thuận → màn xác nhận. Progress bar + dots theo bước.
+- **Nộp bài tốt nghiệp** — `/nop-bai-tot-nghiep` (noindex). Định danh → bài (tựa + nội dung, đếm từ) → đôi lời phản tư → dữ liệu học viên nhẹ → đồng thuận → xác nhận. Khóa Introduction (Lối A) ghi danh dễ (post-moderation, checkout tách riêng — ngoài phạm vi); dữ liệu thật + bài thu ở đây.
+- **Giọng câu hỏi**: mọi câu là lời mời, không phải thẩm vấn — ngôi hai ấm áp, "(tuỳ bạn)" hào phóng, trấn an rằng không chấm điểm. Copy verbatim từ prototype, đặt trong `content/apply.ts` + `content/graduation.ts`; cùng một `FormSpec` (`lib/forms/schema.ts`) vừa dựng UI vừa validate server.
+
+### L · Dữ liệu tự chủ + bảo mật (no third-party vendor)
+- Form → **Next.js Route Handler** server-side (`/api/apply`, `/api/graduation`) — không bao giờ ghi DB từ client, không lộ khóa DB.
+- Lưu trong **Postgres của riêng mình** qua Supabase/PostgREST (`SUPABASE_URL` + service role, RLS — xem `docs/forms-schema.sql`); TLS khi truyền, mã hóa khi lưu, **app-layer encryption (AES-256-GCM)** tùy chọn cho free-text khi đặt `FORMS_ENCRYPTION_KEY`. Export đội-ngũ qua route khóa-bằng-token `/api/admin/export`.
+- **Spam/abuse**: honeypot + **Cloudflare Turnstile** (gated env) + rate-limit server-side + re-validate mọi field server-side.
+- **Email**: thông báo đội + xác nhận nhẹ cho người gửi qua **Resend** REST trên domain riêng (gated, best-effort).
+- **Privacy**: thu thập tối thiểu; checkbox đồng thuận bắt buộc; trang **/privacy** thật (thu gì, vì sao, lưu ở đâu, giữ bao lâu, quyền xem/sửa/xóa); **không trình theo dõi bên thứ ba** trên trang form; log tối thiểu, IP chỉ lưu dạng hash.
+- **A11y/motion**: label gắn input, `aria-invalid`/`aria-describedby`, bàn phím; honor `prefers-reduced-motion`. **Đơn sắc** — lỗi hiển thị bằng ink + viền đậm + thông điệp (không dùng đỏ của prototype). Không browser storage (state ở React).
+- **Degrade gọn**: thiếu env (dev) → submission được nhận + log (chưa lưu/email), Turnstile bỏ qua; production đặt env trong `.env.example`.
+
+Hết Master Spec v2 + Addendum v2.1 → v2.4. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.
