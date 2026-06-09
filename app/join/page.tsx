@@ -1,5 +1,6 @@
+import { Link } from "next-view-transitions";
 import { buildMetadata } from "@/lib/seo";
-import { ENROLL_URL, APPLY_URL } from "@/lib/config";
+import { ENROLL_URL } from "@/lib/config";
 import {
   join,
   hero,
@@ -22,12 +23,11 @@ export const metadata = buildMetadata({
   path: "/join",
 });
 
-// Single gate: both routes go to the course path (Enroll/Apply), never a
-// standalone community signup. Fall back to the Courses gate page until the real
-// enroll/apply destinations exist, so Enroll stays reachable.
+// Single gate: Introduction enrolls via the course path; Advanced goes through the
+// on-site application form (/dang-ky). Never a standalone community signup.
 const HREFS: Record<string, string> = {
   enroll: ENROLL_URL || "/courses",
-  apply: APPLY_URL || "/courses",
+  apply: "/dang-ky",
 };
 
 export default function JoinPage() {
@@ -76,6 +76,15 @@ export default function JoinPage() {
           </div>
           <p className="mt-6 max-w-2xl font-mono text-[0.78rem] uppercase leading-relaxed tracking-[0.14em] text-muted">
             {gateClosing}
+          </p>
+          <p className="mt-4 max-w-2xl text-base text-muted">
+            Đã hoàn tất Introduction?{" "}
+            <Link
+              href="/nop-bai-tot-nghiep"
+              className="text-ink underline decoration-hairline underline-offset-2 hover:decoration-ink"
+            >
+              Nộp bài tốt nghiệp →
+            </Link>
           </p>
         </Container>
       </Section>

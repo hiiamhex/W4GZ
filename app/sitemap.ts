@@ -11,6 +11,8 @@ const ROUTES = [
   "/ecosystem",
   "/people",
   "/join",
+  "/dang-ky",
+  "/privacy",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
