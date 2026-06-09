@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liên hệ — W4GZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F1EB;--ink:#141414;--ink-soft:#2a2823;--soft:#5a574f;--faint:#8f8b80;
+  --hair:rgba(20,20,20,.18);--hair-soft:rgba(20,20,20,.10);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.65;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:radial-gradient(rgba(20,20,20,.018) 1px,transparent 1px);background-size:4px 4px}
+::selection{background:var(--ink);color:var(--paper)}
+.bar{border-bottom:1px solid var(--hair)}
+.bar-in{max-width:48rem;margin:0 auto;padding:.85rem 1.6rem;display:flex;align-items:center;gap:1rem}
+.brand{font-family:var(--serif);font-weight:600;font-size:1.15rem}
+.bar .tag{margin-left:auto;font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+main{max-width:44rem;margin:0 auto;padding:clamp(2.2rem,6vw,4rem) 1.6rem 5rem}
+
+.flow{display:none;animation:rise .5s ease both}.flow.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.motto{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.5rem,4vw,2.1rem);
+  line-height:1.2;text-align:center;margin-bottom:.5rem}
+.kick{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:1.4rem}
+.lead{text-align:center;color:var(--soft);max-width:30rem;margin:0 auto 2.4rem}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:600px){.cards{grid-template-columns:1fr}}
+.acard{appearance:none;cursor:pointer;text-align:left;background:transparent;color:inherit;font-family:inherit;
+  border:1px solid var(--hair);border-radius:10px;padding:1.7rem 1.5rem;display:flex;flex-direction:column;gap:.6rem;transition:.2s}
+.acard:hover{border-color:var(--ink);transform:translateY(-3px)}
+.acard .lbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.acard .t{font-family:var(--serif);font-weight:600;font-size:1.6rem;line-height:1.05}
+.acard .d{font-size:.95rem;color:var(--ink-soft)}
+.acard .go{margin-top:.5rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+
+.fhead{margin-bottom:1.8rem}
+.fhead .who{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:.4rem}
+.fhead h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.05}
+.field{margin-bottom:1.4rem}
+label{display:block;font-size:.95rem;color:var(--ink-soft);margin-bottom:.45rem}
+input,textarea{width:100%;font-family:var(--sans);font-size:1rem;color:var(--ink);background:transparent;
+  border:none;border-bottom:1.5px solid var(--hair);padding:.55rem .1rem;transition:border-color .2s}
+textarea{border:1px solid var(--hair);border-radius:3px;padding:.8rem;line-height:1.6;min-height:7rem;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--ink)}::placeholder{color:#b7b2a6}
+.err{color:#7a2e2e;font-size:.82rem;margin-top:.35rem;display:none}.field.bad input,.field.bad textarea{border-color:#9a5151}.field.bad .err{display:block}
+.row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--hair)}
+.btn{appearance:none;cursor:pointer;font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:.8rem 1.5rem;border-radius:2px;transition:.2s;text-decoration:none;display:inline-block}
+.btn:hover{opacity:.85}
+.back-soft{appearance:none;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.back-soft:hover{color:var(--ink)}
+
+.done{text-align:center;padding:3rem 0}
+.done .mark{font-family:var(--serif);font-style:italic;font-size:2.8rem;margin-bottom:1.1rem}
+.done h2{font-family:var(--serif);font-weight:600;font-size:2rem;margin-bottom:.8rem}
+.done p{color:var(--soft);max-width:28rem;margin:0 auto 1.4rem}
+@media(prefers-reduced-motion:reduce){.flow{animation:none}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in"><div class="brand">W4GZ</div><div class="tag">Liên hệ</div></div></header>
+
+<main>
+  <!-- step 1: choose audience -->
+  <div class="flow on" id="choose">
+    <div class="kick">Liên hệ với W4GZ</div>
+    <p class="motto">Creates narratives worth living.</p>
+    <p class="lead">Bạn muốn nói chuyện với W4GZ? Cho chúng tôi biết bạn đến từ đâu — để chúng tôi trả lời đúng tinh thần của bạn.</p>
+    <div class="cards">
+      <button class="acard" data-who="Investor / Media">
+        <span class="lbl">Tổ chức</span>
+        <span class="t">Investor / Media</span>
+        <span class="d">Nhà đầu tư, đối tác, hoặc báo chí muốn tìm hiểu và đồng hành cùng W4GZ ở tầm tổ chức.</span>
+        <span class="go">Tôi thuộc nhóm này →</span>
+      </button>
+      <button class="acard" data-who="Supporter">
+        <span class="lbl">Cá nhân</span>
+        <span class="t">Supporter</span>
+        <span class="d">Bạn yêu điều W4GZ đang làm và muốn ủng hộ, góp sức, hay đơn giản là kết nối.</span>
+        <span class="go">Tôi thuộc nhóm này →</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- step 2: short form -->
+  <div class="flow" id="form">
+    <div class="fhead"><div class="who" id="whoLabel">Bạn là: —</div><h1>Gửi đôi lời cho chúng tôi.</h1></div>
+    <div class="field"><label for="name">Họ và tên</label><input type="text" id="name" data-req placeholder="Tên của bạn"><div class="err">Cho chúng tôi biết tên bạn nhé.</div></div>
+    <div class="field"><label for="email">Email</label><input type="email" id="email" data-req data-email placeholder="ban@email.com"><div class="err">Một email hợp lệ để chúng tôi hồi âm.</div></div>
+    <div class="field"><label for="org">Đơn vị công tác & chức vụ</label><input type="text" id="org" placeholder="Ví dụ: Quỹ ABC · Nhà báo · Sinh viên…"></div>
+    <div class="field"><label for="msg">Thông điệp của bạn</label><textarea id="msg" data-req placeholder="Bạn muốn nói gì với W4GZ?"></textarea><div class="err">Viết cho chúng tôi vài dòng nhé.</div></div>
+    <div class="row"><button class="back-soft" data-back>← Quay lại</button><button class="btn" id="send">Gửi</button></div>
+  </div>
+
+  <!-- step 3: confirmation -->
+  <div class="flow" id="done">
+    <div class="done">
+      <div class="mark">W.</div>
+      <h2>Cảm ơn bạn đã ngỏ lời.</h2>
+      <p>Mỗi tin nhắn gửi tới W4GZ đều được đọc, bằng sự chú tâm. Chúng tôi sẽ hồi âm bạn sớm — bằng giọng của những người tin vào câu chuyện.</p>
+      <a class="btn" href="#" onclick="return false">Về trang chủ</a>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  function showFlow(id){ ['choose','form','done'].forEach(function(f){ document.getElementById(f).classList.toggle('on', f===id); }); window.scrollTo({top:0,behavior:'smooth'}); }
+  document.querySelectorAll('.acard').forEach(function(c){
+    c.addEventListener('click',function(){ document.getElementById('whoLabel').textContent='Bạn là: '+c.getAttribute('data-who'); showFlow('form'); });
+  });
+  document.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click',function(){ showFlow('choose'); }); });
+  document.getElementById('send').addEventListener('click',function(){
+    var ok=true;
+    document.querySelectorAll('#form [data-req]').forEach(function(el){
+      var f=el.closest('.field'), bad=!el.value.trim();
+      if(!bad && el.hasAttribute('data-email')) bad=!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim());
+      if(f) f.classList.toggle('bad',bad); if(bad) ok=false;
+    });
+    if(!ok){ var b=document.querySelector('#form .field.bad'); if(b) b.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    showFlow('done'); // PROTOTYPE: production POSTs to your own secure backend, then returns home.
+  });
+})();
+</script>
+</body>
+</html>

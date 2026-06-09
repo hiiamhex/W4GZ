@@ -62,7 +62,7 @@ export const portraitsNote =
 
 export const builders = {
   label: "Những người dựng hệ",
-  body: "Phía sau các dự án và nhánh là những người dẫn dắt — gồm W4GZ Media Team, tiếng nói đưa W4GZ ra ngoài. Họ cũng ẩn danh theo cùng nguyên tắc.",
+  body: "Phía sau các dự án và nhánh là những W dẫn dắt — gồm W4GZ Media, tiếng nói đưa W4GZ ra ngoài. Họ cũng ẩn danh theo cùng nguyên tắc.",
 };
 
 export const transition = {

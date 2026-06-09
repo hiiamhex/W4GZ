@@ -126,9 +126,9 @@ export const online: { label: string; channels: Entry[]; note: string } = {
   label: "Cộng đồng online",
   channels: [
     {
-      index: "Kênh thành viên",
+      index: "Kênh các W",
       title: "Discord",
-      description: "Không gian thành viên, thực hành tiếp diễn giữa các buổi.",
+      description: "Không gian của các W, thực hành tiếp diễn giữa các buổi.",
       status: "[link]",
     },
     {
@@ -144,7 +144,7 @@ export const online: { label: string; channels: Entry[]; note: string } = {
       status: "[link]",
     },
   ],
-  note: "Discord dành cho thành viên đã qua cổng; Blog và Fanpage là cửa sổ mở cho công chúng. Cần link thật: Discord, Blog, Fanpage.",
+  note: "Discord dành cho các W đã qua cổng; Blog và Fanpage là cửa sổ mở cho công chúng. Cần link thật: Discord, Blog, Fanpage.",
 };
 
 export const transition = {

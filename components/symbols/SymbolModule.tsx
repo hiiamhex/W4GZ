@@ -168,7 +168,7 @@ const MODULES: Record<ModuleName, { strokes: Stroke[]; nodes: Node[]; label: str
     nodes: [{ cx: 62, cy: 60, r: 6 }],
   },
   media: {
-    label: "Media Team — node phát các cung sóng",
+    label: "W4GZ Media — node phát các cung sóng",
     strokes: [
       { d: "M40,42 A18,18 0 0 1 40,78", w: 5 },
       { d: "M40,30 A30,30 0 0 1 40,90", w: 5 },

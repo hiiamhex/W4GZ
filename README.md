@@ -89,7 +89,7 @@ re-draws on every route change.
 
 **Symbol System v2** (`components/symbols/SymbolModule.tsx` ← `assets/W4GZ_Symbol_System_v2.svg`):
 the full glyph vocabulary — Narrative, Home, The Fit, Courses, Join added to Writing, Community,
-Ecosystem, People, Hub, Media Team — so the spine (Narrative × Writing × Community) and every
+Ecosystem, People, Hub, Media — so the spine (Narrative × Writing × Community) and every
 page/section header (+ The Fit's 6 value cards) carry their glyph and **no icon list is asymmetric**.
 Motion is CSS-first (keyed off `[data-motion]` + `data-drawn` / `data-inview`): the draw-on +
 node-bleed **reveal plays once** on enter and **re-fires on a route/section transition**; then

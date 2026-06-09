@@ -35,13 +35,13 @@ NOTE   Dữ liệu/quyết định cần Hex cung cấp, hoặc điểm chừa c
 - Hiệu ứng mới: dấu mực loang ngẫu nhiên khi click bất kì điểm nào trên trang, dùng chung từ vựng “ink node” với bộ biểu tượng.
 - Mỗi trang được đào sâu thêm ít nhất một sector, dùng trích dẫn, câu chuyện nhỏ, số liệu, và liên kết với nhau.
 - Nâng tầm sức mạnh của narrative; lập luận “Community is the answer”; định vị Ecosystem là chuẩn-hóa-để-lan-tỏa, không thụ động.
-- Mở rộng Ecosystem: dự án chiến lược (W4GZ Living Dictionary, Library4GenZ), danh sách vertical cập nhật, và W4GZ Media Team.
+- Mở rộng Ecosystem: dự án chiến lược (Dictionary4GenZ, Library4GenZ), danh sách vertical cập nhật, và W4GZ Media.
 - Một số phần v1 bị phá bỏ/di dời cho khớp narrative mới: các chiều phát triển toàn diện (chạy bộ, vẽ, cờ, sport…) chuyển từ Community sang Ecosystem dưới dạng vertical; Community tập trung vào lập luận + Hub + cơ chế kết nối.
 - Làm rõ CỔNG VÀO DUY NHẤT: chỉ vào cộng đồng qua khóa học (Introduction + bài luận tốt nghiệp, hoặc Advanced); onboarding theo quý, bốn kì/năm. Bỏ mọi diễn đạt ngụ ý có thể vào cộng đồng mà không qua khóa học.
 ### Giả định đang áp dụng (đảo được)
 - Bảy trang đầy đủ; tiếng Việt làm lớp tự sự, tiếng Anh ở nav/label/motto/tên vertical/CTA; quote để nguyên ngữ kèm dịch.
 - Stack: Next.js App Router + View Transitions + Lenis + GSAP; WebGL chỉ ở vài điểm có chủ đích, đơn sắc.
-- W4GZ Media Team đặt ở Ecosystem (lớp khuếch đại/Voice), cross-ref nhẹ ở People — xem lý giải tại V.4.
+- W4GZ Media đặt ở Ecosystem (lớp khuếch đại/Voice), cross-ref nhẹ ở People — xem lý giải tại V.4.
 
 # PART 1 · Luận đề (đã đào sâu)
 Toàn site phục vụ một luận đề ba trụ. Narrative là cái con người sống bên trong; Writing là kỉ luật để làm chủ nó; Community là điều kiện để kỉ luật ấy tồn tại và lan ra. Bỏ một trụ, hai trụ kia sụp.
@@ -121,7 +121,7 @@ Bộ biểu tượng W4GZ (bản specimen tạm để designer tinh chỉnh) —
 | Ecosystem | Ecosystem | Một thân nhánh ra nhiều đầu mở — cột sống nuôi cơ thể |
 | People | People | Hàng nét cao thấp nối nhau ở chân — cá nhân trong một bầy |
 | Hub | Community · Hub | Khung không gian có cửa mở, nét hướng vào tâm |
-| Media Team | Ecosystem · Media | Node phát các cung sóng — tiếng nói lan ra |
+| Media | Ecosystem · Media | Node phát các cung sóng — tiếng nói lan ra |
 [/TABLE]
 
 MOTION   Biểu tượng là sân khấu hiệu ứng: nét draw-on khi vào khung nhìn; node bleed như mực (chung từ vựng với click ink-blot); khi chuyển trang, các module tách khỏi master rồi đường luồn re-weave để ráp lại — đây là cách phô diễn “narrative nối cộng đồng” bằng đồ họa, không chỉ bằng chữ. Pattern tile được dùng làm hoa văn nền mảnh ở footer/hero.
@@ -369,7 +369,7 @@ Discord dành cho thành viên đã qua cổng; Blog và Fanpage là cửa sổ 
 NOTE   Cần link thật: Discord (thành viên), Blog, (các) Fanpage.
 
 ## Trang V · Ecosystem — The -4GZ Ecosystem
-Đào sâu. Sự giàu có = minh chứng sức mạnh cộng đồng; mục tiêu là trao quyền + vốn xã hội + chuẩn hóa để lan tỏa; dự án chiến lược; Media Team. Beat: tầm vóc.
+Đào sâu. Sự giàu có = minh chứng sức mạnh cộng đồng; mục tiêu là trao quyền + vốn xã hội + chuẩn hóa để lan tỏa; dự án chiến lược; Media. Beat: tầm vóc.
 ### V.1 · Hero
 COPY
 THE -4GZ ECOSYSTEM
@@ -398,7 +398,7 @@ Hệ sinh thái không chỉ phong phú. Nó hướng tới trao quyền, tăng 
 Một hoạt động hay nhưng không chuẩn hóa thì chết cùng người tổ chức. Chuẩn hóa biến nó thành thứ nhân rộng được.
 ### V.4 · 03 — Những dự án chiến lược (đánh vào lỗ hổng cấu trúc)
 COPY
-W4GZ Living Dictionary
+Dictionary4GenZ
 Một từ điển sống, theo nhịp sống người Việt từ lịch sử đến hiện đại, không bỏ qua lối nói của Gen Z — củng cố hạ tầng chữ viết ở mức kí tự và từ ngữ. Bối cảnh: Việt Nam thuộc nhóm dùng internet đông nhất thế giới nhưng thiếu vắng từ điển tương xứng.
 Library4GenZ
 Hệ thư viện lưu trữ lượng kiến thức đồ sộ, dịch trực tiếp từ các nguồn mở uy tín nước ngoài — gồm các cấu phần như Psychology4GenZ, Communication4GenZ, Philosophy4GenZ — nhằm nâng hạ tầng tri thức cho người Việt.
@@ -406,11 +406,11 @@ STAT   Bối cảnh: ~80 triệu người dùng internet (DataReportal, 2025), n
 COPY
 Các dự án này đánh thẳng vào lỗ hổng cấu trúc — đặc biệt trên môi trường internet và cho Gen Z — vốn đang khiến “narrative” của thế hệ này khó được viết tốt. W4GZ là một tập hợp leader hành động vào cấu trúc, không tự xem mình là thực thể thụ động.
 ART   Đồ họa khái niệm: bản đồ nhánh -4GZ tỏa ra từ một gốc “writing”, hai nhánh chiến lược (Dictionary, Library) tô đậm hơn.
-### V.5 · 04 — W4GZ Media Team: tiếng nói & sự bền vững
+### V.5 · 04 — W4GZ Media: tiếng nói & sự bền vững
 COPY
 Voice of W4GZ
 Lực lượng chủ chốt lan ảnh hưởng của W4GZ — các dự án và con người — ra toàn xã hội và liên kết với mạng lưới truyền thông lớn hơn. Họ đảm bảo social impact, đóng gói hoạt động và ấn phẩm theo cách bền vững, hợp xu hướng và có lợi nhuận; chuẩn hóa cách làm việc và monetization để các hoạt động ý nghĩa không trở thành gánh nặng tài nguyên cho thành viên, đồng thời hút nguồn lực phù hợp từ bên ngoài.
-NOTE   Quyết định vị trí: đặt Media Team ở Ecosystem (lớp hạ tầng khuếch đại/chuẩn hóa/monetization của cả hệ), cross-ref một dòng ở People (vì cũng là một nhóm người). Lý do: chức năng của họ là cấu trúc-hệ, không phải vinh danh cá nhân. Đảo được nếu bạn muốn dồn về People.
+NOTE   Quyết định vị trí: đặt Media ở Ecosystem (lớp hạ tầng khuếch đại/chuẩn hóa/monetization của cả hệ), cross-ref một dòng ở People (vì cũng là một nhóm người). Lý do: chức năng của họ là cấu trúc-hệ, không phải vinh danh cá nhân. Đảo được nếu bạn muốn dồn về People.
 ### V.6 · Hợp tác & chuyển chương
 COPY
 Muốn cùng dựng?
@@ -418,7 +418,7 @@ Tổ chức, định chế, hay người xây độc lập muốn hợp tác tro
 CTA   Outline “Liên hệ →” · “Đằng sau tất cả là những con người — gặp họ →” (People)
 
 ## Trang VI · People
-Softer hall of fame, ràng buộc Law III. Thêm cross-ref tới leader/Media Team. Beat: đồng nhất.
+Softer hall of fame, ràng buộc Law III. Thêm cross-ref tới leader/Media. Beat: đồng nhất.
 ### VI.1 · Hero
 COPY
 THE PEOPLE
@@ -441,7 +441,7 @@ IMAGE   Mỗi chân dung là một kí họa riêng; phong cách nhất quán: m
 NOTE   Cần dữ liệu thật đã ẩn danh: 6–9 bí danh + cột mốc/câu, kèm kí họa.
 ### VI.4 · Những người dựng hệ
 COPY
-Phía sau các dự án và nhánh là những người dẫn dắt — gồm W4GZ Media Team, tiếng nói đưa W4GZ ra ngoài. Họ cũng ẩn danh theo cùng nguyên tắc.
+Phía sau các dự án và nhánh là những người dẫn dắt — gồm W4GZ Media, tiếng nói đưa W4GZ ra ngoài. Họ cũng ẩn danh theo cùng nguyên tắc.
 CTA   Outline “Trang tiếp theo của cộng đồng này có thể mang tên bạn →” (Join)
 
 ## Trang VII · Join — The Covenant
@@ -509,9 +509,9 @@ NOTE   Mọi con số cần Hex xác minh và cập nhật nguồn chính danh t
 | drawing4genz · chess4genz · gaming4genz | Vẽ; cờ; game |
 | weekend4genz | Thể thao: running/trekking/hiking… |
 | communitybuilding4genz | Nghề xây cộng đồng |
-| W4GZ Living Dictionary | Từ điển sống — hạ tầng chữ viết cho người Việt |
+| Dictionary4GenZ | Từ điển sống — hạ tầng chữ viết cho người Việt |
 | Library4GenZ | Thư viện tri thức dịch từ nguồn mở (Psychology/Communication/Philosophy4GenZ) |
-| W4GZ Media Team | Voice & chuẩn hóa/monetization/khuếch đại của hệ |
+| W4GZ Media | Voice & chuẩn hóa/monetization/khuếch đại của hệ |
 | W4GZ Hub | Không gian văn hóa vật lý, chống disconnect, sẽ nhân rộng |
 [/TABLE]
 
@@ -521,10 +521,10 @@ NOTE   Mọi con số cần Hex xác minh và cập nhật nguồn chính danh t
 - Cổng vào: lịch bốn kì onboarding cộng đồng/năm; tiêu chí bài luận tốt nghiệp (Introduction); cơ chế xét duyệt Advanced.
 - Hub: địa chỉ, giờ mở (hoặc cách thể hiện).
 - Link: Discord, Blog, Fanpage.
-- Ecosystem: trạng thái từng vertical; chi tiết Living Dictionary & Library4GenZ; phạm vi Media Team muốn công khai.
+- Ecosystem: trạng thái từng vertical; chi tiết Dictionary4GenZ & Library4GenZ; phạm vi Media muốn công khai.
 - People: 6–9 bí danh + cột mốc/câu + kí họa.
 - Bộ biểu tượng: chuẩn hóa & xuất SVG sản xuất; kho kí họa sẵn có hay cần vẽ.
-- Xác nhận đặt Media Team ở Ecosystem hay People.
+- Xác nhận đặt Media ở Ecosystem hay People.
 - Chốt: 7 trang hay 5; Việt-primary hay song ngữ toggle đầy đủ; mức độ WebGL.
 
 # Addendum v2.1 · The Power of Narrative · Symbol System v2 · Wave motif · Auto-link
@@ -540,9 +540,9 @@ Bản cập nhật này bổ sung lên Master Spec v2 (không thay thế) và đ
 - Tiến bộ hóa: SSR render cả ba chương (copy server-rendered, chọn được, đọc được khi tắt JS); sau hydrate mới hiện một-chương-một-lần.
 
 ### B · Symbol System v2 (sửa bất đối xứng + animate)
-- Thêm glyph còn thiếu: **Narrative** (spine — đường luồn qua các node, the weave thu nhỏ), **Home**, **The Fit**, **Courses**, **Join**. Giữ: Writing, Community, Ecosystem, People, Hub, Media Team.
+- Thêm glyph còn thiếu: **Narrative** (spine — đường luồn qua các node, the weave thu nhỏ), **Home**, **The Fit**, **Courses**, **Join**. Giữ: Writing, Community, Ecosystem, People, Hub, Media.
 - Sửa defect: spine ba trụ (Narrative × Writing × Community) nay cả ba đều mang glyph (trước đây Narrative thiếu).
-- Mọi page/section header mang glyph module: Home, Why Writing→Writing, Courses, Community, Ecosystem, People, Join; Hub + Media Team trong section của chúng. The Fit value-cards mang glyph (chờ trang The Fit từ Copy v5 — xem GAPS.md).
+- Mọi page/section header mang glyph module: Home, Why Writing→Writing, Courses, Community, Ecosystem, People, Join; Hub + Media trong section của chúng. The Fit value-cards mang glyph (chờ trang The Fit từ Copy v5 — xem GAPS.md).
 - Quy tắc: không list/set icon nào được bất đối xứng — đã có icon ở một item thì mọi item phải có.
 - Chính sách animation (event-driven, KHÔNG loop vĩnh viễn):
   1. Reveal ONE-SHOT: nét draw-on (stroke-dashoffset) + node bleed-in chạy MỘT lần khi glyph vào viewport (IntersectionObserver) hoặc khi mount; xong giữ trạng thái đã vẽ.
@@ -628,4 +628,14 @@ Thay đổi DUY NHẤT ở trang The Fit; phần còn lại của site giữ ngu
 - **D · Hết jitter & re-wrap chữ khi cuộn**: composite wrapper cuộn `#main` (`will-change/translateZ/backface`); `scrollbar-gutter: stable`; bỏ parallax translateY trên ghost-text; **bỏ đổi font-weight theo scroll** (ScrollVelocity → inert, body weight cố định 400) vì đổi weight font biến thiên làm reflow → chữ nhảy dòng. Chỉ animate `transform`/`opacity`, không animate thuộc tính layout.
 - **E · Self-recognition = "W"**: chữ nhận-diện-bản-thân đọc **"Bạn có phải là một W không?"** (không "W4GZ") — heading The Fit + CTA Why Writing. Giữ "W4GZ" cho tên tổ chức/thương hiệu + tên khóa (W4GZ Introduction/Advanced).
 
-Hết Master Spec v2 + Addendum v2.1 → v2.4 + Patch 2 + Patch 3. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.
+# Patch 4 · Auto-link "W" · member→W · Dictionary4GenZ · Footer (Privacy/Terms/Contact) · Ecosystem cards & Media glitch
+- **A · Auto-link "W"**: token "W" độc lập (cả-từ; không trong "W4GZ"/"Writing4GenZ"/tên khóa) → trang W (`/people`), inline tinh tế, lần đầu mỗi block; song song auto-link "narrative" → `/power-of-narrative`. Không link trên trang W & không đụng word-bloom. `lib/autolink.tsx` (regex `(?<![\p{L}\p{N}])W(?![\p{L}\p{N}])`) cắm vào `PageHero` + `SectorView` (heading + body).
+- **B · Gọi thành viên là "W"**: reframe "thành viên/họ" (cá nhân) → "W/các W/những W" ở Community/Ecosystem "theo cách phù hợp"; giữ "W4GZ" cho tổ chức.
+- **C · Đổi tên**: "W4GZ Living Dictionary" → **"Dictionary4GenZ"** mọi nơi.
+- **D · Footer pages**: **Privacy** (`/privacy`) + **Terms** (`/terms`) render từ `docs/privacy.md` / `docs/terms.md` (giữ `[ngoặc]`) qua renderer markdown nhỏ không thư viện (`components/ui/Markdown.tsx`), và **Contact** (`/lien-he`); link cả ba ở footer.
+- **E · Contact** (`/lien-he`): motto + 2 card đối tượng (Investor/Media, Supporter) → form 4 trường → xác nhận → về trang chủ; POST `/api/contact` (pipeline bảo mật UPDATE 8, kind "contact").
+- **F · Ecosystem "Liên hệ"** → `/lien-he` (không phải `/dang-ky`).
+- **G · Ecosystem cards**: mỗi card (nhánh + dự án + W) có banner hover/tap (ảnh placeholder "hình ảnh · cập nhật sau" + tựa + mô tả). `components/ecosystem/EcoGrid.tsx` + `.eco-*`. Reduced-motion safe.
+- **H · "W4GZ Media Team" → "W4GZ Media"**: mở rộng + nổi bật trên panel mực nghịch với **glitch / "reality disrupted"** (wordmark trượt/nháy, scanlines, flash đảo, tagline scramble). Đơn sắc; reduced-motion → tĩnh. `components/ecosystem/MediaGlitch.tsx` + `.media-*`.
+
+Hết Master Spec v2 + Addendum v2.1 → v2.4 + Patch 2 + Patch 3 + Patch 4. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.

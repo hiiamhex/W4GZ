@@ -8,11 +8,11 @@ import MotionToggle from "@/components/motion/MotionToggle";
 
 /** Footer (brief 3.2): hairline top, monogram + wordmark + motto, nav, mono copyright. */
 export default function Footer() {
-  const { nav, cta, essay, footer } = pick(site);
+  const { nav, cta, essay, legal, footer } = pick(site);
 
   return (
     <footer className="hr-t">
-      <Container className="flex flex-col gap-10 py-12 md:flex-row md:items-start md:justify-between md:py-16">
+      <Container className="flex flex-col gap-10 py-12 md:flex-row md:items-start md:justify-between md:pt-16 md:pb-10">
         <div className="space-y-2">
           <p className="flex items-center gap-2 font-mono text-sm font-semibold tracking-[0.12em] text-ink">
             <Monogram className="h-4 w-auto" />
@@ -45,11 +45,28 @@ export default function Footer() {
         </nav>
 
         <div className="flex flex-col gap-3 md:items-end">
-          <p className="max-w-xs font-mono text-[0.7rem] uppercase leading-relaxed tracking-[0.12em] text-muted md:text-right">
-            {footer.copyright}
-          </p>
           <MotionToggle />
         </div>
+      </Container>
+
+      <Container className="hr-t flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
+        <nav aria-label="Trang pháp lý & liên hệ">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {legal.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted transition-colors hover:text-ink"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <p className="max-w-md font-mono text-[0.68rem] uppercase leading-relaxed tracking-[0.12em] text-muted">
+          {footer.copyright}
+        </p>
       </Container>
     </footer>
   );

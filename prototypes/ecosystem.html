@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hệ sinh thái — W4GZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F1EB;--ink:#141414;--ink-soft:#2a2823;--soft:#5a574f;--faint:#8f8b80;
+  --hair:rgba(20,20,20,.18);--hair-soft:rgba(20,20,20,.10);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.65;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:radial-gradient(rgba(20,20,20,.018) 1px,transparent 1px);background-size:4px 4px}
+::selection{background:var(--ink);color:var(--paper)}
+.bar{border-bottom:1px solid var(--hair)}
+.bar-in{max-width:64rem;margin:0 auto;padding:.85rem 1.6rem;display:flex;align-items:center;gap:1rem}
+.brand{font-family:var(--serif);font-weight:600;font-size:1.15rem}
+.bar .tag{margin-left:auto;font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.wrap{max-width:64rem;margin:0 auto;padding:clamp(2rem,5vw,3.5rem) 1.6rem 5rem}
+.kick{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem}
+.kick::before{content:"";width:1.7rem;height:1px;background:var(--ink)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.03;margin-bottom:.7rem}
+.intro{font-family:var(--serif);font-weight:500;font-size:1.2rem;color:var(--ink-soft);max-width:34rem;margin-bottom:1.4rem}
+.contact-btn{appearance:none;cursor:pointer;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--ink);background:none;color:var(--ink);padding:.7rem 1.3rem;border-radius:2px;text-decoration:none;display:inline-block;transition:.2s}
+.contact-btn:hover{background:var(--ink);color:var(--paper)}
+
+/* ── ecosystem cards with hover/tap banner ── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin:2.6rem 0 4rem}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+.eco-card{position:relative;min-height:184px;border:1px solid var(--hair);border-radius:10px;background:var(--paper);
+  overflow:hidden;cursor:pointer;font-family:inherit;color:inherit;text-align:left;padding:0;width:100%;display:block;transition:border-color .2s}
+.eco-card:hover{border-color:var(--ink)}
+.eco-base{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.3rem 1.3rem}
+.eco-k{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:.3rem}
+.eco-name{font-family:var(--serif);font-weight:600;font-size:1.5rem;line-height:1.05}
+.eco-dot{position:absolute;top:1.2rem;right:1.2rem;width:8px;height:8px;border-radius:50%;background:var(--ink);opacity:.5}
+.banner{position:absolute;inset:0;background:var(--paper);display:flex;flex-direction:column;
+  transform:translateY(100%);opacity:0;transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .4s ease;pointer-events:none}
+.eco-card:hover .banner,.eco-card.open .banner{transform:translateY(0);opacity:1}
+.banner-img{height:96px;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-style:italic;font-size:2rem;position:relative}
+.banner-img::after{content:"hình ảnh · cập nhật sau";position:absolute;bottom:6px;right:8px;font-family:var(--mono);font-style:normal;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,241,235,.4)}
+.banner-body{padding:.9rem 1.1rem;flex:1}
+.banner-t{display:block;font-family:var(--serif);font-weight:600;font-size:1.25rem;margin-bottom:.25rem}
+.banner-d{display:block;font-size:.9rem;color:var(--ink-soft);line-height:1.45}
+
+/* ── W4GZ Media — reality disrupted ── */
+.media{position:relative;background:var(--ink);color:var(--paper);border-radius:6px;overflow:hidden;
+  padding:clamp(2.4rem,6vw,4rem) clamp(1.4rem,5vw,3.2rem);margin-top:1rem}
+.media::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(244,241,235,.045) 0 1px,transparent 1px 3px)}
+.media::before{content:"";position:absolute;inset:0;background:var(--paper);mix-blend-mode:difference;opacity:0;pointer-events:none;animation:disrupt 7s infinite}
+@keyframes disrupt{0%,92%,100%{opacity:0}93%{opacity:0}94%{opacity:.14}95%{opacity:0}96%{opacity:.08}97%{opacity:0}98%{opacity:.05}}
+.media .mk{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,241,235,.55);margin-bottom:1rem;position:relative;z-index:2}
+.gl{position:relative;display:inline-block;color:var(--paper);font-family:var(--sans);font-weight:600;
+  font-size:clamp(2.6rem,10vw,6rem);letter-spacing:.01em;text-transform:uppercase;line-height:.95;z-index:2;
+  animation:flick 5s infinite steps(1)}
+.gl::before,.gl::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;color:var(--paper);background:var(--ink);overflow:hidden}
+.gl::before{left:3px;animation:glA 2.4s infinite linear alternate-reverse}
+.gl::after{left:-3px;animation:glB 3.3s infinite linear alternate-reverse}
+@keyframes glA{0%{clip-path:inset(2% 0 90% 0)}15%{clip-path:inset(28% 0 58% 0)}30%{clip-path:inset(54% 0 34% 0)}45%{clip-path:inset(72% 0 14% 0)}60%{clip-path:inset(40% 0 48% 0)}75%{clip-path:inset(12% 0 78% 0)}90%{clip-path:inset(62% 0 22% 0)}100%{clip-path:inset(34% 0 52% 0)}}
+@keyframes glB{0%{clip-path:inset(80% 0 6% 0)}15%{clip-path:inset(52% 0 30% 0)}30%{clip-path:inset(24% 0 60% 0)}45%{clip-path:inset(8% 0 84% 0)}60%{clip-path:inset(46% 0 40% 0)}75%{clip-path:inset(68% 0 16% 0)}90%{clip-path:inset(30% 0 56% 0)}100%{clip-path:inset(58% 0 26% 0)}}
+@keyframes flick{0%,96%,100%{opacity:1}97%{opacity:.45}98%{opacity:.9}99%{opacity:.6}}
+.media .tagline{font-family:var(--mono);font-size:clamp(.8rem,2vw,1rem);letter-spacing:.18em;text-transform:uppercase;color:var(--paper);margin:1.3rem 0 1.4rem;position:relative;z-index:2}
+.media p{position:relative;z-index:2;max-width:40rem;color:rgba(244,241,235,.8);font-size:1.05rem;line-height:1.6}
+.media p+p{margin-top:.9rem}
+.media .more{position:relative;z-index:2;display:inline-block;margin-top:1.6rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);background:var(--paper);padding:.75rem 1.4rem;border-radius:2px;text-decoration:none}
+
+@media(prefers-reduced-motion:reduce){
+  .banner{transition:opacity .3s ease}
+  .gl,.gl::before,.gl::after,.media::before{animation:none}
+  .gl::before,.gl::after{display:none}
+}
+</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in"><div class="brand">W4GZ</div><div class="tag">Hệ sinh thái</div></div></header>
+
+<div class="wrap">
+  <div class="kick">Hệ sinh thái · Ecosystem</div>
+  <h1>Một protocol, nhiều hiện thân.</h1>
+  <p class="intro">W4GZ không phải một sản phẩm đơn lẻ, mà là một mạng lưới dự án và những W cùng theo đuổi một điều: những câu chuyện đáng sống.</p>
+  <a class="contact-btn" href="#" onclick="return false">Liên hệ →</a>
+
+  <div class="grid" id="grid">
+    <button class="eco-card"><span class="eco-dot"></span>
+      <span class="eco-base"><span class="eco-k">Dự án</span><span class="eco-name">MonsterBox</span></span>
+      <span class="banner"><span class="banner-img">M</span><span class="banner-body"><span class="banner-t">MonsterBox</span><span class="banner-d">Tạp chí trí tuệ — nơi W4GZ bắt đầu, và là giọng nói gốc của cả hệ sinh thái.</span></span></span>
+    </button>
+    <button class="eco-card"><span class="eco-dot"></span>
+      <span class="eco-base"><span class="eco-k">Dự án</span><span class="eco-name">Dictionary4GenZ</span></span>
+      <span class="banner"><span class="banner-img">D</span><span class="banner-body"><span class="banner-t">Dictionary4GenZ</span><span class="banner-d">Từ điển sống: ngôn ngữ của một thế hệ đang tự định nghĩa chính mình.</span></span></span>
+    </button>
+    <button class="eco-card"><span class="eco-dot"></span>
+      <span class="eco-base"><span class="eco-k">Dự án</span><span class="eco-name">Storytelling4GenZ</span></span>
+      <span class="banner"><span class="banner-img">S</span><span class="banner-body"><span class="banner-t">Storytelling4GenZ</span><span class="banner-d">Kể chuyện như một kỹ năng sống — biến trải nghiệm thành ý nghĩa.</span></span></span>
+    </button>
+    <button class="eco-card"><span class="eco-dot"></span>
+      <span class="eco-base"><span class="eco-k">Dự án</span><span class="eco-name">Leadership4GenZ</span></span>
+      <span class="banner"><span class="banner-img">L</span><span class="banner-body"><span class="banner-t">Leadership4GenZ</span><span class="banner-d">Dẫn dắt bắt đầu từ việc dẫn dắt chính mình.</span></span></span>
+    </button>
+    <button class="eco-card"><span class="eco-dot"></span>
+      <span class="eco-base"><span class="eco-k">Một W</span><span class="eco-name">The Weaver</span></span>
+      <span class="banner"><span class="banner-img">✶</span><span class="banner-body"><span class="banner-t">The Weaver</span><span class="banner-d">Người dệt những mảnh rời rạc thành một mạch truyện liền.</span></span></span>
+    </button>
+    <button class="eco-card"><span class="eco-dot"></span>
+      <span class="eco-base"><span class="eco-k">Một W</span><span class="eco-name">The Witness</span></span>
+      <span class="banner"><span class="banner-img">✶</span><span class="banner-body"><span class="banner-t">The Witness</span><span class="banner-d">Người ghi lại điều thật, không tô vẽ — trí nhớ của cộng đồng.</span></span></span>
+    </button>
+  </div>
+
+  <!-- W4GZ Media — reality disrupted -->
+  <section class="media">
+    <div class="mk">Trong hệ sinh thái</div>
+    <span class="gl" id="gl" data-text="W4GZ MEDIA">W4GZ MEDIA</span>
+    <div class="tagline" id="tagline" data-final="reality, disrupted.">reality, disrupted.</div>
+    <p>W4GZ Media là cánh tay phát ngôn của cả mạng lưới — nơi câu chuyện rời trang giấy và bước vào dòng chảy hỗn loạn của hình ảnh, âm thanh, và sự chú ý.</p>
+    <p>Nếu phần còn lại của W4GZ là trật tự của mực và giấy, thì Media là thế lực được sinh ra để phá vỡ trật tự ấy: nhanh hơn, ồn hơn, và sắc hơn — đủ để một câu chuyện đáng sống chạm tới những người chưa từng nghe tên W4GZ.</p>
+    <a class="more" href="#" onclick="return false">Tìm hiểu W4GZ Media →</a>
+  </section>
+</div>
+
+<script>
+(function(){
+  // touch: tap toggles a card's banner (desktop uses :hover)
+  document.querySelectorAll('.eco-card').forEach(function(c){
+    c.addEventListener('click',function(){
+      var wasOpen=c.classList.contains('open');
+      document.querySelectorAll('.eco-card.open').forEach(function(o){ o.classList.remove('open'); });
+      if(!wasOpen) c.classList.add('open');
+    });
+  });
+
+  // periodic text-scramble on the tagline (skips if reduced-motion)
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!reduce){
+    var el=document.getElementById('tagline'), finalText=el.getAttribute('data-final');
+    var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/<>*';
+    function scramble(){
+      var frame=0, total=14;
+      var iv=setInterval(function(){
+        var out=''; for(var i=0;i<finalText.length;i++){
+          if(finalText[i]===' '||finalText[i]===','||finalText[i]==='.'){ out+=finalText[i]; continue; }
+          out += (i < (frame/total)*finalText.length) ? finalText[i] : chars[Math.floor(Math.random()*chars.length)];
+        }
+        el.textContent=out; frame++;
+        if(frame>total){ clearInterval(iv); el.textContent=finalText; }
+      },45);
+    }
+    setInterval(scramble, 5200);
+  }
+})();
+</script>
+</body>
+</html>
