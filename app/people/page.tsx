@@ -1,7 +1,6 @@
 import { buildMetadata } from "@/lib/seo";
 import {
   people,
-  hero,
   anonymity,
   portraits,
   portraitsLabel,
@@ -14,11 +13,11 @@ import Section from "@/components/ui/Section";
 import SectionLabel from "@/components/ui/SectionLabel";
 import PersonCard from "@/components/ui/PersonCard";
 import ChapterTransition from "@/components/ui/ChapterTransition";
-import PageHero from "@/components/ui/PageHero";
+import WHero from "@/components/people/WHero";
 import Reveal from "@/components/motion/Reveal";
 
 export const metadata = buildMetadata({
-  title: "People",
+  title: "W",
   description: people.description,
   path: "/people",
 });
@@ -26,7 +25,7 @@ export const metadata = buildMetadata({
 export default function PeoplePage() {
   return (
     <>
-      <PageHero label={hero.label} heading={hero.heading} sub={hero.sub} module="people" />
+      <WHero />
 
       {/* VI.2 · Về sự ẩn danh */}
       <Section topRule>

@@ -42,7 +42,7 @@ export const sourceLabels: Record<string, string> = {
   "/courses": "Courses",
   "/community": "Community",
   "/ecosystem": "Ecosystem",
-  "/people": "People",
+  "/people": "W",
   "/join": "Join",
 };
 export const defaultSource = { label: "W4GZ", href: "/" };

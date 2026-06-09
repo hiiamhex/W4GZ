@@ -36,7 +36,8 @@ export type ModuleName =
   | "people"
   | "join"
   | "hub"
-  | "media";
+  | "media"
+  | "master";
 
 type Stroke = { d: string; w?: number; o?: number };
 type Node = { cx: number; cy: number; r: number };
@@ -127,7 +128,7 @@ const MODULES: Record<ModuleName, { strokes: Stroke[]; nodes: Node[]; label: str
     nodes: [{ cx: 60, cy: 58, r: 6 }],
   },
   people: {
-    label: "People — hàng nét cao thấp nối nhau ở chân",
+    label: "W — mỗi người là một W; hàng nét cao thấp nối nhau ở chân, cá nhân trong một bầy",
     strokes: [
       { d: "M22,94 L98,94", w: 5 },
       { d: "M34,94 L34,56", w: 5 },
@@ -175,6 +176,18 @@ const MODULES: Record<ModuleName, { strokes: Stroke[]; nodes: Node[]; label: str
       { d: "M40,60 L22,60", w: 5 },
     ],
     nodes: [{ cx: 40, cy: 60, r: 6 }],
+  },
+  // The W master mark — one continuous line folded into a W, a node at each vertex.
+  master: {
+    label: "W — chữ kí W4GZ: một đường liền gấp thành chữ W, mỗi đỉnh một node",
+    strokes: [{ d: "M14,32 L38,84 L60,46 L82,84 L106,32", w: 8 }],
+    nodes: [
+      { cx: 14, cy: 32, r: 5 },
+      { cx: 38, cy: 84, r: 5 },
+      { cx: 60, cy: 46, r: 5.5 },
+      { cx: 82, cy: 84, r: 5 },
+      { cx: 106, cy: 32, r: 5 },
+    ],
   },
 };
 

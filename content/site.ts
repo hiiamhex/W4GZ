@@ -35,7 +35,7 @@ export const site: Localized<SiteContent> = {
       { label: "Courses", href: "/courses" },
       { label: "Community", href: "/community" },
       { label: "Ecosystem", href: "/ecosystem" },
-      { label: "People", href: "/people" },
+      { label: "W", href: "/people" },
     ],
     cta: { label: "Join", href: "/join" },
     essay: {

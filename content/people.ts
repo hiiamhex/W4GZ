@@ -13,6 +13,24 @@ export const hero = {
   sub: "Một sự tôn vinh giữ ở tông trầm — qua tác phẩm, qua cột mốc, qua bí danh.",
 };
 
+/** W-identity bloom hero (brief Update 7) — the W monogram ringed by the W-words. */
+export const wHero = {
+  kicker: "Bản sắc · W4GZ",
+  headParts: ["Mỗi người là một ", "W", "."],
+  leads: [
+    "Mỗi người trong cộng đồng W4GZ đều có thể tự gọi mình là một W.",
+    "Người dệt, người viết, người chứng, người dẫn đường — quanh một chữ, là mọi vai mà một người cầm bút có thể mang.",
+  ],
+};
+
+/** The roles a W can take — all begin with W; orbit the monogram (extend freely). */
+export const wWords = [
+  "Weaver", "Writer", "Watcher", "Welder", "Win", "Wright", "Whisperer", "Witness",
+  "Walker", "Wonderer", "Wisdom-keeper", "Web-keeper", "What", "Wordsmith", "Wanderer",
+  "Waveform", "Welcomer", "Window", "Wayfinder", "Who", "When", "Would", "Where", "Why",
+  "Within",
+];
+
 export const anonymity = {
   label: "Về sự ẩn danh",
   heading: "Vì sao bạn thấy kí họa, không phải ảnh",
@@ -55,8 +73,8 @@ export const transition = {
 export const people: Page = {
   route: "/people",
   chapter: "VI",
-  title: "People",
+  title: "W",
   description:
-    "The People — những người đã cầm lấy cây bút. Tôn vinh ở tông trầm: chân dung kí họa, bí danh, cột mốc (Law III: ẩn danh tuyệt đối).",
+    "W — mỗi người trong cộng đồng W4GZ là một W. Bên dưới, một sự tôn vinh ở tông trầm: chân dung kí họa, bí danh, cột mốc (Law III: ẩn danh tuyệt đối).",
   sectors: [],
 };
