@@ -18,6 +18,7 @@ export const hero = {
 };
 
 export const valuesLabel = "Sáu giá trị";
+export const tapHint = "Chạm vào từng thẻ — xem điều hiện ra có giống bạn không.";
 
 export const values: {
   index: string;

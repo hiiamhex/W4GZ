@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Fit — thẻ lật · W4GZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F1EB;--ink:#141414;--ink-soft:#2a2823;--soft:#5a574f;--faint:#8f8b80;
+  --hair:rgba(20,20,20,.16);--hair-soft:rgba(20,20,20,.10);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+  --noise:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.85'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E")}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:radial-gradient(rgba(20,20,20,.018) 1px,transparent 1px);background-size:4px 4px}
+::selection{background:var(--ink);color:var(--paper)}
+.wrap{max-width:62rem;margin:0 auto;padding:clamp(2rem,6vw,4rem) 1.6rem 6rem}
+.kick{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);
+  margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem}
+.kick::before{content:"";width:1.7rem;height:1px;background:var(--ink)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.03;margin-bottom:.7rem}
+.intro{font-family:var(--serif);font-weight:500;font-size:1.2rem;color:var(--ink-soft);max-width:34rem;margin-bottom:2.8rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+@media(max-width:780px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+
+.fit-card{position:relative;min-height:226px;background:var(--paper);border:none;cursor:pointer;
+  font-family:inherit;text-align:left;padding:0;overflow:visible;color:inherit;display:block;width:100%}
+
+/* ── soft ornamental frame ── */
+.frame{position:absolute;inset:13px;border:1px solid var(--ink);border-radius:16px;pointer-events:none}
+.frame::before{content:"";position:absolute;inset:5px;border:1px solid var(--hair-soft);border-radius:12px}
+.curl{position:absolute;width:18px;height:18px;pointer-events:none}
+.curl svg{width:100%;height:100%;display:block}
+.cTL{top:4px;left:4px}.cTR{top:4px;right:4px;transform:rotate(90deg)}
+.cBR{bottom:4px;right:4px;transform:rotate(180deg)}.cBL{bottom:4px;left:4px;transform:rotate(270deg)}
+
+/* ── revealed content (under the charcoal) ── */
+.content{position:absolute;inset:18px;padding:1.5rem 1.4rem;display:flex;flex-direction:column;
+  opacity:0;transition:opacity .9s ease .5s}
+.fit-card.open .content{opacity:1}
+.node{width:9px;height:9px;border-radius:50%;background:var(--ink);margin-bottom:.9rem}
+.content .h{font-family:var(--serif);font-weight:600;font-size:1.45rem;line-height:1.1;margin-bottom:.5rem}
+.content .p{font-size:.96rem;color:var(--ink-soft)}
+
+/* ── charcoal cover (now carries the representative icon) ── */
+.char{position:absolute;inset:18px;background:#141414;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  z-index:2;transition:opacity 1.6s ease,filter 1.6s ease,transform 1.6s ease}
+.char::before{content:"";position:absolute;inset:0;border-radius:11px;background-image:var(--noise);background-size:170px 170px;
+  opacity:.5;mix-blend-mode:soft-light;transition:transform 1.6s ease,opacity 1.6s ease}
+.ci{position:relative;width:58%;max-width:120px;height:auto}
+.ci [data-s]{fill:none;stroke:rgba(244,241,235,.84);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ci [data-s].faint{stroke-opacity:.5}
+.ci [data-n]{fill:rgba(244,241,235,.86)}
+.ci [data-noise]{fill:rgba(244,241,235,.4)}
+.ci{animation:icbreath 3.4s ease-in-out infinite;transform-origin:center}
+@keyframes icbreath{0%,100%{opacity:.9;transform:scale(1)}50%{opacity:1;transform:scale(1.045)}}
+.fit-card.open .char{opacity:0;filter:blur(9px);transform:scale(1.07);pointer-events:none}
+.fit-card.open .char::before{transform:translateY(-14px) scale(1.12);opacity:0}
+
+/* dust specks (dense) */
+.dust{position:absolute;border-radius:1px;background:#161210;background-image:var(--noise);background-size:48px 48px;
+  pointer-events:none;z-index:3}
+
+/* ── floating after reveal ── */
+.fit-card::after{content:"";position:absolute;left:14%;right:14%;bottom:2px;height:14px;border-radius:50%;
+  background:rgba(20,20,20,.16);filter:blur(8px);opacity:0;transform:scaleX(.9);transition:opacity 1s ease .6s}
+.fit-card.open{animation:fitfloat var(--fdur,5.6s) ease-in-out var(--fdelay,0s) infinite}
+.fit-card.open::after{opacity:1;animation:fitshadow var(--fdur,5.6s) ease-in-out var(--fdelay,0s) infinite}
+@keyframes fitfloat{0%,100%{transform:translateY(0) rotate(-.45deg)}50%{transform:translateY(-9px) rotate(.45deg)}}
+@keyframes fitshadow{0%,100%{opacity:.2;transform:scaleX(.94)}50%{opacity:.09;transform:scaleX(.78)}}
+
+@media(prefers-reduced-motion:reduce){
+  .char,.char::before{transition:opacity .35s ease}
+  .fit-card.open .char{filter:none;transform:none}
+  .ci{animation:none}
+  .fit-card.open,.fit-card.open::after{animation:none}
+  .fit-card.open::after{opacity:.16}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kick">Sự phù hợp · The Fit</div>
+  <h1>Bạn có phải là một W4GZ?</h1>
+  <p class="intro">Sáu điều dưới đây không phải tiêu chí để loại bạn. Chúng là tấm gương. Chạm vào từng thẻ — và xem điều hiện ra có giống bạn không.</p>
+
+  <div class="grid" id="grid">
+    <!-- 1 Narrative -->
+    <button class="fit-card" aria-expanded="false">
+      <span class="frame" aria-hidden="true"></span>
+      <span class="content"><span class="node"></span><span class="h">Narrative</span><span class="p">Bạn tin đời mình là một câu chuyện đang được viết, không phải một chuỗi việc ngẫu nhiên.</span></span>
+      <span class="char" aria-hidden="true">
+        <svg class="ci" viewBox="0 0 64 52"><path data-s d="M5,32 C17,16 27,16 33,28 S51,40 60,20"/><circle data-n cx="33" cy="28" r="3.4"/><circle data-n cx="51" cy="33" r="3.4"/></svg>
+      </span>
+    </button>
+    <!-- 2 Writing -->
+    <button class="fit-card" aria-expanded="false">
+      <span class="frame" aria-hidden="true"></span>
+      <span class="content"><span class="node"></span><span class="h">Writing</span><span class="p">Bạn muốn viết — không phải để gây ấn tượng, mà để nghĩ cho rõ.</span></span>
+      <span class="char" aria-hidden="true">
+        <svg class="ci" viewBox="0 0 64 52"><path data-s d="M25,8 C31,22 34,33 39,45"/><path data-s class="faint" d="M19,47 L47,47"/><circle data-n cx="39" cy="45" r="3.4"/></svg>
+      </span>
+    </button>
+    <!-- 3 Meaning over noise -->
+    <button class="fit-card" aria-expanded="false">
+      <span class="frame" aria-hidden="true"></span>
+      <span class="content"><span class="node"></span><span class="h">Ý nghĩa hơn ồn ào</span><span class="p">Bạn chọn chiều sâu, giữa một thế giới đang hét vào tai mình mỗi ngày.</span></span>
+      <span class="char" aria-hidden="true">
+        <svg class="ci" viewBox="0 0 64 52"><circle data-noise cx="13" cy="12" r="1.7"/><circle data-noise cx="51" cy="13" r="1.7"/><circle data-noise cx="15" cy="40" r="1.7"/><circle data-noise cx="50" cy="40" r="1.7"/><path data-s d="M14,26 L50,26"/><circle data-n cx="32" cy="26" r="4"/></svg>
+      </span>
+    </button>
+    <!-- 4 Honesty -->
+    <button class="fit-card" aria-expanded="false">
+      <span class="frame" aria-hidden="true"></span>
+      <span class="content"><span class="node"></span><span class="h">Thành thật</span><span class="p">Bạn sẵn lòng thành thật, kể cả khi điều thật là điều khó viết ra nhất.</span></span>
+      <span class="char" aria-hidden="true">
+        <svg class="ci" viewBox="0 0 64 52"><path data-s class="faint" d="M24,10 L40,10"/><path data-s d="M32,9 L32,38"/><circle data-n cx="32" cy="42" r="3.6"/></svg>
+      </span>
+    </button>
+    <!-- 5 Craft -->
+    <button class="fit-card" aria-expanded="false">
+      <span class="frame" aria-hidden="true"></span>
+      <span class="content"><span class="node"></span><span class="h">Tay nghề</span><span class="p">Bạn xem viết là một thực hành để mài giũa, không phải một tài năng trời cho.</span></span>
+      <span class="char" aria-hidden="true">
+        <svg class="ci" viewBox="0 0 64 52"><path data-s d="M16,40 L28,27"/><path data-s d="M24,43 L36,30"/><path data-s d="M32,46 L44,33"/><circle data-n cx="44" cy="33" r="3.4"/></svg>
+      </span>
+    </button>
+    <!-- 6 Community -->
+    <button class="fit-card" aria-expanded="false">
+      <span class="frame" aria-hidden="true"></span>
+      <span class="content"><span class="node"></span><span class="h">Cộng đồng</span><span class="p">Bạn học tốt nhất khi ngồi cạnh những người cũng đang cầm bút như mình.</span></span>
+      <span class="char" aria-hidden="true">
+        <svg class="ci" viewBox="0 0 64 52"><path data-s d="M11,11 L32,26"/><path data-s d="M53,11 L32,26"/><path data-s d="M11,41 L32,26"/><path data-s d="M53,41 L32,26"/><path data-s d="M32,6 L32,26"/><circle data-n cx="32" cy="26" r="4"/></svg>
+      </span>
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var CURL="<svg viewBox='0 0 20 20'><path d='M1.5,18.5 C1.5,9 9,1.5 18.5,1.5' fill='none' stroke='%23141414' stroke-width='1.3' stroke-linecap='round'/><circle cx='1.5' cy='18.5' r='1.7' fill='%23141414'/></svg>";
+  var corners=['cTL','cTR','cBR','cBL'];
+
+  document.querySelectorAll('.fit-card').forEach(function(card){
+    // soft corner flourishes
+    var frame=card.querySelector('.frame');
+    corners.forEach(function(c){ var s=document.createElement('span'); s.className='curl '+c; s.innerHTML=CURL.replace(/%23/g,'#'); frame.appendChild(s); });
+    // desynced float timing
+    card.style.setProperty('--fdur',(4.9+Math.random()*1.8).toFixed(2)+'s');
+    card.style.setProperty('--fdelay',(-Math.random()*4).toFixed(2)+'s');
+    // staggered icon breathing
+    var ci=card.querySelector('.ci'); if(ci) ci.style.animationDelay=(-Math.random()*3).toFixed(2)+'s';
+    card.addEventListener('click',function(){ reveal(card); });
+  });
+
+  function reveal(card){
+    if(card.classList.contains('open')) return;
+    card.classList.add('open'); card.setAttribute('aria-expanded','true');
+    if(reduce) return;                         // charcoal just fades
+    // dense disintegration: a jittered grid of specks across the charcoal panel
+    var pad=18, w=card.clientWidth-pad*2, h=card.clientHeight-pad*2;
+    var cols=Math.max(8,Math.round(w/22)), rows=Math.max(6,Math.round(h/22));
+    var cw=w/cols, ch=h/rows;
+    for(var r=0;r<rows;r++) for(var c=0;c<cols;c++){
+      var d=document.createElement('span'); d.className='dust';
+      var sz=2+Math.random()*4.5; d.style.width=d.style.height=sz+'px';
+      var x=pad+c*cw+cw/2+(Math.random()-.5)*cw*0.9;
+      var y=pad+r*ch+ch/2+(Math.random()-.5)*ch*0.9;
+      d.style.left=x+'px'; d.style.top=y+'px';
+      card.appendChild(d);
+      var dx=(Math.random()*2-1)*40, dy=-(14+Math.random()*78);
+      var dur=1200+Math.random()*1000, delay=Math.random()*420;
+      d.animate(
+        [{transform:'translate(0,0) scale(1)',opacity:.0,offset:0},
+         {opacity:.85,offset:0.12},
+         {transform:'translate('+dx+'px,'+dy+'px) scale(0)',opacity:0,offset:1}],
+        {duration:dur,delay:delay,easing:'cubic-bezier(.25,.55,.3,1)',fill:'forwards'});
+      (function(el,t){ setTimeout(function(){ el.remove(); },t+200); })(d,dur+delay);
+    }
+  }
+})();
+</script>
+</body>
+</html>
