@@ -575,7 +575,7 @@ Mọi STAT/anchor lịch sử: verify-before-publish. Không nhắc nhánh đầ
 Bổ sung lên v2.1, đã triển khai trong code.
 
 ### G · IA & nav (8 trang funnel + deep-read tách riêng)
-- Thứ tự nav funnel: **Home · Why Writing · The Fit · Courses · Community · Ecosystem · People · Join**. Join là **CTA chính** (nút filled, nổi bật).
+- Thứ tự nav funnel: **Home · Why Writing · The Fit · Courses · Community · Ecosystem · W · Join** (W = đổi tên từ People, xem Addendum v2.3 §J). Join là **CTA chính** (nút filled, nổi bật).
 - **The Fit** — trang fit người đăng kí: hero "ARE YOU W4GZ?" + 6 value card (Narrative / Writing / Meaning-over-noise / Honesty / Craft / Community), mỗi card mang glyph. Trang funnel thật, không bỏ. Chữ chốt theo Copy v5 (chưa có trong repo — xem GAPS/PLACEHOLDERS); bản hiện nêu đúng 6 giá trị + tinh thần.
 - **The Power of Narrative** vẫn ở nav nhưng ĐẶT TÁCH: sau một divider hairline, set bằng Cormorant italic + tag nhỏ ("đọc sâu") — báo hiệu một tier khác (essay), không phải bước funnel.
 - Glyph mới cho value-card: thêm `meaning`, `honesty`, `craft` vào bộ (cùng từ vựng nét + node), bên cạnh narrative / writing / community.
@@ -588,4 +588,13 @@ Bổ sung lên v2.1, đã triển khai trong code.
 - File logo "drop-in" (thay bằng artwork cuối ở cùng path): `public/logo/w4gz-{wordmark,mark}-{ink,paper}.svg`.
 - Favicon/app-icon sinh từ monogram (`scripts/gen-brand-assets.mjs`, dùng `sharp`): `app/icon.svg` (SVG favicon), `app/apple-icon.png` (180), `app/favicon.ico`, `public/icons/icon-{192,512}.png` (maskable) + `app/manifest.ts`. `<head>` do Next file-conventions tự chèn. OG giữ ở `app/opengraph-image.tsx` (wordmark-ink trên giấy).
 
-Hết Master Spec v2 + Addendum v2.1 + v2.2. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.
+# Addendum v2.3 · People → W · W-identity bloom hero
+Bổ sung lên v2.2, đã triển khai trong code. Prototype tham chiếu: `prototypes/w-identity.html`.
+
+### J · Trang W (đổi tên từ People) + hero "W-identity bloom"
+- **Đổi tên People → W** ở nav + nhãn biểu tượng (route giữ `/people`; nội dung People cũ — chân dung kí họa ẩn danh theo Law III — giữ nguyên BÊN DƯỚI hero mới). "Mỗi người trong cộng đồng W4GZ đều có thể tự gọi mình là một W."
+- **Hero W-identity bloom**: monogram **W** (master mark, theo motion policy: draw-on một lần + node-halo breathe) ở tâm, vây quanh bởi đám **W-words** (Weaver, Writer, Witness, Wayfinder…) trên ~3 vòng đồng tâm. Các vòng **xoay chậm + liên tục** ở tốc độ khác nhau và chiều xen kẽ (một bông hoa nở quay nhẹ), thêm sway hướng tâm rất nhỏ; chữ luôn **đứng đọc được** (quay theo vị trí, không xoay glyph); vòng trong lớn/đậm hơn, vòng ngoài nhỏ/nhạt hơn (chiều sâu).
+- **Cursor-repel**: chữ trong bán kính con trỏ bị **đẩy ra** (độ dời ∝ độ gần, có easing) rồi **bật về** khi con trỏ rời. Vanilla rAF + lerp, KHÔNG thư viện.
+- **Đơn sắc** (ink trên giấy); KHÔNG dùng lavender/pink của slide nguồn. **Reduced-motion / toggle off**: đóng băng quỹ đạo + tắt repel, hiện đám chữ tĩnh. **Pause** vòng lặp rAF khi hero off-screen (IntersectionObserver). Không storage. Implement: `components/people/WHero.tsx` + glyph `master` trong `SymbolModule`.
+
+Hết Master Spec v2 + Addendum v2.1 + v2.2 + v2.3. Bản này là nguồn chân lý hợp nhất; phần triển khai (Claude Code brief / README) tham chiếu tài liệu này.

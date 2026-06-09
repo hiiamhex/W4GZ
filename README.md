@@ -40,14 +40,20 @@ npm run lint
 ## Routes (one per chapter)
 
 Eight funnel pages: `/` Home · `/why-writing` · `/the-fit` ("ARE YOU W4GZ?" — registrant fit,
-6 value cards) · `/courses` (the gate) · `/community` · `/ecosystem` · `/people` · `/join`
-(the primary CTA). Per-route metadata + OG; lang `vi`.
+6 value cards) · `/courses` (the gate) · `/community` · `/ecosystem` · `/people` (**W** — the
+W-identity bloom hero + the anonymised portraits below it) · `/join` (the primary CTA).
+Per-route metadata + OG; lang `vi`.
+
+The **W** page (renamed from People; route stays `/people`) opens with the W-identity bloom
+(`components/people/WHero.tsx`): the W monogram ringed by orbiting "W-words" — three rings turn
+slowly in alternating directions, words flee the cursor and spring back (vanilla rAF + lerp),
+all monochrome, frozen under reduced-motion and paused off-screen.
 
 Plus the **deep read** — `/power-of-narrative` (three chapters, one visible at a time). It
 **is** in the nav but **set apart** from the funnel (after a hairline divider, in Cormorant
 italic with an "đọc sâu" tag — a different tier). Also reached via the auto-link rule and a
 fixed "deep read" link at the end of Why Writing. See `docs/power-of-narrative.md` + Master
-Spec Addenda v2.1 / v2.2.
+Spec Addenda v2.1 / v2.2 / v2.3.
 
 ## Structure
 
