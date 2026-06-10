@@ -34,33 +34,38 @@ export const verticals: EcoCardItem[] = [
 
 export const projectsLabel = "Những dự án chiến lược";
 
-/** Strategic projects + the people (W) — each a card with a hover/tap banner. */
-export const ecoCards: EcoCardItem[] = [
-  {
-    kind: "Dự án",
-    name: "Dictionary4GenZ",
-    mark: "D",
-    desc: "Một từ điển sống, theo nhịp sống người Việt từ lịch sử đến hiện đại — củng cố hạ tầng chữ viết ở mức kí tự và từ ngữ.",
-  },
-  {
-    kind: "Dự án",
-    name: "Library4GenZ",
-    mark: "L",
-    desc: "Hệ thư viện gồm tri thức được dịch từ các nguồn mở uy tín nước ngoài (Psychology/Communication/Philosophy4GenZ) — cải thiện hạ tầng tri thức cho người Việt.",
-  },
-  {
-    kind: "Một W",
-    name: "The Weaver",
-    mark: "✶",
-    desc: "Người dệt những mảnh rời rạc thành một mạch truyện liền.",
-  },
-  {
-    kind: "Một W",
-    name: "The Witness",
-    mark: "✶",
-    desc: "Người ghi lại điều thật, không tô vẽ — trí nhớ của cộng đồng.",
-  },
-];
+/**
+ * Two strategic project cards, each with a themed monochrome effect (Patch 6 B):
+ * Dictionary4GenZ (a turning dictionary page) and Library4GenZ (a book-block shelf).
+ * The dictionary entries and shelf labels are placeholder copy — founder edits later.
+ */
+export const dictionary = {
+  kind: "Dự án · -4GZ",
+  name: "Dictionary4GenZ",
+  desc: "Từ điển sống: ngôn ngữ của một thế hệ đang tự định nghĩa chính mình.",
+  entries: [
+    { word: "narrative", ipa: "dt. · /tự sự/", gloss: "câu chuyện ta kể để hiểu chính mình." },
+    { word: "viết", ipa: "đg. · /viết/", gloss: "biến hỗn mang trong đầu thành mạch lạc." },
+    { word: "cộng đồng", ipa: "dt. · /bầy/", gloss: "nơi ta giữ kỉ luật viết cho nhau." },
+    { word: "W", ipa: "dt. · /w/", gloss: "một người của W4GZ." },
+  ],
+};
+
+export const library = {
+  kind: "Dự án · -4GZ",
+  name: "Library4GenZ",
+  desc: "Thư viện sống của W4GZ — nơi lưu giữ và truyền lại những gì đáng đọc.",
+  spines: [
+    { h: 78, w: 34, bg: "#171717", label: "NARRATIVE" },
+    { h: 92, w: 28, bg: "#34322c", label: "VIẾT" },
+    { h: 66, w: 34, bg: "#211f1b", label: "CỘNG ĐỒNG" },
+    { h: 88, w: 34, bg: "#3f3d36", label: "SỰ THẬT" },
+    { h: 74, w: 40, bg: "#1b1a17", label: "TAY NGHỀ" },
+    { h: 84, w: 34, bg: "#2b2924", label: "Ý NGHĨA" },
+    { h: 70, w: 26, bg: "#3a382f", label: "BẦY" },
+    { h: 90, w: 34, bg: "#201e1a", label: "W4GZ" },
+  ],
+};
 
 export const projects = {
   stat: {

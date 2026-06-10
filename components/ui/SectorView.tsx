@@ -72,7 +72,7 @@ export default function SectorView({
                       {st.value}
                     </p>
                     <p className="mt-1 font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted">
-                      {st.source} · cần xác minh
+                      {st.source}
                     </p>
                   </li>
                 ))}

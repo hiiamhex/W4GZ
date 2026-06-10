@@ -6,7 +6,6 @@ import {
   valuesLabel,
   tapHint,
   values,
-  note,
   transition,
 } from "@/content/the-fit";
 import Container from "@/components/ui/Container";
@@ -34,9 +33,6 @@ export default function TheFitPage() {
               <FitCard key={v.index} name={v.name} nameVi={v.nameVi} line={v.line} glyph={v.glyph} />
             ))}
           </div>
-          <p className="mt-8 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted">
-            {note}
-          </p>
         </Container>
       </Section>
 
