@@ -82,7 +82,7 @@ export default function HomePage() {
       {/* I.2 · Ba trụ — the weave at Home */}
       <Section topRule>
         <Container>
-          <SectionLabel className="mb-10">Ba trụ</SectionLabel>
+          <SectionLabel className="mb-10">Ba trụ cột</SectionLabel>
           <div className="hr-t hr-l grid grid-cols-1 md:grid-cols-3">
             {pillars.map((p) => (
               <div
@@ -119,7 +119,7 @@ export default function HomePage() {
       {/* I.3 · Bốn cửa vào */}
       <Section topRule>
         <Container>
-          <SectionLabel className="mb-10">Bốn cửa vào</SectionLabel>
+          <SectionLabel className="mb-10">Bắt đầu câu chuyện</SectionLabel>
           <div className="hr-t hr-l grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {doors.map((d) => (
               <EntryCard key={d.index} entry={d} />
