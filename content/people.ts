@@ -33,7 +33,7 @@ export const wWords = [
 
 export const anonymity = {
   label: "Những W được vinh danh bởi các W khác",
-  heading: "W-Award: Top 36 W được lựa chọn hàng năm bởi cộng đồng",
+  heading: "aWard: Top 36 W được lựa chọn hàng năm bởi cộng đồng",
   body: "Chúng tôi tin rằng những người cần được giúp đỡ phải kêu gọi sự giúp đỡ và những người cần được tuyên dương phải được người khác lên tiếng tuyên dương!",
 };
 
