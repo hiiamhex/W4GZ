@@ -19,7 +19,7 @@ export const wHero = {
   headParts: ["Mỗi người là một ", "W", "."],
   leads: [
     "Mỗi người trong cộng đồng W4GZ đều có thể tự gọi mình là một W.",
-    "Người dệt, người viết, người chứng, người dẫn đường — quanh một chữ, là mọi vai mà một người cầm bút có thể mang.",
+    "Họ tự chọn W của mình đại diện cho điều gì. Người dệt kí ức, người viết, người chứng thực, người dẫn đường... — một người biết viết luôn có thể mang theo nhiều vai trò",
   ],
 };
 
