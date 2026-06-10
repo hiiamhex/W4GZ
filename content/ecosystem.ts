@@ -5,12 +5,12 @@ import type { Page } from "./model";
 export const hero = {
   label: "The -4GZ Ecosystem",
   heading: "Viết là gốc. Mọi thứ khác mọc lên từ đó.",
-  sub: "“-4GZ” là một protocol, không phải một nhãn: cho thế hệ này, do thế hệ này dựng, giữ theo một chuẩn mà chính thế hệ này định nghĩa và bảo vệ.",
+  sub: "“-4GZ” là một protocol, cho thế hệ này, do thế hệ này xây dựng, theo một chuẩn mà chính thế hệ này định nghĩa và bảo vệ.",
 };
 
 export const richness = {
   label: "Sự giàu có chính là bằng chứng",
-  body: "Bề rộng các hoạt động -4GZ là minh chứng sống cho sức mạnh của cộng đồng vừa nói tới: một cộng đồng các W viết khỏe thì sinh ra đời sống văn hóa phong phú quanh nó. Tinh thần các nhánh: thân mật, cozy, tăng vốn văn hóa và kết nối, lành mạnh và văn minh, đề cao kiến thức và sự thạo nghề.",
+  body: "Bề rộng và chiều sâu của các hoạt động -4GZ là minh chứng sống cho sức mạnh của cộng đồng đã được nói tới: một cộng đồng các W viết khỏe thì sinh ra đời sống văn hóa phong phú quanh nó. Tinh thần các nhánh: thân mật, chú trọng giao tiếp, tăng vốn văn hóa và kết nối, lành mạnh và văn minh, đề cao kiến thức và sự lành nghề.",
 };
 
 /** An Ecosystem card: base (kind + name) + a hover/tap banner (image + desc). */
@@ -26,10 +26,10 @@ export interface EcoCardItem {
 export const verticals: EcoCardItem[] = [
   { kind: "Nhánh", name: "storytelling4genz · poetry4genz", mark: "S", desc: "Kể chuyện trên sân khấu; đọc và làm thơ." },
   { kind: "Nhánh", name: "english4genz · japanese4genz · chinese4genz", mark: "E", desc: "Học và dùng các thứ tiếng — mỗi ngôn ngữ là một thế giới." },
-  { kind: "Nhánh", name: "workshop4genz · logic4genz", mark: "W", desc: "Thực hành chuyên đề do các W dẫn; rèn lập luận mạch lạc." },
+  { kind: "Nhánh", name: "workshop4genz · logic4genz", mark: "W", desc: "Thực hành chuyên đề do các W leaders dẫn dắt; rèn lập luận mạch lạc." },
   { kind: "Nhánh", name: "drawing4genz · chess4genz · gaming4genz", mark: "D", desc: "Vẽ, cờ, game — mài giác quan, tư duy và sự nhập cuộc." },
   { kind: "Nhánh", name: "weekend4genz", mark: "W", desc: "Thể thao nói chung — running, trekking, hiking; thân thể là nền của trải nghiệm." },
-  { kind: "Nhánh", name: "communitybuilding4genz", mark: "C", desc: "Nghề xây cộng đồng — để mô hình tự nhân rộng." },
+  { kind: "Nhánh", name: "communitybuilding4genz", mark: "C", desc: "Học cách xây cộng đồng — để mô hình tự nhân rộng." },
 ];
 
 export const projectsLabel = "Những dự án chiến lược";
@@ -46,7 +46,7 @@ export const ecoCards: EcoCardItem[] = [
     kind: "Dự án",
     name: "Library4GenZ",
     mark: "L",
-    desc: "Hệ thư viện dịch trực tiếp từ các nguồn mở uy tín nước ngoài (Psychology/Communication/Philosophy4GenZ) — nâng hạ tầng tri thức cho người Việt.",
+    desc: "Hệ thư viện gồm tri thức được dịch từ các nguồn mở uy tín nước ngoài (Psychology/Communication/Philosophy4GenZ) — cải thiện hạ tầng tri thức cho người Việt.",
   },
   {
     kind: "Một W",
@@ -70,24 +70,24 @@ export const projects = {
     verify: true as const,
   },
   closing:
-    "Các dự án này đánh thẳng vào lỗ hổng cấu trúc — đặc biệt trên môi trường internet và cho Gen Z — vốn đang khiến “narrative” của thế hệ này khó được viết tốt. W4GZ là một tập hợp leader hành động vào cấu trúc, không tự xem mình là thực thể thụ động.",
+    "Các dự án này đánh thẳng vào lỗ hổng cấu trúc — đặc biệt trên môi trường internet và cho Gen Z — vốn đang khiến “narrative” của thế hệ này khó được viết tốt. W4GZ là một tập hợp leader là Gen Z, hành động để tác động vào cấu trúc, không tự xem mình là thực thể thụ động.",
 };
 
 export const collaborate = {
-  heading: "Muốn cùng dựng?",
+  heading: "Muốn cùng xây dựng?",
   body: "Tổ chức, định chế, hay người xây độc lập muốn hợp tác trong hệ sinh thái -4GZ — hãy liên hệ.",
   ctaLabel: "Liên hệ",
 };
 
 /** W4GZ Media — the inverted "reality disrupted" panel (Patch H). */
 export const media = {
-  kicker: "Trong hệ sinh thái",
+  kicker: "Special Force",
   wordmark: "W4GZ MEDIA",
   tagline: "reality, disrupted.",
   body: [
-    "W4GZ Media là cánh tay phát ngôn của cả mạng lưới — nơi câu chuyện rời trang giấy và bước vào dòng chảy hỗn loạn của hình ảnh, âm thanh, và sự chú ý.",
-    "Nếu phần còn lại của W4GZ là trật tự của mực và giấy, thì Media là thế lực được sinh ra để phá vỡ trật tự ấy: nhanh hơn, ồn hơn, và sắc hơn — đủ để một câu chuyện đáng sống chạm tới những người chưa từng nghe tên W4GZ.",
-    "Họ đảm bảo social impact, đóng gói hoạt động và ấn phẩm theo cách bền vững, hợp xu hướng và có lợi nhuận; chuẩn hóa cách làm việc và monetization để các hoạt động ý nghĩa không trở thành gánh nặng tài nguyên cho các W, đồng thời hút nguồn lực phù hợp từ bên ngoài.",
+    "W4GZ Media là tiếng nói của cả mạng lưới — nơi câu chuyện rời trang giấy và bước vào dòng chảy hỗn loạn của hình ảnh, âm thanh, và sự chú ý.",
+    "Nếu phần còn lại của W4GZ là trật tự của mực và giấy, thì Media là thế lực được sinh ra để phá vỡ trật tự ấy: nhanh hơn, ồn hơn, và sắc hơn — đủ để những câu chuyện đáng sống chạm tới những người chưa từng nghe tên W4GZ.",
+    "Họ đảm bảo khả năng tạo tác động xã hội của W4GZ, đóng gói hoạt động và ấn phẩm theo cách bền vững, hợp xu hướng và có lợi nhuận; chuẩn hóa cách làm việc và monetization để các hoạt động ý nghĩa không trở thành gánh nặng tài nguyên cho các W, đồng thời thu hút nguồn lực phù hợp từ bên ngoài.",
   ],
   cta: "Tìm hiểu W4GZ Media →",
 };
@@ -111,7 +111,7 @@ export const ecosystem: Page = {
       module: "ecosystem",
       body: [
         "Hệ sinh thái không chỉ phong phú. Nó hướng tới trao quyền, tăng vốn xã hội, củng cố trải nghiệm sống ý nghĩa — và quan trọng nhất, chuẩn hóa các hoạt động để có thể lan ra toàn xã hội.",
-        "Một hoạt động hay nhưng không chuẩn hóa thì chết cùng người tổ chức. Chuẩn hóa biến nó thành thứ nhân rộng được.",
+        "Một hoạt động hay nhưng không chuẩn hóa sẽ mai một cùng người tổ chức. Chuẩn hóa tạo ra bền vững và khả năng mở rộng.",
       ],
     },
   ],
