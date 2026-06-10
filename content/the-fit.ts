@@ -71,9 +71,6 @@ export const values: {
   },
 ];
 
-export const note =
-  "Chữ chốt theo Copy v5; bản hiện nêu đúng sáu giá trị + tinh thần, chờ wording khóa từ tài liệu.";
-
 export const transition = {
   text: "Nếu đây là bạn — giờ hãy học cách viết nó.",
   href: "/courses",

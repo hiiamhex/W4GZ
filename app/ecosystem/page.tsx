@@ -5,7 +5,6 @@ import {
   richness,
   verticals,
   projectsLabel,
-  ecoCards,
   projects,
   collaborate,
   transition,
@@ -19,6 +18,7 @@ import ChapterTransition from "@/components/ui/ChapterTransition";
 import PageHero from "@/components/ui/PageHero";
 import SectorView from "@/components/ui/SectorView";
 import EcoGrid from "@/components/ecosystem/EcoGrid";
+import FeatureProjects from "@/components/ecosystem/FeatureProjects";
 import MediaGlitch from "@/components/ecosystem/MediaGlitch";
 import Reveal from "@/components/motion/Reveal";
 
@@ -56,16 +56,16 @@ export default function EcosystemPage() {
       {/* V.3 · chuẩn hóa để lan tỏa */}
       <SectorView sector={ecosystem.sectors[0]} />
 
-      {/* V.4 · Dự án chiến lược + những W (banner cards) */}
+      {/* V.4 · Hai dự án chiến lược — feature cards với hiệu ứng riêng (Patch 6 B) */}
       <Section topRule>
         <Container>
           <SectionLabel className="mb-10">{projectsLabel}</SectionLabel>
-          <EcoGrid items={ecoCards} />
+          <FeatureProjects />
           <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12">
             <p className="hr-l max-w-2xl pl-4 text-base leading-relaxed text-ink/80 lg:col-span-7">
               {projects.stat.value}
               <span className="mt-1 block font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted">
-                {projects.stat.source} · cần xác minh
+                {projects.stat.source}
               </span>
             </p>
             <p className="max-w-2xl text-lg leading-relaxed text-ink/80 lg:col-span-5">
