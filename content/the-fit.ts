@@ -13,12 +13,12 @@ export const description =
 
 export const hero = {
   label: "The Fit",
-  heading: "Bạn có phải là một W không?",
-  sub: "Sáu điều một người W mang trong mình. Nếu bạn thấy mình trong cả sáu, đây là nhà.",
+  heading: "Bạn có phải là một W (trong W4GZ) không?",
+  sub: "Sáu điều dưới đây không phải tiêu chí để loại trừ. Chúng là tấm gương.",
 };
 
 export const valuesLabel = "Sáu giá trị";
-export const tapHint = "Chạm vào từng thẻ — xem điều hiện ra có giống bạn không.";
+export const tapHint = "Chạm vào từng thẻ — và xem điều hiện ra có giống bạn không.";
 
 export const values: {
   index: string;
@@ -32,14 +32,14 @@ export const values: {
     name: "Narrative",
     nameVi: "Tự sự",
     glyph: "narrative",
-    line: "Bạn tin đời mình là một câu chuyện bạn được quyền viết — không phải một kịch bản người khác giao.",
+    line: "Bạn tin đời mình là một câu chuyện đang được viết, không phải một chuỗi toàn những điều ngẫu nhiên.",
   },
   {
     index: "02",
     name: "Writing",
     nameVi: "Viết",
     glyph: "writing",
-    line: "Bạn coi viết là một kỉ luật để rèn, không phải một năng khiếu để ngồi chờ.",
+    line: "Bạn muốn viết — không phải để gây ấn tượng, mà để nghĩ cho trọn vẹn và cảm nhận thấu suốt.",
   },
   {
     index: "03",
@@ -53,12 +53,12 @@ export const values: {
     name: "Honesty",
     nameVi: "Trung thực",
     glyph: "honesty",
-    line: "Bạn viết thật trước khi viết hay; lời nguy hiểm nhất là lời ta tự dối mình.",
+    line: "Bạn viết thành thật trước khi viết hay; lời nguy hiểm nhất là lời ta tự dối mình.",
   },
   {
     index: "05",
     name: "Craft",
-    nameVi: "Tay nghề",
+    nameVi: "Lành nghề",
     glyph: "craft",
     line: "Bạn công bố với tay nghề: cắt cho gọn, tìm đúng chữ, chịu trách nhiệm trước người đọc.",
   },
@@ -67,7 +67,7 @@ export const values: {
     name: "Community",
     nameVi: "Cộng đồng",
     glyph: "community",
-    line: "Bạn muốn giữ kỉ luật ấy giữa một bầy trung thực, không phải một mình.",
+    line: "Bạn muốn giữ kỉ luật viết giữa những người cũng như vậy.",
   },
 ];
 

@@ -4,9 +4,9 @@ import type { ModuleName } from "@/components/symbols/SymbolModule";
 /** Chapter I · Home (Master Spec PART 5 · Trang I). Bespoke layout reads these. */
 
 export const heroStats = [
-  { value: "10+", label: "Số khóa đã dạy" },
+  { value: "15+", label: "Số khóa đã dạy" },
   { value: "Gen Z", label: "Thế hệ trọng tâm" },
-  { value: "HCMC", label: "Không gian vật lý" },
+  { value: "HCMC", label: "Không gian văn hóa" },
   { value: "Est. 2022", label: "Năm khởi lập" },
 ];
 
@@ -19,34 +19,34 @@ export const tickerItems = [
 ];
 
 export const pillars: { name: string; line: string; module?: ModuleName }[] = [
-  { name: "Narrative", line: "bạn là câu chuyện bạn kể về mình.", module: "narrative" },
+  { name: "Narrative", line: "câu chuyện về bạn kể bạn là ai.", module: "narrative" },
   { name: "Writing", line: "kỉ luật để tự viết câu chuyện ấy.", module: "writing" },
   {
     name: "Community",
-    line: "điều kiện để giữ và lan kỉ luật đó.",
+    line: "điều kiện để duy trì và lan tỏa kỉ luật đó.",
     module: "community",
   },
 ];
-export const pillarsClosing = "Bỏ một trụ, hai trụ kia sụp. W4GZ dựng cả ba.";
+export const pillarsClosing = "W4GZ dựng cả ba trụ cột cho bạn.";
 
 export const doors = [
   {
     index: "01",
     title: "Vì sao Viết",
-    description: "Lập luận về narrative, viết, và chủ quyền trong thời đại AI.",
+    description: "Sức mạnh của câu chuyện, viết, và chủ quyền trong thời đại AI.",
     href: "/why-writing",
   },
   {
     index: "02",
     title: "Học viết",
     description:
-      "Introduction online và Advanced offline — cổng duy nhất vào cộng đồng.",
+      "W4GZ Introduction (online) và W4GZ Advanced (offline) — cổng duy nhất vào cộng đồng.",
     href: "/courses",
   },
   {
     index: "03",
     title: "Cộng đồng",
-    description: "Vì sao một mình là không đủ, và bước vào bằng cách nào.",
+    description: "Vì sao một mình là không đủ, và vì sao bạn cần ở trong W4GZ.",
     href: "/community",
   },
   {
@@ -72,10 +72,10 @@ export const home: Page = {
     {
       id: "I.1",
       kicker: "Creates narratives worth living",
-      heading: "Một đời là một văn bản.",
-      sub: "Câu hỏi duy nhất: ai cầm bút?",
+      heading: "Cuộc đời ta là câu chuyện của ta.",
+      sub: "Nhưng ai đang viết nó?",
       body: [
-        "Mỗi ngày, thuật toán viết hộ bạn hàng nghìn câu — điều cần xem, cần muốn, cần sợ. W4GZ trả cây bút về tay người viết, và cho họ một cộng đồng để viết tiếp.",
+        "Mỗi ngày, thuật toán viết hộ bạn hàng nghìn câu — cần xem gì, cần muốn gì, và cần sợ gì. W4GZ mang cây bút về tay người viết, và cho họ một cộng đồng để viết tiếp.",
       ],
       cta: [
         { label: "Bắt đầu với Introduction", href: "/courses", variant: "filled" },
