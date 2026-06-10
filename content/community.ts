@@ -6,7 +6,7 @@ import type { Entry } from "./types";
 export const hero = {
   label: "Community",
   heading: "Viết một mình là không đủ.",
-  sub: "Vì ngôn ngữ là sản phẩm chung, ký ức là tập thể, và năng lực viết chỉ sống được khi có người nuôi nó cùng bạn. Cộng đồng chính là lời đáp.",
+  sub: "Vì ngôn ngữ là sản phẩm chung, ký ức là tập thể, và năng lực viết chỉ sống được khi có người nuôi nó cùng bạn. Community is the answer.",
 };
 
 export const community: Page = {
@@ -25,25 +25,25 @@ export const community: Page = {
         original:
           "For the strength of the Pack is the Wolf, and the strength of the Wolf is the Pack.",
         translation:
-          "Sức mạnh của bầy nằm ở từng con sói, và của con sói nằm ở cả bầy.",
+          "Sức mạnh của bầy sói nằm ở từng con sói, và của con sói nằm ở cả bầy sói.",
         author: "Rudyard Kipling",
         lang: "en",
       },
       body: [
-        "Không có ngôn ngữ riêng tư. Một chữ chỉ có nghĩa vì có một cộng đồng cùng dùng nó (luận điểm của Wittgenstein). Ký ức và ý nghĩa được kiến tạo tập thể — ta nhớ và hiểu trong một “chúng ta”, không trong chân không. Viết, tận cùng, là một hành vi hướng tới người khác.",
+        "Không có ngôn ngữ riêng tư. Một chữ chỉ có nghĩa vì có một cộng đồng cùng dùng nó (luận điểm của Wittgenstein). Ký ức và ý nghĩa được kiến tạo tập thể — ta nhớ và hiểu bản thân trong một “chúng ta”, không thể hiểu mình giữa hư vô. Viết, ở tận cùng, là một hành vi hướng tới người khác.",
       ],
     },
     {
       id: "IV.3",
       kicker: "02",
-      heading: "Đứt gãy hiện đại: vì sao người ta bỏ viết và bỏ nghĩa",
+      heading: "Đứt gãy hiện đại: vì sao người ta bỏ viết và từ bỏ ý nghĩa",
       body: [
-        "Con người hiện đại khó viết không chỉ vì thiếu động lực cá nhân. Họ thiếu một cộng đồng nuôi dưỡng năng lực ấy một cách có ý nghĩa. Các vòng tròn quan hệ đang phân mảnh và đứt gãy đẩy việc viết — và việc tìm nghĩa — xuống tầng ẩn, rồi biến mất khỏi thực hành được củng cố hằng ngày.",
+        "Con người hiện đại khó viết không chỉ vì thiếu động lực cá nhân. Họ thiếu một cộng đồng nuôi dưỡng năng lực ấy một cách có ý nghĩa. Các vòng tròn quan hệ đang phân mảnh và đứt gãy đẩy việc viết — và việc tìm nghĩa — xuống chỗ bị đè nén, rồi biến mất khỏi thực hành được củng cố hằng ngày.",
       ],
       stat: [
         {
           value:
-            "Cô đơn kéo dài gây hại cho sức khỏe tương đương hút tới 15 điếu thuốc mỗi ngày; khoảng một nửa người trưởng thành (ở Mỹ) trải qua cô đơn.",
+            "Cô đơn kéo dài gây hại cho sức khỏe tương đương hút tới 15 điếu thuốc mỗi ngày; sự biến mất của cộng đồng cũng làm mất đi động lực viết. Khoảng một nửa người trưởng thành (ở Mỹ) trải qua cô đơn.",
           source: "US Surgeon General, 2023",
           verify: true,
         },
@@ -68,10 +68,10 @@ export const community: Page = {
     {
       id: "IV.4",
       kicker: "03",
-      heading: "Vòng tròn bạn bước vào, qua một cổng",
+      heading: "Vòng tròn chờ bạn bước vào, sau khóa học",
       body: [
-        "W4GZ là vòng tròn người viết bước vào để xây câu chuyện ý nghĩa của mình — cùng người khác, một cách bền vững. Bạn bước vào qua một cổng duy nhất: khóa học viết. Bên trong có chuẩn mực để noi theo, ma sát để mài, và một feedback loop để mỗi vòng viết tốt hơn vòng trước.",
-        "Một mình, bạn viết bằng ý chí. Trong một bầy, bạn viết bằng một hệ.",
+        "W4GZ là cộng đồng đón người viết bước vào để xây câu chuyện ý nghĩa của mình — cùng người khác, một cách bền vững. Bạn bước vào qua một cổng duy nhất: khóa học viết. Bên trong có chuẩn mực để noi theo, ma sát để mài, và một feedback loop để ai cũng viết tốt hơn và hơn nữa qua thời gian.",
+        "Một mình, bạn viết bằng ý chí. Trong cộng đồng, bạn viết bằng ý chí được phản hồi và nuôi dưỡng.",
       ],
       art: [
         {
@@ -90,7 +90,7 @@ export const community: Page = {
       heading: "Rồi bạn học cách gieo lại nó",
       module: "community",
       body: [
-        "Giá trị không dừng ở W4GZ. Khi đã sống trong một feedback loop lành mạnh, bạn biết cách tái tạo nó cho các vòng tròn quan hệ khác của mình — gia đình, đồng nghiệp, bạn bè. Vốn xã hội nhân lên: bạn mang chuẩn mực và sự nuôi dưỡng ra ngoài, thay vì giữ riêng.",
+        "Giá trị không bị nhốt lại ở W4GZ. Khi đã sống trong một feedback loop lành mạnh, bạn biết cách tái tạo nó cho các vòng tròn quan hệ khác của mình — gia đình, đồng nghiệp, bạn bè. Vốn xã hội nhân lên, bởi bạn mang chuẩn mực và sự nuôi dưỡng ra ngoài thay vì giữ riêng.",
       ],
     },
   ],
@@ -109,10 +109,10 @@ export const hub: {
   heading: "Một không gian văn hóa sẽ được nhân rộng",
   body: [
     "W4GZ Hub là không gian vật lý ở HCMC, thiết kế để tác động tới con người theo cách truyền thống — buộc người ta đối mặt, gặp gỡ, va chạm, và cư xử dựa trên đó. Bên trong là vô số hoạt động nâng cao tri thức, có chiều sâu, được thiết kế bài bản, trong một không gian chung đòi hỏi nuôi dưỡng liên tục.",
-    "Vui trên mạng nhưng bối rối khi đối mặt người khác — Hub tồn tại để chữa đúng vết nứt đó.",
+    "Chúng ta mạnh dạn trên mạng nhưng bối rối khi đối mặt người khác — Hub tồn tại để vá vết nứt đó.",
   ],
-  address: "[ Địa chỉ Hub — đang cập nhật ]",
-  hours: "[ Giờ mở cửa — đang cập nhật ]",
+  address: "[ Địa chỉ Hub — chỉ mở cho thành viên ]",
+  hours: "[ Giờ mở cửa — 24/24 ]",
   ctaLabel: "Tìm Hub",
   sketch: {
     id: "hub",
@@ -126,21 +126,21 @@ export const online: { label: string; channels: Entry[]; note: string } = {
   label: "Cộng đồng online",
   channels: [
     {
-      index: "Kênh các W",
-      title: "Discord",
-      description: "Không gian của các W, thực hành tiếp diễn giữa các buổi.",
+      index: "Khởi nguyên của W4GZ",
+      title: "Discord W4GZ",
+      description: "Nơi các W hiện diện, viết lách, tâm sự, phản biện, thực hành và không ngừng tạo giá trị",
       status: "[link]",
     },
     {
-      index: "Lưu trữ dài",
+      index: "Lưu trữ lâu dài",
       title: "Blog W4GZ",
-      description: "Lưu trữ dài, sản phẩm biên tập.",
+      description: "Biên tập và lưu lại các ấn phẩm từ W4GZ.",
       status: "[link]",
     },
     {
-      index: "Cập nhật",
+      index: "Truyền thông và tin tức",
       title: "Fanpage",
-      description: "Sự kiện, thông báo, lời mời mở.",
+      description: "Kiến thức, thông tin, và các thông báo quan trọng.",
       status: "[link]",
     },
   ],
@@ -148,6 +148,6 @@ export const online: { label: string; channels: Entry[]; note: string } = {
 };
 
 export const transition = {
-  text: "Hãy xem cộng đồng này tạo ra gì.",
+  text: "Hãy xem cộng đồng này tạo ra điều gì.",
   href: "/ecosystem",
 };
