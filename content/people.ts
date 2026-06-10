@@ -60,6 +60,11 @@ export const portraitsLabel = "Những chân dung";
 export const portraitsNote =
   "Cần dữ liệu thật đã ẩn danh: 6–9 bí danh + cột mốc/câu, kèm kí họa.";
 
+export const builders = {
+  label: "Những người dựng hệ",
+  body: "Phía sau các dự án và nhánh là những W dẫn dắt — gồm W4GZ Media, tiếng nói đưa W4GZ ra ngoài. Họ cũng ẩn danh theo cùng nguyên tắc.",
+};
+
 export const transition = {
   text: "Trang tiếp theo của cộng đồng này có thể mang tên bạn.",
   href: "/join",
