@@ -19,7 +19,7 @@ export const wHero = {
   headParts: ["Mỗi người là một ", "W", "."],
   leads: [
     "Mỗi người trong cộng đồng W4GZ đều có thể tự gọi mình là một W.",
-    "Họ tự chọn W của mình đại diện cho điều gì. Người dệt kí ức, người viết, người chứng thực, người dẫn đường... — một người biết viết luôn có thể mang theo nhiều vai trò",
+    "Họ tự chọn W của mình đại diện cho điều gì. Người dệt kí ức, người viết, người chứng thực, người dẫn đường... một người biết viết luôn có thể mang theo nhiều vai trò",
   ],
 };
 
@@ -28,13 +28,13 @@ export const wWords = [
   "Weaver", "Writer", "Watcher", "Welder", "Win", "Wright", "Whisperer", "Witness",
   "Walker", "Wonderer", "Wisdom-keeper", "Web-keeper", "What", "Wordsmith", "Wanderer",
   "Waveform", "Welcomer", "Window", "Wayfinder", "Who", "When", "Would", "Where", "Why",
-  "Within",
+  "Within", "Weird",
 ];
 
 export const anonymity = {
-  label: "Về sự ẩn danh",
-  heading: "Vì sao bạn thấy kí họa, không phải ảnh",
-  body: "Trong W4GZ, bảo vệ riêng tư là một luật. Sau khóa học, thành viên giữ ẩn danh. Vì thế trang này tôn vinh bằng chân dung vẽ và bằng bí danh — sự kín đáo ấy là một phần đạo đức của cộng đồng, không phải giới hạn kĩ thuật.",
+  label: "Những W được vinh danh bởi các W khác",
+  heading: "W-Award: Top 36 W được lựa chọn hàng năm bởi cộng đồng",
+  body: "Chúng tôi tin rằng những người cần được giúp đỡ phải kêu gọi sự giúp đỡ và những người cần được tuyên dương phải được người khác lên tiếng tuyên dương!",
 };
 
 export const portraits: PersonCardData[] = [
@@ -59,11 +59,6 @@ export const portraits: PersonCardData[] = [
 export const portraitsLabel = "Những chân dung";
 export const portraitsNote =
   "Cần dữ liệu thật đã ẩn danh: 6–9 bí danh + cột mốc/câu, kèm kí họa.";
-
-export const builders = {
-  label: "Những người dựng hệ",
-  body: "Phía sau các dự án và nhánh là những W dẫn dắt — gồm W4GZ Media, tiếng nói đưa W4GZ ra ngoài. Họ cũng ẩn danh theo cùng nguyên tắc.",
-};
 
 export const transition = {
   text: "Trang tiếp theo của cộng đồng này có thể mang tên bạn.",
