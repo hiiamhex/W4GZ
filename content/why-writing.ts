@@ -4,8 +4,8 @@ import type { Page } from "./model";
 
 export const hero = {
   label: "Why Writing",
-  heading: "Hành vi người cuối cùng mà máy không làm thay được.",
-  sub: "Một lập luận về narrative, viết, và chủ quyền giữa thời đại thông tin.",
+  heading: "Thời đại AI, ta phải viết để giữ lại câu chuyện cho mình",
+  sub: "Sức mạnh của câu chuyện, viết, và chủ quyền trong thời đại AI.",
 };
 
 export const whyWriting: Page = {
@@ -18,7 +18,7 @@ export const whyWriting: Page = {
     {
       id: "II.2",
       kicker: "01",
-      heading: "Tự sự là cách một cái tôi trở thành thật",
+      heading: "Tự sự là cách cái tôi hiện hữu",
       quote: {
         original: "We tell ourselves stories in order to live.",
         translation: "Ta tự kể chuyện để sống.",
@@ -26,7 +26,7 @@ export const whyWriting: Page = {
         lang: "en",
       },
       body: [
-        "Con người không sống thành chuỗi khoảnh khắc rời rạc. Ta hiểu được mình qua việc kể lại mình thành chuyện — Ricoeur gọi đó là căn tính tự sự, MacIntyre gọi con người là sinh vật kể chuyện về bản chất. Cách bạn kể về quá khứ quyết định bạn mang gì vào hiện tại; câu chuyện bạn tin về tương lai quyết định bạn dám làm gì hôm nay.",
+        "Con người không sống thành chuỗi khoảnh khắc rời rạc. Ta hiểu được mình qua việc kể lại mọi thứ thành chuyện — Ricoeur gọi đó là căn tính tự sự, MacIntyre bảo con người bản chất là sinh vật kể chuyện. Cách bạn kể về quá khứ quyết định bạn mang gì vào hiện tại; câu chuyện bạn tin về tương lai quyết định bạn dám làm gì hôm nay.",
         "Bạn là câu chuyện bạn kể về chính mình — với chính mình.",
       ],
       art: [
@@ -43,7 +43,7 @@ export const whyWriting: Page = {
       kicker: "02",
       heading: "Tự sự dựng nên cả thế giới chung",
       body: [
-        "Tự sự không dừng ở cá nhân. Xã hội loài người được giữ với nhau bằng những câu chuyện nhiều người cùng tin: luật pháp, tiền tệ, quốc gia, niềm tin chung đều là tự sự. Một nền văn minh là một tập hợp narrative đủ mạnh để hàng triệu người phối hợp. Ai nắm được narrative chung nắm được hướng đi của tập thể.",
+        "Tự sự không dừng ở cá nhân. Xã hội loài người được giữ với nhau bằng những câu chuyện nhiều người cùng tin và cùng kể: luật pháp, tiền tệ, quốc gia, văn hóa, lịch sử… Một nền văn minh là một tập hợp narrative đủ mạnh để hàng triệu người phối hợp. Ai nắm được narrative chung nắm được hướng đi của tập thể.",
         "Lịch sử loài người là cuộc cạnh tranh giữa các câu chuyện.",
       ],
       art: [
@@ -60,7 +60,7 @@ export const whyWriting: Page = {
     {
       id: "II.4",
       kicker: "03",
-      heading: "Viết là kỉ luật khiến tự sự có trách nhiệm",
+      heading: "Viết là kỉ luật cho tự sự có trách nhiệm",
       module: "writing",
       quote: {
         original: "Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt.",
@@ -69,7 +69,7 @@ export const whyWriting: Page = {
         lang: "de",
       },
       body: [
-        "Nói thì trôi qua; viết thì ở lại và bị soi. Viết buộc thứ hỗn mang trong đầu thành mạch lạc, tuần tự, chịu trách nhiệm trước một người đọc. Mở rộng vốn chữ là mở rộng thế giới có thể nghĩ tới — không có chữ cho một điều, ta khó cầm nắm điều đó.",
+        "Lời nói gió bay; chữ viết luôn ở lại và bị soi xét. Viết buộc thứ hỗn mang trong đầu thành mạch lạc, tuần tự, và có trách nhiệm trước người đọc. Mở rộng vốn chữ là mở rộng thế giới nhận thức — không có chữ cho một thứ, ta khó nắm được thứ đó.",
       ],
     },
     {
@@ -85,14 +85,14 @@ export const whyWriting: Page = {
     {
       id: "II.6",
       kicker: "05",
-      heading: "Khi chữ thành vô tận, nghĩa thành khan hiếm",
+      heading: "Khi chữ thành vô tận, ý nghĩa thành khan hiếm",
       body: [
-        "Máy giờ sinh văn bản ở quy mô không giới hạn. Hệ quả kép: cái tôi bị dìm trong những tự sự nó không viết ra, và việc sản xuất chữ một cách cơ học mất sạch giá trị. Walter Benjamin đã thấy trước: thông tin đòi kiểm chứng và tiêu thụ tức thì rồi vứt bỏ; truyện thì gìn giữ nghĩa và nhả ra chậm rãi. Một xã hội ngập thông tin có thể đồng thời nghèo truyện đến cùng cực.",
+        "AI đang tạo văn bản ở quy mô không giới hạn. Cái tôi bị dìm trong những tự sự nó không viết ra, và việc sản xuất chữ một cách cơ học mất sạch giá trị. Walter Benjamin đã dự báo, rằng thông tin cần được kiểm chứng và tiêu thụ tức thì rồi vứt bỏ; truyện thì gìn giữ ý nghĩa và tác động bền bỉ. Một xã hội ngập thông tin có thể đồng thời nghèo truyện đến cùng cực.",
       ],
       stat: [
         {
           value:
-            "Việt Nam: ~80 triệu người dùng internet, ~78.8% dân số, thuộc nhóm cao nhất thế giới.",
+            "Việt Nam có ~80 triệu người dùng internet, ~78.8% dân số, thuộc nhóm cao nhất thế giới. Họ đang tạo câu chuyện gì, và tiêu thụ thông tin gì?",
           source: "DataReportal/We Are Social, 2025",
           verify: true,
         },
@@ -110,10 +110,10 @@ export const whyWriting: Page = {
     {
       id: "II.7",
       kicker: "06",
-      heading: "Khủng hoảng tự sự: nhận thức narrative thành sống còn",
+      heading: "Thời đại khủng hoảng tự sự: nhận thức narrative thành kĩ năng sinh tồn",
       module: "writing",
       body: [
-        "Byung-Chul Han gọi đúng tên thời điểm này: một cuộc khủng hoảng tự sự. Thông tin trôi vô tận; năng lực kể một câu chuyện thật — thứ neo con người vào nghĩa — thì teo lại. Trong thời đại AI, nhận thức về narrative (ai đang kể, kể gì, vì mục đích gì) không còn là kĩ năng tùy chọn; nó là điều kiện để không bị dắt mũi.",
+        "Byung-Chul Han thời đại này là một cuộc khủng hoảng tự sự. Thông tin trôi vô tận; năng lực kể một câu chuyện thật — thứ neo con người vào nghĩa — thì teo lại. Trong thời đại AI, nhận thức về narrative (ai đang kể, kể gì, vì mục đích gì) không còn là kĩ năng tùy chọn; nó là điều kiện để không bị dắt mũi.",
       ],
     },
     {
@@ -122,29 +122,29 @@ export const whyWriting: Page = {
       heading: "Thời đại viết-là-giao-diện: viết nghiêm chỉnh là lối thoát",
       module: "writing",
       body: [
-        "Hôm nay con người giao tiếp với nhau và với máy móc chủ yếu bằng chữ viết — prompt, tin nhắn, tài liệu. Khả năng hiểu sâu và dùng chữ một cách nghiêm chỉnh là cách thoát khỏi cảm giác bất an trong những tự sự cũ vốn không còn vừa với thực tại mới. Ai viết rõ thì nghĩ rõ, và sống bớt hoang mang.",
+        "Con người đang giao tiếp với nhau và với máy móc chủ yếu bằng chữ viết — prompt, tin nhắn, tài liệu. Khả năng hiểu sâu và dùng chữ một cách nghiêm chỉnh là cách thoát khỏi cảm giác bất an trong những tự sự cũ vốn không còn vừa với thực tại mới. Ai viết rõ thì nghĩ rõ; ai nghĩ rõ thì sống bớt hoang mang.",
       ],
     },
     {
       id: "II.9",
       kicker: "08",
-      heading: "Tự sự chung là cách con người chạm tới nhau → cần một bầy",
+      heading: "Tự sự chung là cách con người chạm tới nhau",
       module: "community",
       quote: {
         original:
           "For the strength of the Pack is the Wolf, and the strength of the Wolf is the Pack.",
         translation:
-          "Sức mạnh của bầy nằm ở từng con sói, sức mạnh của con sói nằm ở cả bầy.",
+          "Sức mạnh của bầy sói nằm ở từng con sói, sức mạnh của con sói nằm ở cả bầy sói.",
         author: "Rudyard Kipling",
         lang: "en",
       },
       body: [
-        "Ngôn ngữ viết và những tự sự chung là phương tiện hiệu quả nhất để con người hiểu chính mình và hiểu nhau. Nhưng viết là một kỉ luật, và kỉ luật cần một cộng đồng để sống. Đó là chương tiếp theo.",
+        "Ngôn ngữ viết và những tự sự chung là phương tiện hiệu quả nhất để con người hiểu chính mình và hiểu nhau. Nhưng viết là một kỉ luật, và kỉ luật cần một cộng đồng để sống.",
       ],
       cta: [
         { label: "Học cách viết", href: "/courses", variant: "filled" },
         {
-          label: "Bạn có phải là một W?",
+          label: "Bạn có phù hợp?",
           href: "/the-fit",
           variant: "outline",
         },

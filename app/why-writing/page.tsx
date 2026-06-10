@@ -37,8 +37,8 @@ export default function WhyWritingPage() {
             </div>
             <Weave segments={8} className="mt-5 h-6 w-full max-w-md text-ink/15" />
             <p className="mt-5 font-display text-2xl italic leading-snug text-ink md:text-3xl">
-              The Power of Narrative — ba chương về vì sao tự sự dệt nên một cái
-              tôi, một nền văn minh, và là la bàn của thế hệ này{" "}
+              The Power of Narrative — ba chương về cách tự sự dệt nên một cái
+              tôi, một nền văn minh, và vì sao đó là la bàn của thế hệ này{" "}
               <span
                 aria-hidden
                 className="inline-block transition-transform duration-300 group-hover:translate-x-2"
