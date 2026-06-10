@@ -60,7 +60,7 @@ export const values: {
     name: "Craft",
     nameVi: "Lành nghề",
     glyph: "craft",
-    line: "Bạn công bố với tay nghề: cắt cho gọn, tìm đúng chữ, chịu trách nhiệm trước người đọc.",
+    line: "Bạn xuất bản sự lành nghề: cắt cho gọn, tìm đúng chữ, chịu trách nhiệm trước người đọc.",
   },
   {
     index: "06",
@@ -75,6 +75,6 @@ export const note =
   "Chữ chốt theo Copy v5; bản hiện nêu đúng sáu giá trị + tinh thần, chờ wording khóa từ tài liệu.";
 
 export const transition = {
-  text: "Nếu đây là bạn — giờ học cách viết nó.",
+  text: "Nếu đây là bạn — giờ hãy học cách viết nó.",
   href: "/courses",
 };
