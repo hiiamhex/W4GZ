@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecosystem — Dictionary4GenZ · Library4GenZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F1EB;--ink:#141414;--ink-soft:#2a2823;--soft:#5a574f;--faint:#8f8b80;
+  --hair:rgba(20,20,20,.18);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;
+  -webkit-font-smoothing:antialiased;background-image:radial-gradient(rgba(20,20,20,.018) 1px,transparent 1px);background-size:4px 4px}
+.wrap{max-width:70rem;margin:0 auto;padding:clamp(2rem,5vw,3.5rem) 1.5rem 5rem}
+.kick{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:.8rem;display:flex;align-items:center;gap:.7rem}
+.kick::before{content:"";width:1.7rem;height:1px;background:var(--ink)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3rem);line-height:1.04;margin-bottom:2.4rem}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+@media(max-width:780px){.cards{grid-template-columns:1fr}}
+.card{position:relative;min-height:430px;border:1px solid var(--hair);border-radius:14px;overflow:hidden;
+  display:flex;flex-direction:column;background:var(--paper)}
+.card-head{padding:1.5rem 1.6rem 0}
+.lbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.card-title{font-family:var(--serif);font-weight:600;font-size:2rem;line-height:1.02;margin:.25rem 0 .5rem}
+.card-desc{font-size:.95rem;color:var(--ink-soft);max-width:26rem}
+
+/* ── Dictionary4GenZ — page-flip ── */
+.dict-stage{flex:1;position:relative;margin:1.2rem 1.4rem 1.6rem;border:1px solid var(--hair);border-radius:8px;
+  background:var(--paper);perspective:1700px;overflow:hidden}
+.dict-stage::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--hair)} /* spine */
+.entry{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:1.5rem;transition:opacity .45s ease}
+.entry .word{font-family:var(--serif);font-style:italic;font-weight:600;font-size:2.6rem;line-height:1}
+.entry .ipa{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--faint);margin:.5rem 0 .7rem}
+.entry .gloss{font-size:.95rem;color:var(--ink-soft);max-width:18rem}
+.leaf{position:absolute;top:0;bottom:0;left:0;width:50%;background:linear-gradient(90deg,var(--paper),#ece8df);
+  transform-origin:right center;transform-style:preserve-3d;backface-visibility:hidden;
+  border-right:1px solid var(--hair);box-shadow:6px 0 14px -8px rgba(20,20,20,.25);
+  animation:pageturn 3.4s infinite ease-in-out}
+.leaf::before{content:"";position:absolute;inset:18% 14%;border-top:1px solid var(--hair);
+  background:repeating-linear-gradient(0deg,transparent 0 14px,var(--hair) 14px 15px);opacity:.5}
+@keyframes pageturn{
+  0%,58%{transform:rotateY(0deg);opacity:1}
+  82%{transform:rotateY(-168deg);opacity:1}
+  82.01%,100%{transform:rotateY(-168deg);opacity:0}
+}
+
+/* ── Library4GenZ — book-block shelf ── */
+.shelf-stage{flex:1;margin:1.2rem 1.4rem 1.6rem;border:1px solid var(--hair);border-radius:8px;background:var(--paper);
+  display:flex;align-items:flex-end;justify-content:center;padding:1.6rem 1.2rem 0;position:relative;overflow:hidden}
+.shelf{display:flex;align-items:flex-end;gap:7px;height:100%;padding-bottom:14px}
+.spine{width:34px;border-radius:3px 3px 1px 1px;position:relative;display:flex;align-items:flex-end;justify-content:center;
+  color:var(--paper);box-shadow:inset 0 0 0 1px rgba(244,241,235,.12);
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);transform-origin:bottom center}
+.spine span{writing-mode:vertical-rl;text-orientation:mixed;font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:0 0 12px;color:rgba(244,241,235,.85)}
+.spine::before{content:"";position:absolute;left:4px;right:4px;top:8px;height:1px;background:rgba(244,241,235,.25)} /* ridge */
+.spine::after{content:"";position:absolute;left:4px;right:4px;bottom:8px;height:1px;background:rgba(244,241,235,.25)}
+.s1{height:78%;background:#171717}.s2{height:92%;background:#34322c;width:28px}
+.s3{height:66%;background:#211f1b}.s4{height:88%;background:#3f3d36}
+.s5{height:74%;background:#1b1a17;width:40px}.s6{height:84%;background:#2b2924}
+.s7{height:70%;background:#3a382f;width:26px}.s8{height:90%;background:#201e1a}
+/* idle: loose / uneven; hover: snap into a tidy shelf */
+.s1{transform:translateY(-6px) rotate(-2deg)}.s3{transform:translateY(4px) rotate(1.5deg)}
+.s5{transform:translateY(-3px) rotate(1deg)}.s7{transform:translateY(5px) rotate(-1.5deg)}
+.shelf:hover .spine{transform:translateY(0) rotate(0)}
+.shelf:hover .s2{transition-delay:.04s}.shelf:hover .s3{transition-delay:.08s}
+.shelf:hover .s4{transition-delay:.12s}.shelf:hover .s5{transition-delay:.16s}
+.shelf:hover .s6{transition-delay:.2s}.shelf:hover .s7{transition-delay:.24s}.shelf:hover .s8{transition-delay:.28s}
+.shelf-base{position:absolute;left:1.1rem;right:1.1rem;bottom:0;height:4px;background:var(--ink);border-radius:2px}
+
+@media(prefers-reduced-motion:reduce){
+  .leaf{animation:none;transform:rotateY(0);opacity:1}
+  .spine,.shelf:hover .spine{transform:translateY(0) rotate(0);transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kick">Hệ sinh thái · Dự án chiến lược</div>
+  <h1>Hai dự án, hai hình hài.</h1>
+
+  <div class="cards">
+    <!-- Dictionary4GenZ -->
+    <div class="card">
+      <div class="card-head">
+        <div class="lbl">Dự án · -4GZ</div>
+        <div class="card-title">Dictionary4GenZ</div>
+        <div class="card-desc">Từ điển sống: ngôn ngữ của một thế hệ đang tự định nghĩa chính mình.</div>
+      </div>
+      <div class="dict-stage">
+        <div class="entry" id="entry">
+          <div class="word">narrative</div>
+          <div class="ipa">dt. · /tự sự/</div>
+          <div class="gloss">câu chuyện ta kể để hiểu chính mình.</div>
+        </div>
+        <div class="leaf" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Library4GenZ -->
+    <div class="card">
+      <div class="card-head">
+        <div class="lbl">Dự án · -4GZ</div>
+        <div class="card-title">Library4GenZ</div>
+        <div class="card-desc">Thư viện sống của W4GZ — nơi lưu giữ và truyền lại những gì đáng đọc.</div>
+      </div>
+      <div class="shelf-stage">
+        <div class="shelf" aria-hidden="true">
+          <div class="spine s1"><span>NARRATIVE</span></div>
+          <div class="spine s2"><span>VIẾT</span></div>
+          <div class="spine s3"><span>CỘNG ĐỒNG</span></div>
+          <div class="spine s4"><span>SỰ THẬT</span></div>
+          <div class="spine s5"><span>TAY NGHỀ</span></div>
+          <div class="spine s6"><span>Ý NGHĨA</span></div>
+          <div class="spine s7"><span>BẦY</span></div>
+          <div class="spine s8"><span>W4GZ</span></div>
+        </div>
+        <div class="shelf-base"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var entries = [
+    {w:'narrative', i:'dt. · /tự sự/', g:'câu chuyện ta kể để hiểu chính mình.'},
+    {w:'viết', i:'đg. · /viết/', g:'biến hỗn mang trong đầu thành mạch lạc.'},
+    {w:'cộng đồng', i:'dt. · /bầy/', g:'nơi ta giữ kỉ luật viết cho nhau.'},
+    {w:'W', i:'dt. · /w/', g:'một người của W4GZ.'}
+  ];
+  var el = document.getElementById('entry'), n = 0;
+  if(!reduce){
+    setInterval(function(){
+      el.style.opacity = 0;                  // fade out, swap at the page-turn midpoint
+      setTimeout(function(){
+        n = (n+1) % entries.length; var e = entries[n];
+        el.querySelector('.word').textContent  = e.w;
+        el.querySelector('.ipa').textContent   = e.i;
+        el.querySelector('.gloss').textContent = e.g;
+        el.style.opacity = 1;
+      }, 700);
+    }, 3400);                                  // synced to the .leaf flip duration
+  }
+})();
+</script>
+</body>
+</html>
