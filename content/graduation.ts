@@ -12,12 +12,12 @@ export const graduationForm: FormSpec = {
   intro: {
     kicker: "Bước cuối · Trở thành một W",
     heading: "Nộp bài tốt nghiệp của bạn.",
-    lead: "Bạn đã đi hết W4GZ Introduction. Đây là nơi bạn đặt xuống thứ mình đã viết. Chúng tôi sẽ đọc, và hồi âm theo đợt xét mỗi quý — thong thả, không vội.",
+    lead: "Bạn đã đi hết W4GZ Introduction. Đây là nơi bạn đặt xuống thứ mình đã viết. Chúng tôi sẽ đọc, và hồi âm theo đợt xét mỗi quý — hãy thong thả.",
   },
   steps: [
     {
-      heading: "Để chúng tôi tìm đúng bạn",
-      note: "Khớp với thông tin khi bạn tham gia khóa học.",
+      heading: "Để chúng tôi tìm được bạn",
+      note: "Cần khớp với thông tin bạn đã điền khi tham gia khóa học.",
       fields: [
         {
           id: "name",
@@ -47,7 +47,7 @@ export const graduationForm: FormSpec = {
     },
     {
       heading: "Bài tốt nghiệp",
-      note: "Đặt tựa nếu bạn muốn, rồi dán bài viết của bạn vào. Cứ để nó là chính nó.",
+      note: "Đặt tựa đề nếu bạn muốn, rồi dán bài viết của bạn vào. Cứ để nó là chính nó.",
       fields: [
         {
           id: "title",
@@ -74,7 +74,7 @@ export const graduationForm: FormSpec = {
       fields: [
         {
           id: "reflect_about",
-          label: "Bài này nói về điều gì với bạn?",
+          label: "Bài này nói về điều gì ở bạn?",
           type: "textarea",
           required: true,
           rows: 3,
@@ -91,7 +91,7 @@ export const graduationForm: FormSpec = {
         },
         {
           id: "next",
-          label: "Sau W4GZ, bạn muốn viết tiếp về điều gì?",
+          label: "Sau khi vào W4GZ, bạn muốn viết tiếp về điều gì?",
           type: "text",
           optional: true,
           placeholder: "Một chủ đề, một dự định…",
