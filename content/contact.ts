@@ -34,7 +34,7 @@ export const contact = {
   confirm: {
     mark: "W.",
     heading: "Cảm ơn bạn đã ngỏ lời.",
-    body: "Mỗi tin nhắn gửi tới W4GZ đều được đọc, bằng sự chú tâm. Chúng tôi sẽ hồi âm bạn sớm — bằng giọng của những người tin vào câu chuyện.",
+    body: "Mỗi tin nhắn gửi tới W4GZ đều được đọc, bằng sự chú tâm. Chúng tôi sẽ hồi âm cho bạn sớm, nếu chúng ta có cùng câu chuyện đáng sống.",
     home: "Về trang chủ",
     homeHref: "/",
   },
