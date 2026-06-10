@@ -6,7 +6,7 @@ import type { SpecRow, Cta } from "./types";
 export const hero = {
   label: "The Practice",
   heading: "Viết không đợi cảm hứng. Viết là một kỉ luật có thể học.",
-  sub: "Không ai bước vào W4GZ mà không đi qua khóa nền: một ngôn ngữ chung, một bộ nguyên tắc chung, một hiểu biết chung về thực hành sáng tạo có kỉ luật.",
+  sub: "Để bước vào W4GZ, tất cả phải đi qua khóa học viết nền tảng: một ngôn ngữ chung, một bộ nguyên tắc chung, một hiểu biết chung về thực hành sáng tạo có kỉ luật.",
 };
 
 export const pillars: {
@@ -36,27 +36,27 @@ export const pillars: {
   {
     index: "04",
     nameEn: "Referencing",
-    nameVi: "Sự dẫn chiếu",
-    line: "Độc đáo đến từ tổng hợp, không từ cô lập.",
+    nameVi: "Luôn tham chiếu",
+    line: "Độc đáo đến từ tiếp thu, không từ bịa đặt.",
   },
   {
     index: "05",
     nameEn: "Loop",
-    nameVi: "Vòng lặp",
-    line: "Làm một lần là thử nghiệm; lặp đều mới là thành tựu.",
+    nameVi: "Tái tạo",
+    line: "Làm một lần là thử nghiệm; lặp lại đều đặn mới là thành tựu.",
   },
   {
     index: "06",
     nameEn: "Specificity & the Right Term",
-    nameVi: "Cụ thể và chữ đúng",
-    line: "Tìm được đúng chữ là hoàn tất ý nghĩ.",
+    nameVi: "Cụ thể và chính xác",
+    line: "Ý nghĩ vượt trội đến từ tinh lọc.",
   },
 ];
 
 export const cohort = {
   label: "Vì sao W4GZ dạy theo cohort",
-  lead: "Một khóa quay sẵn dạy bạn thông tin. Một cohort dạy bạn thành người viết.",
-  body: "Viết tiến bộ nhờ ma sát: có người đọc bạn và nói thẳng trang viết thật sự đang nói gì; có một nhịp chung buộc bạn không bỏ cuộc; có những người cùng vật lộn để bạn soi mình vào. Đó là thứ video không cho được, và là lý do W4GZ dạy theo cohort và cộng đồng.",
+  lead: "Một khóa online dạy bạn kiến thức. Một cohort rèn bạn thành tác giả.",
+  body: "Tiến bộ trong viết lách đến từ ma sát: cần có người đọc và góp ý; cần một nhịp chung giữ bạn không bỏ cuộc; cần những người cùng vật lộn để bạn có chỗ phản tư. Đó là lý do W4GZ dạy theo cohort và cộng đồng.",
 };
 
 export const gate = {
@@ -70,7 +70,7 @@ export const gate = {
     },
     {
       label: "Lối B — W4GZ Advanced",
-      body: "Hoàn tất khóa Advanced.",
+      body: "Hoàn tất khóa Advanced. Ra mắt tác phẩm của bạn.",
     },
   ],
   closing:
@@ -94,7 +94,7 @@ export const tracks: {
     status: "Online · Self-paced",
     title: "W4GZ Introduction",
     positioning:
-      "Nền tảng. Hơn 10 khóa đã dạy, nay đóng gói thành chương trình online tự học hoàn toàn.",
+      "Khóa nền tảng. Hơn 15 khóa, cho hơn 500 học viên, nay đóng gói thành chương trình online tự học chủ động.",
     specHead: { label: "Thông số", value: "Introduction" },
     spec: [
       { label: "Hình thức", value: "100% online, tự học" },
@@ -104,21 +104,21 @@ export const tracks: {
       { label: "Tốt nghiệp", value: "Bài luận tốt nghiệp (bắt buộc)" },
       {
         label: "Vai trò",
-        value: "Lối A vào cộng đồng — duyệt theo kì onboarding",
+        value: "Lối A vào cộng đồng — duyệt theo kì onboarding mỗi quý",
       },
     ],
     cta: { label: "Đăng ký", href: "/dang-ky", variant: "filled" },
   },
   {
     tone: "dark",
-    status: "Offline · HCMC · Sắp mở",
+    status: "Offline · HCMC · Mở theo đợt",
     title: "W4GZ Advanced",
     positioning:
-      "Chuyên sâu, trực tiếp, số chỗ giới hạn — cho người viết sẵn sàng đi xa hơn trang giấy.",
+      "Chuyên sâu, trực tiếp, số chỗ giới hạn — cho người viết sẵn sàng xuất bản.",
     specHead: { label: "Thông số", value: "Advanced" },
     spec: [
       { label: "Hình thức", value: "Offline tại HCMC" },
-      { label: "Nhịp", value: "Hằng tuần, theo cohort" },
+      { label: "Nhịp", value: "Hàng tuần, theo cohort" },
       { label: "Đối tượng", value: "Đã có nền tảng" },
       { label: "Tuyển sinh", value: "Xét đơn" },
       { label: "Vai trò", value: "Lối B vào cộng đồng" },
