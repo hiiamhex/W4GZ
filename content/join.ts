@@ -5,15 +5,15 @@ import type { Page } from "./model";
 export const hero = {
   label: "The Covenant",
   heading: "Trang đầu tiên của bạn.",
-  sub: "Tham gia W4GZ là nhận một chuẩn mực vào trong mình — một lời tuyên với chính mình, có cộng đồng làm chứng.",
+  sub: "Chọn tham gia W4GZ là chọn theo đuổi các chuẩn mực — một lời tuyên với chính mình, có cộng đồng làm chứng.",
 };
 
 export const covenant = {
   label: "Lời tuyên",
   lines: [
-    "Tôi hiểu W4GZ là một chuẩn tôi gìn giữ, không phải một nhóm tôi gia nhập.",
-    "Tôi viết với sự trung thực và công bố với tay nghề. Tôi nhận phản hồi không phòng thủ, và đưa phản hồi cụ thể, hướng vào trang viết. Tôi chọn nhịp đều thay vì những đợt bùng cháy rồi tắt.",
-    "Tôi không xem mình là người thụ động trước thời đại. Tôi giành lại quyền kể câu chuyện của mình, và góp phần dựng những câu chuyện đáng sống cho cả những người quanh tôi.",
+    "Tôi hiểu W4GZ là một tiêu chuẩn tôi gìn giữ, không phải một nhóm tôi gia nhập.",
+    "Tôi viết với sự trung thực và hướng tới sự lành nghề Tôi nhận phản hồi mà không phòng thủ. Và khi tôi phản hồi, tôi luôn cụ thể, chú tâm, hướng vào trang viết. Tôi chọn sự đều đặn và tái lặp thay vì những đợt bùng cháy rồi tắt.",
+    "Tôi không xem mình là người thụ động trước thời đại. Tôi giành lại quyền kể câu chuyện của mình, và góp phần dựng những câu chuyện đáng sống cho những người quanh tôi.",
   ],
 };
 
