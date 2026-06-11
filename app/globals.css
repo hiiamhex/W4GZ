@@ -758,7 +758,7 @@
   padding: 1.5rem 1.6rem 0;
 }
 
-/* Dictionary4GenZ — tech stele: thin ink-stone slab, self-engraving text */
+/* Dictionary4GenZ — ancient book cover (Patch 9 A), levitating over paper */
 .eco-dict-stage {
   position: relative;
   flex: 1;
@@ -781,22 +781,29 @@
   justify-content: center;
   transform-style: preserve-3d;
 }
+/* Worn leather: corner vignettes + pale scuff patches + a soft center lift. */
 .eco-slab {
   position: relative;
-  width: min(62%, 250px);
-  height: 74%;
-  border-radius: 12px;
+  width: min(64%, 258px);
+  height: 78%;
+  border-radius: 6px 10px 10px 6px;
   overflow: hidden;
-  background: linear-gradient(158deg, #201f1c 0%, #121110 48%, #1a1916 100%);
+  background:
+    radial-gradient(60px 42px at 9% 5%, rgba(244, 241, 235, 0.07), transparent 70%),
+    radial-gradient(70px 52px at 95% 93%, rgba(244, 241, 235, 0.06), transparent 70%),
+    radial-gradient(130% 110% at 50% 44%, rgba(244, 241, 235, 0.05), transparent 55%),
+    radial-gradient(120% 140% at 0% 0%, rgba(0, 0, 0, 0.35), transparent 50%),
+    radial-gradient(120% 140% at 100% 100%, rgba(0, 0, 0, 0.42), transparent 55%),
+    linear-gradient(158deg, #23201a 0%, #15130f 50%, #1c1914 100%);
   box-shadow:
-    inset 1px 1px 0 rgba(244, 241, 235, 0.09),
-    inset -1px -2px 0 rgba(0, 0, 0, 0.65),
+    inset 1px 1px 0 rgba(244, 241, 235, 0.08),
+    inset -1px -2px 0 rgba(0, 0, 0, 0.7),
     0 0 46px rgba(20, 20, 20, 0.36),
     0 0 90px rgba(20, 20, 20, 0.15);
   transform: rotateY(-8deg) rotateX(2deg);
 }
 [data-motion="on"] .eco-slab {
-  animation: eco-levitate 6.5s ease-in-out infinite;
+  animation: eco-levitate 7.5s ease-in-out infinite;
 }
 @keyframes eco-levitate {
   0%,
@@ -807,19 +814,85 @@
     transform: rotateY(-8deg) rotateX(2deg) translateY(7px);
   }
 }
-.eco-slab-edge {
+/* Spine band: darker gradient with raised paper-toned ridges. */
+.eco-spine-band {
   position: absolute;
-  top: 6px;
-  bottom: 6px;
+  top: 0;
+  bottom: 0;
   left: 0;
-  width: 3px;
-  border-radius: 3px 0 0 3px;
+  width: 14px;
   background: linear-gradient(
-    180deg,
-    rgba(244, 241, 235, 0.18),
-    rgba(244, 241, 235, 0.04) 42%,
-    rgba(244, 241, 235, 0.13)
+    90deg,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.15) 68%,
+    rgba(244, 241, 235, 0.05) 100%
   );
+  border-right: 1px solid rgba(244, 241, 235, 0.07);
+}
+.eco-spine-band::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 3px;
+  top: 10%;
+  height: 80%;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0 26px,
+    rgba(244, 241, 235, 0.14) 26px 28px
+  );
+}
+/* Fore-edge: the page stack catching light. */
+.eco-fore-edge {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  right: 0;
+  width: 4px;
+  border-radius: 0 6px 6px 0;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(244, 241, 235, 0.15) 0 1px,
+    rgba(244, 241, 235, 0.03) 1px 3px
+  );
+}
+/* Blind/gilt tooling: double rule frame + diamond fleurons on the corners. */
+.eco-tool-frame {
+  position: absolute;
+  inset: 15px 13px 15px 23px;
+  border: 1px solid rgba(244, 241, 235, 0.22);
+  border-radius: 3px;
+  pointer-events: none;
+}
+.eco-tool-frame::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(244, 241, 235, 0.1);
+  border-radius: 2px;
+}
+.eco-fl {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 1px solid rgba(244, 241, 235, 0.3);
+  transform: rotate(45deg);
+}
+.eco-f1 {
+  top: -4px;
+  left: -4px;
+}
+.eco-f2 {
+  top: -4px;
+  right: -4px;
+}
+.eco-f3 {
+  bottom: -4px;
+  left: -4px;
+}
+.eco-f4 {
+  bottom: -4px;
+  right: -4px;
 }
 /* Sheen: an oversized gradient layer translated diagonally (not bg-position). */
 .eco-slab-sheen {
@@ -836,7 +909,7 @@
   );
 }
 [data-motion="on"] .eco-slab-sheen {
-  animation: eco-sheen 11s ease-in-out infinite;
+  animation: eco-sheen 13s ease-in-out infinite;
 }
 @keyframes eco-sheen {
   0%,
@@ -856,15 +929,15 @@
   height: 1px;
   opacity: 0;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(244, 241, 235, 0.55), transparent);
-  box-shadow: 0 0 7px rgba(244, 241, 235, 0.35);
+  background: linear-gradient(90deg, transparent, rgba(244, 241, 235, 0.5), transparent);
+  box-shadow: 0 0 7px rgba(244, 241, 235, 0.32);
   will-change: transform, opacity;
 }
 /* Elliptical ground shadow, counter-phase to the levitation. */
 .eco-slab-shadow {
   position: absolute;
   left: 50%;
-  bottom: 6.5%;
+  bottom: 5.5%;
   width: 44%;
   height: 15px;
   border-radius: 50%;
@@ -874,7 +947,7 @@
   opacity: 0.6;
 }
 [data-motion="on"] .eco-slab-shadow {
-  animation: eco-shfloat 6.5s ease-in-out infinite;
+  animation: eco-shfloat 7.5s ease-in-out infinite;
 }
 @keyframes eco-shfloat {
   0%,
@@ -889,14 +962,34 @@
 }
 .eco-etch {
   position: absolute;
-  inset: 0;
+  inset: 0 6px 0 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.85rem;
   padding: 1.1rem;
   text-align: center;
+}
+/* Title-page ruling: line — ◆ — line, above the headword and before the gloss. */
+.eco-rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.5;
+}
+.eco-rule::before,
+.eco-rule::after {
+  content: "";
+  width: 32px;
+  height: 1px;
+  background: rgba(244, 241, 235, 0.55);
+}
+.eco-rule i {
+  width: 5px;
+  height: 5px;
+  border: 1px solid rgba(244, 241, 235, 0.6);
+  transform: rotate(45deg);
 }
 /* Engraved headword: carved inset shadows are static; the breathing glow is a
    filter oscillation (Patch-3 safe, unlike animating text-shadow). */
@@ -905,20 +998,20 @@
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  font-size: clamp(1.55rem, 3.2vw, 2.1rem);
   line-height: 1.12;
-  color: rgba(244, 241, 235, 0.82);
+  color: rgba(244, 241, 235, 0.84);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  min-height: 2.6rem;
+  min-height: 2.5rem;
   text-shadow:
     0 -1px 0 rgba(0, 0, 0, 0.9),
     0 1px 0 rgba(244, 241, 235, 0.07),
     0 0 12px rgba(244, 241, 235, 0.14);
 }
 [data-motion="on"] .eco-eword {
-  animation: eco-breathe 4.2s ease-in-out infinite;
+  animation: eco-breathe 5s ease-in-out infinite;
 }
 @keyframes eco-breathe {
   0%,
@@ -937,9 +1030,9 @@
 /* Carving beam: parked at 10%; JS sweeps it with a translateX WAAPI animation. */
 .eco-ebeam {
   position: absolute;
-  top: 24%;
-  bottom: 38%;
-  left: 10%;
+  top: 26%;
+  bottom: 40%;
+  left: 12%;
   width: 1px;
   opacity: 0;
   pointer-events: none;
@@ -949,12 +1042,12 @@
 }
 .eco-egloss {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  color: rgba(244, 241, 235, 0.55);
-  max-width: 86%;
-  line-height: 1.7;
-  min-height: 2.6em;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: rgba(244, 241, 235, 0.58);
+  max-width: 88%;
+  line-height: 1.75;
+  min-height: 3.4em;
 }
 .eco-cursor {
   display: inline-block;
@@ -1376,6 +1469,7 @@
   padding: 0.55rem 1rem;
   background: rgba(244, 241, 235, 0.92);
   border-radius: 3px;
+  white-space: nowrap;
   animation: eco-stampfade 0.3s ease-out both;
 }
 @keyframes eco-stampfade {
@@ -1402,7 +1496,7 @@
 .eco-replay {
   position: absolute;
   left: 50%;
-  top: 60%;
+  top: 62%;
   transform: translateX(-50%);
   z-index: 60;
   cursor: pointer;

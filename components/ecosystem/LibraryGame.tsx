@@ -5,30 +5,141 @@ import { useMotion } from "@/components/motion/MotionProvider";
 import { library } from "@/content/ecosystem";
 
 /**
- * Library4GenZ stage (Patch 8 B) — the Patch-7 archive box (cut-corner double
- * frame, corner brackets, labels, barcode ticks, grid, ink washes) hosting a
- * shelf-stacking mini-game. Ported from prototypes/ecosystem-projects-v3.html.
+ * Library4GenZ stage (Patch 8 B, amended by Patch 9 C) — the archive box
+ * (cut-corner double frame, corner brackets, labels, barcode ticks, grid, ink
+ * washes) hosting a shelf-stacking mini-game. Ported from
+ * prototypes/ecosystem-projects-v4.html (supersedes v3).
+ *
+ * Levels are procedural + deterministic: a mulberry32 PRNG keyed by level index
+ * generates 120 puzzles (same index ⇒ same puzzle). Difficulty ramps — books per
+ * level min(4 + ⌊idx/2⌋, 8), the horizontal-book ratio rises with level, and
+ * size ranges tighten after ~level 30 (near-identical dims). Dimensions are
+ * de-duplicated per level and rows are width-packed against the real field
+ * width (shrink-widest, then drop-one). Layout sits centered-low: baselines at
+ * 50% / 86% of field height (62% single-row), per-shelf book-height caps, slot
+ * tops clamped ≥ 6px, and the initial scatter spawns only in the lower ~65% —
+ * nothing can poke above the frame (the Patch-9 bug fix).
  *
  * Drag a book (pointer events + setPointerCapture; lift + velocity tilt) onto
  * the slot with exactly its dimensions: matching empty slots pulse while
  * dragging; equal-dims + center distance ≤ 42px snaps with a slight overshoot
  * and a slot flash; a near wrong-size slot shakes; anywhere else the book rests
  * (new drift anchor). Unplaced books drift anti-gravity; placed books lock.
- * 3 levels (4 vertical → 6 mixed → 8 near-sizes); clearing stamps SECTOR …
- * CLEARED, burns the books to ash, and blooms the next set in; after L3:
- * ARCHIVE RESTORED + ↻ CHƠI LẠI.
+ * Clearing stamps SECTOR … CLEARED, burns the books to ash, and blooms the next
+ * set in; after level 120: ARCHIVE RESTORED + ↻ CHƠI LẠI.
  *
  * The rAF drift loop pauses off-screen / when hidden. Reduced-motion / toggle
  * off: dragging still works, but no drift, instant snaps, instant level swaps
  * (no burn/ash/bloom), stamp as a plain fade (CSS default).
  */
-const LEVELS = library.levels;
+const POOL = library.labelPool;
+const TOTAL = 120;
 const TONES = [
   "#141414", "#1b1a17", "#211f1b", "#26241f", "#2b2924", "#34322c",
   "#3a382f", "#171717", "#232119", "#2e2c26", "#1e1c18", "#383630",
 ];
 /* Deterministic tick heights — SSR-safe (no Math.random in render). */
 const BAR_H = [5, 9, 4, 10, 6, 8, 3, 7, 10, 5, 8, 4, 9, 6];
+
+/** mulberry32 — tiny seeded PRNG; deterministic level generation. */
+function mulberry(seed: number) {
+  return () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const pad3 = (n: number) => String(n).padStart(3, "0");
+
+type Spec = { w: number; h: number; row: 0 | 1; l: string };
+
+/** Deterministic level generator — same index ⇒ same puzzle. */
+function genLevel(idx: number, W: number, H: number): Spec[] {
+  const r = mulberry(Math.imul(idx + 1, 2654435761) ^ 0x4c1b);
+  const ri = (a: number, b: number) => Math.round(a + r() * (b - a));
+  const tight = Math.min(idx / 30, 1); // sizes converge → harder discrimination
+  const n = Math.min(4 + Math.floor(idx / 2), 8);
+  const twoRows = n > 5;
+  const nH = Math.min(Math.round(n * (0.12 + 0.33 * Math.min(idx / 18, 1))), twoRows ? 3 : 1);
+  // Per-shelf height caps — keeps every slot top inside the frame.
+  const maxH1 = Math.min(126, Math.floor(H * 0.5) - 12);
+  const maxH2 = Math.min(92, Math.floor(H * 0.34) - 10);
+  const maxHs = Math.min(130, Math.floor(H * 0.62) - 14);
+  const used: Record<string, 1> = {};
+  const specs: Spec[] = [];
+  const uniq = (w: number, h: number): [number, number] => {
+    let k = `${w}x${h}`;
+    let tries = 0;
+    while (used[k] && tries < 30) {
+      w += 2;
+      k = `${w}x${h}`;
+      tries += 1;
+    }
+    used[k] = 1;
+    return [w, h];
+  };
+  const vert = (hMin: number, hMax: number) => {
+    const w = 2 * ri(12, 20 - Math.round(4 * tight));
+    const h = 2 * ri(Math.ceil(hMin / 2), Math.floor(hMax / 2));
+    return uniq(w, h);
+  };
+  const horiz = () => {
+    const w = 2 * ri(35, 50 - Math.round(6 * tight));
+    const h = 2 * ri(12, 15);
+    return uniq(w, h);
+  };
+  const labels = POOL.slice();
+  for (let i = labels.length - 1; i > 0; i--) {
+    const j = Math.floor(r() * (i + 1));
+    [labels[i], labels[j]] = [labels[j], labels[i]];
+  }
+  if (!twoRows) {
+    for (let a = 0; a < n; a++) {
+      const d = a < nH ? horiz() : vert(78, maxHs);
+      specs.push({ w: d[0], h: d[1], row: 0, l: "" });
+    }
+  } else {
+    const n1 = Math.ceil(n / 2);
+    const n2 = n - n1;
+    let hUsed = 0;
+    for (let b = 0; b < n1; b++) {
+      const d1 = vert(96, maxH1);
+      specs.push({ w: d1[0], h: d1[1], row: 0, l: "" });
+    }
+    for (let c = 0; c < n2; c++) {
+      const d2 = hUsed < nH ? ((hUsed += 1), horiz()) : vert(56, maxH2);
+      specs.push({ w: d2[0], h: d2[1], row: 1, l: "" });
+    }
+  }
+  // Pack each row into the real field width: shrink the widest, then drop one.
+  ([0, 1] as const).forEach((row) => {
+    const list = specs.filter((s) => s.row === row);
+    if (!list.length) return;
+    const budget = W - 28 - 8 * (list.length - 1);
+    let guard = 0;
+    const sum = () => list.reduce((t, s) => t + s.w, 0);
+    while (sum() > budget && guard++ < 80) {
+      let widest = list[0];
+      list.forEach((s) => {
+        if (s.w > widest.w) widest = s;
+      });
+      const floor = widest.w > widest.h ? 58 : 22;
+      if (widest.w - 2 >= floor) {
+        widest.w -= 2;
+      } else {
+        const drop = list.pop();
+        const di = drop ? specs.indexOf(drop) : -1;
+        if (di > -1) specs.splice(di, 1);
+      }
+    }
+  });
+  specs.forEach((s, i) => {
+    s.l = labels[i % labels.length];
+  });
+  return specs;
+}
 
 type Slot = { el: HTMLDivElement; x: number; y: number; w: number; h: number; filled: boolean };
 type Book = {
@@ -91,8 +202,8 @@ export default function LibraryGame() {
       return { x: e.clientX - r.left, y: e.clientY - r.top };
     };
     const updateHud = () => {
-      hud.textContent = `MÀN 0${LV + 1} / 0${LEVELS.length} · ĐÃ XẾP ${placedCount}/${BOOKS.length}`;
-      sectorTag.textContent = `SECTOR ${LEVELS[LV].tag} · HUMANITIES`;
+      hud.textContent = `MÀN ${pad3(LV + 1)} / ${TOTAL} · ĐÃ XẾP ${placedCount}/${BOOKS.length}`;
+      sectorTag.textContent = `SECTOR ${pad3(LV + 1)} · HUMANITIES`;
     };
 
     const clearLevel = () => {
@@ -236,8 +347,8 @@ export default function LibraryGame() {
 
     const levelClear = () => {
       transitioning = true;
-      const last = LV === LEVELS.length - 1;
-      const st = showStamp(last ? "ARCHIVE RESTORED" : `SECTOR ${LEVELS[LV].tag} CLEARED`);
+      const last = LV === TOTAL - 1;
+      const st = showStamp(last ? "ARCHIVE RESTORED" : `SECTOR ${pad3(LV + 1)} CLEARED`);
       if (last) {
         later(() => {
           const rp = document.createElement("button");
@@ -272,34 +383,35 @@ export default function LibraryGame() {
     const buildLevel = (idx: number, withBloom: boolean) => {
       clearLevel();
       LV = idx;
-      const specs = LEVELS[idx].specs;
       const W = field.clientWidth;
       const H = field.clientHeight;
-      // Slots sit bottom-aligned on one or two thin shelf lines.
-      const twoRows = specs.length > 4;
-      const rows = twoRows
-        ? [specs.filter((_, i) => i % 2 === 0), specs.filter((_, i) => i % 2 === 1)]
-        : [specs];
-      const baseYs = twoRows ? [Math.round(H * 0.32), Math.round(H * 0.64)] : [Math.round(H * 0.42)];
-      rows.forEach((rowSpecs, r) => {
+      const specs = genLevel(idx, W, H);
+      // Centered-low baselines (the Patch-9 layout fix): 50% / 86% two-row,
+      // 62% single-row; slot tops additionally clamped ≥ 6px.
+      const twoRows = specs.some((s) => s.row === 1);
+      const baseYs = twoRows ? [Math.round(H * 0.5), Math.round(H * 0.86)] : [Math.round(H * 0.62)];
+      ([0, 1] as const).forEach((row) => {
+        const list = specs.filter((s) => s.row === row);
+        if (!list.length) return;
+        const baseY = baseYs[row];
         let sumW = 0;
-        rowSpecs.forEach((sp) => {
-          sumW += sp[0];
+        list.forEach((sp) => {
+          sumW += sp.w;
         });
-        const gap = Math.max(8, Math.min(18, (W - 24 - sumW) / Math.max(rowSpecs.length - 1, 1)));
-        let x = Math.max(12, (W - (sumW + gap * (rowSpecs.length - 1))) / 2);
+        const gap = Math.max(8, Math.min(20, (W - 24 - sumW) / Math.max(list.length - 1, 1)));
+        let x = Math.max(12, (W - (sumW + gap * (list.length - 1))) / 2);
         const startX = x;
-        const baseY = baseYs[r];
-        rowSpecs.forEach((sp) => {
+        list.forEach((sp) => {
+          const top = Math.max(6, baseY - sp.h);
           const sl = document.createElement("div");
           sl.className = "eco-slot";
-          sl.style.width = `${sp[0]}px`;
-          sl.style.height = `${sp[1]}px`;
+          sl.style.width = `${sp.w}px`;
+          sl.style.height = `${sp.h}px`;
           sl.style.left = `${Math.round(x)}px`;
-          sl.style.top = `${baseY - sp[1]}px`;
+          sl.style.top = `${top}px`;
           field.appendChild(sl);
-          SLOTS.push({ el: sl, x: Math.round(x), y: baseY - sp[1], w: sp[0], h: sp[1], filled: false });
-          x += sp[0] + gap;
+          SLOTS.push({ el: sl, x: Math.round(x), y: top, w: sp.w, h: sp.h, filled: false });
+          x += sp.w + gap;
         });
         const line = document.createElement("div");
         line.className = "eco-shelfline";
@@ -311,22 +423,24 @@ export default function LibraryGame() {
       specs.forEach((sp, i) => {
         const el = document.createElement("button");
         el.type = "button";
-        const horiz = sp[0] > sp[1];
+        const horiz = sp.w > sp.h;
         el.className = `eco-book ${horiz ? "h" : "v"}`;
-        el.setAttribute("aria-label", `Sách ${sp[2]} — kéo vào đúng ô`);
-        el.style.width = `${sp[0]}px`;
-        el.style.height = `${sp[1]}px`;
+        el.setAttribute("aria-label", `Sách ${sp.l} — kéo vào đúng ô`);
+        el.style.width = `${sp.w}px`;
+        el.style.height = `${sp.h}px`;
         el.style.background = `linear-gradient(180deg, rgba(244,241,235,.06), rgba(0,0,0,.12)), ${TONES[i % TONES.length]}`;
         const s = document.createElement("span");
-        s.textContent = sp[2];
+        s.textContent = sp.l;
         el.appendChild(s);
         field.appendChild(el);
+        // Scatter only in the lower ~65% of the field — never above the frame.
+        const ylo = Math.min(Math.max(6, H * 0.34), Math.max(7, H - sp.h - 6));
         const b: Book = {
           el,
-          w: sp[0],
-          h: sp[1],
-          x: rand(6, Math.max(7, W - sp[0] - 6)),
-          y: rand(6, Math.max(7, H - sp[1] - 6)),
+          w: sp.w,
+          h: sp.h,
+          x: rand(6, Math.max(7, W - sp.w - 6)),
+          y: rand(ylo, Math.max(ylo + 1, H - sp.h - 6)),
           rx: 0,
           ry: 0,
           rot: RM ? 0 : rand(-14, 14),
@@ -408,10 +522,10 @@ export default function LibraryGame() {
       <div className="eco-corner eco-c4" aria-hidden />
       <div className="eco-lib-tag eco-lt1">LIB.4GZ — ARCHIVE</div>
       <div ref={sectorRef} className="eco-lib-tag eco-lt2">
-        SECTOR 01 · HUMANITIES
+        SECTOR 001 · HUMANITIES
       </div>
       <div ref={hudRef} className="eco-hud">
-        MÀN 01 / 03 · ĐÃ XẾP 0/4
+        MÀN 001 / 120 · ĐÃ XẾP 0/4
       </div>
       <div className="eco-lib-hint">kéo sách vào đúng ô</div>
       <div className="eco-bars" aria-hidden>

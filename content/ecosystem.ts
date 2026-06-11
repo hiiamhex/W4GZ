@@ -53,51 +53,17 @@ export const dictionary = {
   ],
 };
 
-/** Shelf-game levels: specs are [w, h, label] in px — a slot of exactly w×h is
- *  laid per book. L1 vertical only; L2 mixed; L3 near-identical sizes. */
-export const library: {
-  kind: string;
-  name: string;
-  desc: string;
-  levels: { tag: string; specs: [number, number, string][] }[];
-} = {
+/** Shelf game (Patch 9 C): levels are procedurally generated (seeded, 120 in
+ *  total); book spines draw their labels from this 18-discipline pool. */
+export const library = {
   kind: "Dự án · -4GZ",
   name: "Library4GenZ",
   desc: "Thư viện sống của W4GZ — nơi lưu giữ và truyền lại những gì đáng đọc.",
-  levels: [
-    {
-      tag: "01",
-      specs: [
-        [30, 120, "PSYCHOLOGY"],
-        [38, 102, "PHILOSOPHY"],
-        [26, 136, "CULTURE"],
-        [34, 86, "LOGIC"],
-      ],
-    },
-    {
-      tag: "02",
-      specs: [
-        [28, 118, "SEMIOTICS"],
-        [36, 96, "RHETORIC"],
-        [24, 132, "POETICS"],
-        [96, 26, "COMMUNICATION"],
-        [80, 30, "HISTORY"],
-        [32, 108, "SOCIOLOGY"],
-      ],
-    },
-    {
-      tag: "03",
-      specs: [
-        [28, 116, "MYTHOLOGY"],
-        [30, 110, "LINGUISTICS"],
-        [26, 122, "PHILOSOPHY"],
-        [88, 26, "PSYCHOLOGY"],
-        [96, 24, "CULTURE"],
-        [78, 28, "RHETORIC"],
-        [34, 92, "LOGIC"],
-        [72, 30, "SEMIOTICS"],
-      ],
-    },
+  labelPool: [
+    "PSYCHOLOGY", "PHILOSOPHY", "COMMUNICATION", "CULTURE", "SOCIOLOGY",
+    "SEMIOTICS", "RHETORIC", "MYTHOLOGY", "HISTORY", "LOGIC", "POETICS",
+    "LINGUISTICS", "ETHICS", "AESTHETICS", "MEMORY", "FOLKLORE", "LITERATURE",
+    "GRAMMAR",
   ],
 };
 

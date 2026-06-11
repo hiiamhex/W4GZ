@@ -5,22 +5,29 @@ import { useMotion } from "@/components/motion/MotionProvider";
 import { dictionary } from "@/content/ecosystem";
 
 /**
- * Dictionary4GenZ stage (Patch 8 A) — a thin ink-stone "tech stele" levitating
- * over the paper, engraving its own entries. Ported from
- * prototypes/ecosystem-projects-v3.html.
+ * Dictionary4GenZ stage (Patch 8 A, reskinned + retimed by Patch 9) — an ancient
+ * book cover levitating over the paper, engraving its own entries. Ported from
+ * prototypes/ecosystem-projects-v4.html (supersedes v3).
  *
- * Cycle (auto ~5.2s; hover/click trigger immediately; never mid-cycle):
+ * Cycle (auto ~9.5s; hover/click trigger immediately; never mid-cycle):
  *   dissolve (per-char scatter + dust motes) → engrave (carving beam sweeps,
- *   chars settle with a glow spark + falling stone chips) → gloss types out with
- *   a blinking cursor → one ~90ms spectral ghost-jitter.
+ *   chars settle with a glow spark + falling chips) → gloss types out with a
+ *   blinking cursor → one ~95ms spectral ghost-jitter. A reading lock keeps the
+ *   cycle busy until engrave + glossLength×34ms + 1800ms, so rapid hovers can't
+ *   cut a just-typed definition short (it sits readable ~4–5s).
  *
- * Slab levitation / counter-phase shadow / sheen / breathe live in globals.css
+ * Cover levitation / counter-phase shadow / sheen / breathe + the leather skin
+ * (spine bands, fore-edge, tooled frame, fleurons, rulings) live in globals.css
  * under [data-motion="on"]; the beam + scanline sweeps here use transform-only
  * WAAPI (Patch-3 rule). Timers pause off-screen (IntersectionObserver) and when
- * document.hidden. Reduced-motion / toggle-off: static slab, first entry crisp,
+ * document.hidden. Reduced-motion / toggle-off: static cover, first entry crisp,
  * no cycle (the SSR markup below is exactly that state).
  */
 const ENTRIES = dictionary.entries;
+const AUTO = 9500;
+const DIS_STAG = 55;
+const ENG_PER = 130;
+const GLOSS_PER = 34;
 
 export default function DictStele() {
   const { enabled } = useMotion();
@@ -105,15 +112,15 @@ export default function DictStele() {
         txt.nodeValue = text.slice(0, i);
         if (i >= text.length) {
           window.clearInterval(glossTimer);
-          later(() => cur.remove(), 900);
+          later(() => cur.remove(), 1400);
         }
-      }, 24);
+      }, GLOSS_PER);
     };
 
-    /* The word leaves the stone: chars scatter individually, shedding motes. */
+    /* The word leaves the cover: chars scatter individually, shedding motes. */
     const dissolve = (cb: () => void) => {
       if (egloss.firstChild)
-        egloss.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" });
+        egloss.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, fill: "forwards" });
       const chars = Array.from(eword.children) as HTMLElement[];
       chars.forEach((c, i) => {
         const p = stagePos(c);
@@ -121,18 +128,18 @@ export default function DictStele() {
           [
             { transform: "translate(0,0) rotate(0deg)", opacity: 1, filter: "blur(0px)" },
             {
-              transform: `translate(${rand(-26, 26)}px,${rand(-44, -14)}px) rotate(${rand(-24, 24)}deg)`,
+              transform: `translate(${rand(-26, 26)}px,${rand(-46, -16)}px) rotate(${rand(-24, 24)}deg)`,
               opacity: 0,
               filter: "blur(5px)",
             },
           ],
-          { duration: rand(520, 820), delay: i * 38, easing: "cubic-bezier(.3,.6,.3,1)", fill: "forwards" },
+          { duration: rand(700, 1100), delay: i * DIS_STAG, easing: "cubic-bezier(.3,.6,.3,1)", fill: "forwards" },
         );
-        spawnDot("eco-mote", p.x, p.y, rand(-10, 10), -rand(20, 46), rand(1.5, 2.6), rand(600, 1000));
+        spawnDot("eco-mote", p.x, p.y, rand(-10, 10), -rand(22, 48), rand(1.5, 2.6), rand(800, 1300));
         if (Math.random() < 0.4)
-          spawnDot("eco-mote", p.x, p.y, rand(-12, 12), -rand(24, 50), rand(1.5, 2.4), rand(650, 950));
+          spawnDot("eco-mote", p.x, p.y, rand(-12, 12), -rand(24, 50), rand(1.5, 2.4), rand(850, 1250));
       });
-      later(cb, chars.length * 38 + 860);
+      later(cb, chars.length * DIS_STAG + 1150);
     };
 
     /* Carving beam sweeps (transform-only); chars settle with spark + chips. */
@@ -142,14 +149,13 @@ export default function DictStele() {
       chars.forEach((c) => {
         c.style.opacity = "0";
       });
-      const per = 95;
-      const total = chars.length * per + 500;
-      const span = (ebeam.parentElement?.clientWidth ?? 200) * 0.78;
+      const total = chars.length * ENG_PER + 650;
+      const span = (ebeam.parentElement?.clientWidth ?? 200) * 0.76;
       ebeam.animate(
         [
           { transform: "translateX(0)", opacity: 0 },
-          { transform: `translateX(${span * 0.025}px)`, opacity: 1, offset: 0.06 },
-          { transform: `translateX(${span * 0.975}px)`, opacity: 1, offset: 0.94 },
+          { transform: `translateX(${span * 0.026}px)`, opacity: 1, offset: 0.06 },
+          { transform: `translateX(${span * 0.974}px)`, opacity: 1, offset: 0.94 },
           { transform: `translateX(${span}px)`, opacity: 0 },
         ],
         { duration: total, easing: "linear" },
@@ -161,17 +167,17 @@ export default function DictStele() {
               { opacity: 0, filter: "blur(3px)", transform: "translateY(-2px)" },
               { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
             ],
-            { duration: 420, easing: "ease-out", fill: "forwards" },
+            { duration: 520, easing: "ease-out", fill: "forwards" },
           );
           const p = stagePos(c);
-          spawnDot("eco-spark", p.x, p.y, 0, 0, rand(8, 13), 360);
-          spawnDot("eco-chip", p.x + rand(-4, 4), p.y + 8, rand(-7, 7), rand(16, 30), 2, rand(420, 640));
+          spawnDot("eco-spark", p.x, p.y, 0, 0, rand(8, 13), 420);
+          spawnDot("eco-chip", p.x + rand(-4, 4), p.y + 8, rand(-7, 7), rand(16, 30), 2, rand(480, 720));
           if (Math.random() < 0.5)
-            spawnDot("eco-chip", p.x + rand(-5, 5), p.y + 6, rand(-9, 9), rand(14, 26), 2, rand(380, 560));
-        }, 180 + i * per);
+            spawnDot("eco-chip", p.x + rand(-5, 5), p.y + 6, rand(-9, 9), rand(14, 26), 2, rand(420, 620));
+        }, 200 + i * ENG_PER);
       });
-      later(() => typeGloss(entry.gloss), total - 120);
-      // One spectral ghost-jitter per cycle — a ~90ms double-exposure flicker.
+      later(() => typeGloss(entry.gloss), total + 150);
+      // One spectral ghost-jitter per cycle — a ~95ms double-exposure flicker.
       later(() => {
         eword.animate(
           [
@@ -182,7 +188,8 @@ export default function DictStele() {
           ],
           { duration: 95, easing: "steps(3,end)" },
         );
-      }, total + 700);
+      }, total + 1700);
+      return total;
     };
 
     const cycle = () => {
@@ -190,10 +197,12 @@ export default function DictStele() {
       busy = true;
       dissolve(() => {
         idx = (idx + 1) % ENTRIES.length;
-        engrave(ENTRIES[idx]);
+        const entry = ENTRIES[idx];
+        const eTotal = engrave(entry);
+        // Reading lock: engrave + typing + grace, so the definition stays readable.
         later(() => {
           busy = false;
-        }, ENTRIES[idx].word.length * 95 + 1500);
+        }, eTotal + entry.gloss.length * GLOSS_PER + 1800);
       });
     };
 
@@ -201,7 +210,7 @@ export default function DictStele() {
       later(() => {
         if (visible && !document.hidden) cycle();
         scheduleCycle();
-      }, 5200);
+      }, AUTO);
     };
 
     const sweepScan = () => {
@@ -210,14 +219,14 @@ export default function DictStele() {
         scan.animate(
           [
             { transform: "translateY(-6px)", opacity: 0 },
-            { opacity: 0.9, offset: 0.12 },
-            { opacity: 0.9, offset: 0.85 },
+            { opacity: 0.85, offset: 0.12 },
+            { opacity: 0.85, offset: 0.85 },
             { transform: `translateY(${h + 6}px)`, opacity: 0 },
           ],
-          { duration: 1600, easing: "linear" },
+          { duration: 1900, easing: "linear" },
         );
       }
-      later(sweepScan, 7000 + rand(0, 2200));
+      later(sweepScan, 9000 + rand(0, 3000));
     };
 
     const ambientMote = () => {
@@ -231,10 +240,10 @@ export default function DictStele() {
           rand(-8, 8),
           -rand(40, 90),
           rand(1.5, 3),
-          rand(1800, 3000),
+          rand(2000, 3400),
         );
       }
-      later(ambientMote, 700);
+      later(ambientMote, 800);
     };
 
     const onTrigger = () => cycle();
@@ -271,21 +280,34 @@ export default function DictStele() {
       ref={stageRef}
       className="eco-dict-stage"
       role="img"
-      aria-label="Phiến đá công nghệ — chữ tan biến rồi được khắc lại"
+      aria-label="Bìa sách cổ — chữ tan biến rồi được khắc lại"
     >
       <div className="eco-slab-shadow" aria-hidden />
       <div className="eco-slab-tilt" aria-hidden>
         <div className="eco-slab">
-          <div className="eco-slab-edge" />
+          <div className="eco-spine-band" />
+          <div className="eco-fore-edge" />
+          <div className="eco-tool-frame">
+            <i className="eco-fl eco-f1" />
+            <i className="eco-fl eco-f2" />
+            <i className="eco-fl eco-f3" />
+            <i className="eco-fl eco-f4" />
+          </div>
           <div className="eco-slab-sheen" />
           <div ref={scanRef} className="eco-scan" />
           <div className="eco-etch">
+            <div className="eco-rule">
+              <i />
+            </div>
             <div ref={wordRef} className="eco-eword">
               {ENTRIES[0].word.split("").map((ch, i) => (
                 <span key={i} className="eco-ch">
                   {ch}
                 </span>
               ))}
+            </div>
+            <div className="eco-rule">
+              <i />
             </div>
             <div ref={beamRef} className="eco-ebeam" />
             <div ref={glossRef} className="eco-egloss">
