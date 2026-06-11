@@ -35,35 +35,69 @@ export const verticals: EcoCardItem[] = [
 export const projectsLabel = "Những dự án chiến lược";
 
 /**
- * Two strategic project cards, each with a themed monochrome effect (Patch 6 B):
- * Dictionary4GenZ (a turning dictionary page) and Library4GenZ (a book-block shelf).
- * The dictionary entries and shelf labels are placeholder copy — founder edits later.
+ * Two strategic project cards, each with a themed monochrome stage (Patch 8):
+ * Dictionary4GenZ (a levitating tech stele that engraves its own entries) and
+ * Library4GenZ (a 3-level shelf-stacking mini-game). Entries and book labels are
+ * placeholder copy — founder edits later. Card copy (kind/name/desc) unchanged.
  */
 export const dictionary = {
   kind: "Dự án · -4GZ",
   name: "Dictionary4GenZ",
   desc: "Từ điển sống: ngôn ngữ của một thế hệ đang tự định nghĩa chính mình.",
   entries: [
-    { word: "narrative", ipa: "dt. · /tự sự/", gloss: "câu chuyện ta kể để hiểu chính mình." },
-    { word: "viết", ipa: "đg. · /viết/", gloss: "biến hỗn mang trong đầu thành mạch lạc." },
-    { word: "cộng đồng", ipa: "dt. · /bầy/", gloss: "nơi ta giữ kỉ luật viết cho nhau." },
-    { word: "W", ipa: "dt. · /w/", gloss: "một người của W4GZ." },
+    { word: "vibe", gloss: "dt. — thứ không khí một người mang theo, trước cả khi họ kịp nói." },
+    { word: "chữa lành", gloss: "đg. — về lại với chính mình, sau những ồn ào không tên." },
+    { word: "flex", gloss: "đg. — khoe; nhưng khoe khéo là kể một câu chuyện." },
+    { word: "lowkey", gloss: "tt. — lặng lẽ mà thật; không cần ai vỗ tay." },
+    { word: "narrative", gloss: "dt. — câu chuyện ta kể để hiểu chính mình." },
   ],
 };
 
-export const library = {
+/** Shelf-game levels: specs are [w, h, label] in px — a slot of exactly w×h is
+ *  laid per book. L1 vertical only; L2 mixed; L3 near-identical sizes. */
+export const library: {
+  kind: string;
+  name: string;
+  desc: string;
+  levels: { tag: string; specs: [number, number, string][] }[];
+} = {
   kind: "Dự án · -4GZ",
   name: "Library4GenZ",
   desc: "Thư viện sống của W4GZ — nơi lưu giữ và truyền lại những gì đáng đọc.",
-  spines: [
-    { h: 78, w: 34, bg: "#171717", label: "NARRATIVE" },
-    { h: 92, w: 28, bg: "#34322c", label: "VIẾT" },
-    { h: 66, w: 34, bg: "#211f1b", label: "CỘNG ĐỒNG" },
-    { h: 88, w: 34, bg: "#3f3d36", label: "SỰ THẬT" },
-    { h: 74, w: 40, bg: "#1b1a17", label: "TAY NGHỀ" },
-    { h: 84, w: 34, bg: "#2b2924", label: "Ý NGHĨA" },
-    { h: 70, w: 26, bg: "#3a382f", label: "BẦY" },
-    { h: 90, w: 34, bg: "#201e1a", label: "W4GZ" },
+  levels: [
+    {
+      tag: "01",
+      specs: [
+        [30, 120, "PSYCHOLOGY"],
+        [38, 102, "PHILOSOPHY"],
+        [26, 136, "CULTURE"],
+        [34, 86, "LOGIC"],
+      ],
+    },
+    {
+      tag: "02",
+      specs: [
+        [28, 118, "SEMIOTICS"],
+        [36, 96, "RHETORIC"],
+        [24, 132, "POETICS"],
+        [96, 26, "COMMUNICATION"],
+        [80, 30, "HISTORY"],
+        [32, 108, "SOCIOLOGY"],
+      ],
+    },
+    {
+      tag: "03",
+      specs: [
+        [28, 116, "MYTHOLOGY"],
+        [30, 110, "LINGUISTICS"],
+        [26, 122, "PHILOSOPHY"],
+        [88, 26, "PSYCHOLOGY"],
+        [96, 24, "CULTURE"],
+        [78, 28, "RHETORIC"],
+        [34, 92, "LOGIC"],
+        [72, 30, "SEMIOTICS"],
+      ],
+    },
   ],
 };
 

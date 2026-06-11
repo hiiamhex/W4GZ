@@ -737,12 +737,13 @@
   }
 }
 
-/* ── Ecosystem feature cards: Dictionary4GenZ (page-flip) + Library4GenZ (shelf) (Patch 6 B) ──
-   Two enlarged strategic-project cards, each with a themed monochrome effect. The
-   dictionary leaf turns about the spine (the entry beneath cycles in JS); the library
-   spines sit loose and snap into a tidy shelf on hover. All motion is gated to
-   `[data-motion="on"]` and disabled under reduced-motion / the toggle: a single static
-   page + an already-assembled shelf. */
+/* ── Ecosystem feature cards (Patch 8): Dictionary4GenZ (tech stele) +
+   Library4GenZ (shelf-stacking game). Card chrome (.eco-feat*) is unchanged from
+   Patch 6; only the two stages were replaced. Continuous animations are declared
+   under [data-motion="on"] only, so reduced-motion / the toggle yields a static
+   slab and a flourish-free (but still playable) game. Per the Patch-3 rule only
+   transform / opacity / filter / clip-path animate — the prototype's left/top/
+   background-position/box-shadow animations were converted accordingly. */
 .eco-feat {
   position: relative;
   display: flex;
@@ -757,193 +758,689 @@
   padding: 1.5rem 1.6rem 0;
 }
 
-/* Dictionary4GenZ — 3D page-flip */
+/* Dictionary4GenZ — tech stele: thin ink-stone slab, self-engraving text */
 .eco-dict-stage {
   position: relative;
   flex: 1;
-  margin: 1.2rem 1.4rem 1.6rem;
+  margin: 1.1rem 1.3rem 1.4rem;
+  min-height: 340px;
   border: 1px solid var(--color-hairline);
-  border-radius: 8px;
-  background: var(--color-paper);
-  perspective: 1700px;
+  border-radius: 10px;
   overflow: hidden;
+  cursor: pointer;
+  perspective: 1200px;
+  background:
+    radial-gradient(120% 90% at 82% 8%, rgba(20, 20, 20, 0.06), transparent 55%),
+    var(--color-paper);
 }
-.eco-dict-stage::after {
-  content: "";
+.eco-slab-tilt {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background: var(--color-hairline);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
 }
-.eco-entry {
+.eco-slab {
+  position: relative;
+  width: min(62%, 250px);
+  height: 74%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(158deg, #201f1c 0%, #121110 48%, #1a1916 100%);
+  box-shadow:
+    inset 1px 1px 0 rgba(244, 241, 235, 0.09),
+    inset -1px -2px 0 rgba(0, 0, 0, 0.65),
+    0 0 46px rgba(20, 20, 20, 0.36),
+    0 0 90px rgba(20, 20, 20, 0.15);
+  transform: rotateY(-8deg) rotateX(2deg);
+}
+[data-motion="on"] .eco-slab {
+  animation: eco-levitate 6.5s ease-in-out infinite;
+}
+@keyframes eco-levitate {
+  0%,
+  100% {
+    transform: rotateY(-8deg) rotateX(2deg) translateY(-7px);
+  }
+  50% {
+    transform: rotateY(-8deg) rotateX(2deg) translateY(7px);
+  }
+}
+.eco-slab-edge {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 0;
+  width: 3px;
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(
+    180deg,
+    rgba(244, 241, 235, 0.18),
+    rgba(244, 241, 235, 0.04) 42%,
+    rgba(244, 241, 235, 0.13)
+  );
+}
+/* Sheen: an oversized gradient layer translated diagonally (not bg-position). */
+.eco-slab-sheen {
+  position: absolute;
+  inset: -55%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  background: linear-gradient(
+    115deg,
+    transparent 44%,
+    rgba(244, 241, 235, 0.08) 50%,
+    transparent 56%
+  );
+}
+[data-motion="on"] .eco-slab-sheen {
+  animation: eco-sheen 11s ease-in-out infinite;
+}
+@keyframes eco-sheen {
+  0%,
+  100% {
+    transform: translate3d(-18%, -18%, 0);
+  }
+  50% {
+    transform: translate3d(18%, 18%, 0);
+  }
+}
+/* Scanline: parked at the top; JS sweeps it with a translateY WAAPI animation. */
+.eco-scan {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 0;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(244, 241, 235, 0.55), transparent);
+  box-shadow: 0 0 7px rgba(244, 241, 235, 0.35);
+  will-change: transform, opacity;
+}
+/* Elliptical ground shadow, counter-phase to the levitation. */
+.eco-slab-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 6.5%;
+  width: 44%;
+  height: 15px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(20, 20, 20, 0.42), transparent 72%);
+  filter: blur(6px);
+  transform: translateX(-50%) scaleX(0.95);
+  opacity: 0.6;
+}
+[data-motion="on"] .eco-slab-shadow {
+  animation: eco-shfloat 6.5s ease-in-out infinite;
+}
+@keyframes eco-shfloat {
+  0%,
+  100% {
+    transform: translateX(-50%) scaleX(0.84);
+    opacity: 0.46;
+  }
+  50% {
+    transform: translateX(-50%) scaleX(1.06);
+    opacity: 0.8;
+  }
+}
+.eco-etch {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+  padding: 1.1rem;
   text-align: center;
-  padding: 1.5rem;
-  transition: opacity 0.45s ease;
 }
-.eco-leaf {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 50%;
-  background: linear-gradient(90deg, var(--color-paper), var(--color-paper-dark));
-  transform-origin: right center;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  border-right: 1px solid var(--color-hairline);
-  box-shadow: 6px 0 14px -8px rgba(20, 20, 20, 0.25);
+/* Engraved headword: carved inset shadows are static; the breathing glow is a
+   filter oscillation (Patch-3 safe, unlike animating text-shadow). */
+.eco-eword {
+  position: relative;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  line-height: 1.12;
+  color: rgba(244, 241, 235, 0.82);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 2.6rem;
+  text-shadow:
+    0 -1px 0 rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(244, 241, 235, 0.07),
+    0 0 12px rgba(244, 241, 235, 0.14);
 }
-.eco-leaf::before {
-  content: "";
-  position: absolute;
-  inset: 18% 14%;
-  border-top: 1px solid var(--color-hairline);
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0 14px,
-    var(--color-hairline) 14px 15px
-  );
-  opacity: 0.5;
+[data-motion="on"] .eco-eword {
+  animation: eco-breathe 4.2s ease-in-out infinite;
 }
-[data-motion="on"] .eco-leaf {
-  animation: eco-pageturn 3.4s infinite ease-in-out;
-}
-@keyframes eco-pageturn {
+@keyframes eco-breathe {
   0%,
-  58% {
-    transform: rotateY(0deg);
-    opacity: 1;
-  }
-  82% {
-    transform: rotateY(-168deg);
-    opacity: 1;
-  }
-  82.01%,
   100% {
-    transform: rotateY(-168deg);
+    filter: drop-shadow(0 0 4px rgba(244, 241, 235, 0.05));
+  }
+  50% {
+    filter: drop-shadow(0 0 9px rgba(244, 241, 235, 0.22));
+  }
+}
+.eco-eword .eco-ch {
+  display: inline-block;
+  white-space: pre;
+  will-change: transform, opacity, filter;
+}
+/* Carving beam: parked at 10%; JS sweeps it with a translateX WAAPI animation. */
+.eco-ebeam {
+  position: absolute;
+  top: 24%;
+  bottom: 38%;
+  left: 10%;
+  width: 1px;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(244, 241, 235, 0.9), transparent);
+  box-shadow: 0 0 9px rgba(244, 241, 235, 0.55);
+  will-change: transform, opacity;
+}
+.eco-egloss {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: rgba(244, 241, 235, 0.55);
+  max-width: 86%;
+  line-height: 1.7;
+  min-height: 2.6em;
+}
+.eco-cursor {
+  display: inline-block;
+  width: 6px;
+  height: 0.95em;
+  background: rgba(244, 241, 235, 0.7);
+  margin-left: 2px;
+  vertical-align: -2px;
+}
+[data-motion="on"] .eco-cursor {
+  animation: eco-blink 1s steps(1) infinite;
+}
+@keyframes eco-blink {
+  50% {
     opacity: 0;
   }
 }
+.eco-mote {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.5);
+  pointer-events: none;
+}
+.eco-spark {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(244, 241, 235, 0.95), transparent 70%);
+}
+.eco-chip {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(244, 241, 235, 0.75);
+  pointer-events: none;
+}
+.eco-dict-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  z-index: 9;
+}
 
-/* Library4GenZ — book-block shelf */
-.eco-shelf-stage {
+/* Library4GenZ — archive box (Patch-7 chrome) + shelf-stacking mini-game */
+.eco-lib-stage {
   position: relative;
   flex: 1;
-  margin: 1.2rem 1.4rem 1.6rem;
-  border: 1px solid var(--color-hairline);
-  border-radius: 8px;
-  background: var(--color-paper);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 1.6rem 1.2rem 0;
+  margin: 1.1rem 1.3rem 1.4rem;
+  min-height: 340px;
+  border-radius: 10px;
   overflow: hidden;
+  background: var(--color-paper);
 }
-.eco-shelf {
-  display: flex;
-  align-items: flex-end;
-  gap: 7px;
-  height: 100%;
-  padding-bottom: 14px;
-}
-.eco-spine {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  border-radius: 3px 3px 1px 1px;
-  box-shadow: inset 0 0 0 1px rgba(244, 241, 235, 0.12);
-  transform-origin: bottom center;
-  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.eco-spine span {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  padding: 0 0 12px;
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(244, 241, 235, 0.85);
-}
-.eco-spine::before,
-.eco-spine::after {
+.eco-lib-stage::before {
   content: "";
   position: absolute;
-  left: 4px;
-  right: 4px;
-  height: 1px;
-  background: rgba(244, 241, 235, 0.25);
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(20, 20, 20, 0.035) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, rgba(20, 20, 20, 0.035) 0 1px, transparent 1px 26px);
 }
-.eco-spine::before {
-  top: 8px;
-}
-.eco-spine::after {
-  bottom: 8px;
-}
-.eco-shelf-base {
+.eco-wash {
   position: absolute;
-  left: 1.1rem;
-  right: 1.1rem;
-  bottom: 0;
-  height: 4px;
-  border-radius: 2px;
+  border-radius: 50%;
+  filter: url(#eco-bleed);
+  pointer-events: none;
+}
+.eco-w1 {
+  width: 360px;
+  height: 250px;
+  left: -70px;
+  top: -60px;
+  background: radial-gradient(
+    closest-side,
+    rgba(20, 20, 20, 0.12),
+    rgba(20, 20, 20, 0.04) 55%,
+    transparent 72%
+  );
+}
+.eco-w2 {
+  width: 320px;
+  height: 230px;
+  right: -80px;
+  bottom: -70px;
+  background: radial-gradient(closest-side, rgba(20, 20, 20, 0.09), transparent 70%);
+}
+.eco-lib-frame {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(20, 20, 20, 0.32);
+  pointer-events: none;
+  clip-path: polygon(
+    22px 0,
+    calc(100% - 22px) 0,
+    100% 22px,
+    100% calc(100% - 22px),
+    calc(100% - 22px) 100%,
+    22px 100%,
+    0 calc(100% - 22px),
+    0 22px
+  );
+}
+.eco-lib-frame::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(20, 20, 20, 0.12);
+  clip-path: inherit;
+}
+.eco-corner {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 0 solid var(--color-ink);
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 6;
+}
+.eco-c1 {
+  top: 6px;
+  left: 6px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+.eco-c2 {
+  top: 6px;
+  right: 6px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+.eco-c3 {
+  bottom: 6px;
+  left: 6px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+.eco-c4 {
+  bottom: 6px;
+  right: 6px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+.eco-lib-tag {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  pointer-events: none;
+  z-index: 6;
+}
+.eco-lt1 {
+  top: 19px;
+  left: 30px;
+}
+.eco-lt2 {
+  bottom: 19px;
+  right: 30px;
+}
+.eco-hud {
+  position: absolute;
+  top: 34px;
+  left: 30px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  z-index: 6;
+}
+.eco-lib-hint {
+  position: absolute;
+  bottom: 19px;
+  left: 30px;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  z-index: 6;
+}
+.eco-bars {
+  position: absolute;
+  top: 18px;
+  right: 30px;
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 11px;
+  pointer-events: none;
+  z-index: 6;
+}
+.eco-bars i {
+  display: block;
+  width: 2px;
   background: var(--color-ink);
+  opacity: 0.55;
 }
-/* Idle: loose / uneven (motion on only); hover: snap into a tidy shelf. */
-[data-motion="on"] .eco-shelf .eco-spine:nth-child(1) {
-  transform: translateY(-6px) rotate(-2deg);
+.eco-field {
+  position: absolute;
+  inset: 26px;
 }
-[data-motion="on"] .eco-shelf .eco-spine:nth-child(3) {
-  transform: translateY(4px) rotate(1.5deg);
+.eco-shelfline {
+  position: absolute;
+  height: 2px;
+  background: var(--color-ink);
+  opacity: 0.55;
+  border-radius: 1px;
+  pointer-events: none;
 }
-[data-motion="on"] .eco-shelf .eco-spine:nth-child(5) {
-  transform: translateY(-3px) rotate(1deg);
+/* Slots: the pulse/flash rings are a static box-shadow on ::after with only
+   opacity/transform animating (Patch-3 safe, not an animated box-shadow). */
+.eco-slot {
+  position: absolute;
+  border: 1px dashed rgba(20, 20, 20, 0.4);
+  border-radius: 3px;
+  pointer-events: none;
 }
-[data-motion="on"] .eco-shelf .eco-spine:nth-child(7) {
-  transform: translateY(5px) rotate(-1.5deg);
+.eco-slot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 3px rgba(20, 20, 20, 0.14);
+  opacity: 0;
 }
-.eco-shelf:hover .eco-spine {
-  transform: translateY(0) rotate(0);
+.eco-slot.hot {
+  border-style: solid;
+  border-color: var(--color-ink);
 }
-.eco-shelf:hover .eco-spine:nth-child(2) { transition-delay: 0.04s; }
-.eco-shelf:hover .eco-spine:nth-child(3) { transition-delay: 0.08s; }
-.eco-shelf:hover .eco-spine:nth-child(4) { transition-delay: 0.12s; }
-.eco-shelf:hover .eco-spine:nth-child(5) { transition-delay: 0.16s; }
-.eco-shelf:hover .eco-spine:nth-child(6) { transition-delay: 0.2s; }
-.eco-shelf:hover .eco-spine:nth-child(7) { transition-delay: 0.24s; }
-.eco-shelf:hover .eco-spine:nth-child(8) { transition-delay: 0.28s; }
-
-/* Reduced-motion / toggle-off: static page + already-assembled shelf. */
-@media (prefers-reduced-motion: reduce) {
-  .eco-leaf {
-    animation: none;
-    transform: rotateY(0deg);
+[data-motion="on"] .eco-slot.hot::after {
+  animation: eco-hotpulse 1s ease-in-out infinite;
+}
+@keyframes eco-hotpulse {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
     opacity: 1;
   }
-  .eco-shelf .eco-spine,
-  .eco-shelf:hover .eco-spine {
-    transform: translateY(0) rotate(0);
-    transition: none;
+}
+.eco-slot.filled {
+  border-style: solid;
+  border-color: rgba(20, 20, 20, 0.25);
+}
+[data-motion="on"] .eco-slot.flash::after {
+  animation: eco-slotflash 0.55s ease-out;
+}
+@keyframes eco-slotflash {
+  0% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
   }
 }
-[data-motion="off"] .eco-leaf {
-  animation: none;
-  transform: rotateY(0deg);
-  opacity: 1;
+[data-motion="on"] .eco-slot.shake {
+  animation: eco-slotshake 0.32s linear;
 }
-[data-motion="off"] .eco-shelf .eco-spine,
-[data-motion="off"] .eco-shelf:hover .eco-spine {
-  transform: translateY(0) rotate(0);
-  transition: none;
+@keyframes eco-slotshake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+}
+/* Books: touch-action none so a drag never turns into a page scroll. */
+.eco-book {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: none;
+  padding: 0;
+  cursor: grab;
+  border-radius: 3px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  will-change: transform;
+  touch-action: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(244, 241, 235, 0.15),
+    0 7px 16px -9px rgba(20, 20, 20, 0.55);
+}
+.eco-book.h {
+  align-items: center;
+  justify-content: flex-start;
+}
+.eco-book::before,
+.eco-book::after {
+  content: "";
+  position: absolute;
+  background: rgba(244, 241, 235, 0.28);
+}
+.eco-book::before {
+  left: 4px;
+  right: 4px;
+  top: 7px;
+  height: 1px;
+}
+.eco-book::after {
+  left: 4px;
+  right: 4px;
+  bottom: 7px;
+  height: 1px;
+}
+.eco-book.h::before {
+  top: 4px;
+  bottom: 4px;
+  left: 7px;
+  width: 1px;
+  height: auto;
+  right: auto;
+}
+.eco-book.h::after {
+  top: 4px;
+  bottom: 4px;
+  right: 7px;
+  width: 1px;
+  height: auto;
+  left: auto;
+}
+.eco-book span {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  color: rgba(244, 241, 235, 0.9);
+  pointer-events: none;
+  user-select: none;
+}
+.eco-book.v span {
+  writing-mode: vertical-rl;
+  padding-bottom: 9px;
+}
+.eco-book.h span {
+  padding-left: 10px;
+}
+.eco-book.lift {
+  cursor: grabbing;
+  box-shadow:
+    inset 0 0 0 1px rgba(244, 241, 235, 0.2),
+    0 16px 28px -12px rgba(20, 20, 20, 0.7);
+  z-index: 50;
+}
+.eco-book.placed {
+  cursor: default;
+}
+[data-motion="on"] .eco-book.burn {
+  animation: eco-consume 0.85s cubic-bezier(0.5, 0.1, 0.7, 0.4) forwards;
+}
+@keyframes eco-consume {
+  0% {
+    clip-path: inset(-4px -4px 0 -4px);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    clip-path: inset(-4px -4px 102% -4px);
+    opacity: 0;
+    filter: blur(3px);
+  }
+}
+[data-motion="on"] .eco-book.reborn {
+  animation: eco-rebirth 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes eco-rebirth {
+  0% {
+    opacity: 0;
+    filter: blur(9px);
+  }
+  55% {
+    opacity: 0.85;
+    filter: blur(2.5px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+.eco-ash {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-ink);
+  pointer-events: none;
+  z-index: 55;
+}
+/* Stamp: stiff scale-settle with motion on; a plain opacity fade otherwise (the
+   specified reduced-motion treatment). */
+.eco-stamp {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  z-index: 60;
+  transform: translate(-50%, -50%) rotate(-7deg);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  border: 2px solid var(--color-ink);
+  padding: 0.55rem 1rem;
+  background: rgba(244, 241, 235, 0.92);
+  border-radius: 3px;
+  animation: eco-stampfade 0.3s ease-out both;
+}
+@keyframes eco-stampfade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+[data-motion="on"] .eco-stamp {
+  animation: eco-stampin 0.5s cubic-bezier(0.2, 1.4, 0.3, 1) both;
+}
+@keyframes eco-stampin {
+  0% {
+    transform: translate(-50%, -50%) rotate(-7deg) scale(1.7);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-7deg) scale(1);
+    opacity: 1;
+  }
+}
+.eco-replay {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translateX(-50%);
+  z-index: 60;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.6rem 1.1rem;
+  border-radius: 2px;
+}
+
+/* Reduced-motion belt (data-motion is normally already "off" under RM): kill any
+   stage animation except the opacity-only stamp fade; hide the dictionary hint. */
+@media (prefers-reduced-motion: reduce) {
+  .eco-slab,
+  .eco-slab-shadow,
+  .eco-slab-sheen,
+  .eco-eword,
+  .eco-cursor,
+  .eco-slot.hot::after,
+  .eco-slot.flash::after,
+  .eco-slot.shake,
+  .eco-book.burn,
+  .eco-book.reborn {
+    animation: none;
+  }
+  .eco-stamp {
+    animation: eco-stampfade 0.3s ease-out both;
+  }
+  .eco-dict-hint {
+    display: none;
+  }
+}
+[data-motion="off"] .eco-dict-hint {
+  display: none;
 }
 
 /* ── W4GZ Media: glitch / "reality disrupted" (Patch H) ─────────────────────
