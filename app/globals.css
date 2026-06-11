@@ -1094,6 +1094,11 @@
   text-transform: uppercase;
   color: var(--color-muted);
   z-index: 9;
+  transition: color 0.25s ease;
+}
+/* Hovered = paused/holding the definition: nudge the hint to read as active. */
+.eco-dict-stage.is-reading .eco-dict-hint {
+  color: var(--color-ink);
 }
 
 /* Library4GenZ — archive box (Patch-7 chrome) + shelf-stacking mini-game */

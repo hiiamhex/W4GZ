@@ -9,12 +9,17 @@ import { dictionary } from "@/content/ecosystem";
  * book cover levitating over the paper, engraving its own entries. Ported from
  * prototypes/ecosystem-projects-v4.html (supersedes v3).
  *
- * Cycle (auto ~9.5s; hover/click trigger immediately; never mid-cycle):
- *   dissolve (per-char scatter + dust motes) → engrave (carving beam sweeps,
- *   chars settle with a glow spark + falling chips) → gloss types out with a
- *   blinking cursor → one ~95ms spectral ghost-jitter. A reading lock keeps the
- *   cycle busy until engrave + glossLength×34ms + 1800ms, so rapid hovers can't
- *   cut a just-typed definition short (it sits readable ~4–5s).
+ * Cycle (auto ~13s, paused while hovered; click = deliberate next; never
+ *   mid-cycle): dissolve (per-char scatter + dust motes) → engrave (carving beam
+ *   sweeps, chars settle with a glow spark + falling chips) → gloss types out
+ *   with a blinking cursor → one ~95ms spectral ghost-jitter. A reading lock
+ *   keeps the cycle busy until engrave + glossLength×34ms + 2400ms, so a click
+ *   can't cut a just-typed definition short.
+ *
+ * Interaction (the intelligent part): hovering the card PAUSES the auto-advance
+ * and HOLDS the current definition — read it as long as you like; it resumes a
+ * beat after the cursor leaves. A click advances to the next word on purpose
+ * (ignored while a definition is still being written). Hover never dissolves.
  *
  * Cover levitation / counter-phase shadow / sheen / breathe + the leather skin
  * (spine bands, fore-edge, tooled frame, fleurons, rulings) live in globals.css
@@ -24,10 +29,12 @@ import { dictionary } from "@/content/ecosystem";
  * no cycle (the SSR markup below is exactly that state).
  */
 const ENTRIES = dictionary.entries;
-const AUTO = 9500;
+const AUTO = 13000;
 const DIS_STAG = 55;
 const ENG_PER = 130;
 const GLOSS_PER = 34;
+const HINT_IDLE = "rê chuột để đọc · bấm để đổi từ";
+const HINT_HOLD = "đang giữ · bấm để đổi từ";
 
 export default function DictStele() {
   const { enabled } = useMotion();
@@ -36,6 +43,7 @@ export default function DictStele() {
   const glossRef = useRef<HTMLDivElement>(null);
   const beamRef = useRef<HTMLDivElement>(null);
   const scanRef = useRef<HTMLDivElement>(null);
+  const hintRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -45,9 +53,11 @@ export default function DictStele() {
     const scan = scanRef.current;
     if (!enabled || !stage || !eword || !egloss || !ebeam || !scan) return;
 
+    const hint = hintRef.current;
     let idx = 0;
     let busy = false;
     let visible = true;
+    let hovering = false;
     let disposed = false;
     const timers = new Set<number>();
     let glossTimer = 0;
@@ -202,13 +212,15 @@ export default function DictStele() {
         // Reading lock: engrave + typing + grace, so the definition stays readable.
         later(() => {
           busy = false;
-        }, eTotal + entry.gloss.length * GLOSS_PER + 1800);
+        }, eTotal + entry.gloss.length * GLOSS_PER + 2400);
       });
     };
 
+    // Auto-advance, but HOLD the current definition while the card is hovered
+    // (and while off-screen / tab hidden). Reschedules every period regardless.
     const scheduleCycle = () => {
       later(() => {
-        if (visible && !document.hidden) cycle();
+        if (visible && !document.hidden && !hovering) cycle();
         scheduleCycle();
       }, AUTO);
     };
@@ -246,9 +258,24 @@ export default function DictStele() {
       later(ambientMote, 800);
     };
 
-    const onTrigger = () => cycle();
-    stage.addEventListener("mouseenter", onTrigger);
-    stage.addEventListener("click", onTrigger);
+    // Hover holds the current definition (pause); click is a deliberate "next
+    // word" (ignored while one is still being written). Hover never dissolves.
+    const onEnter = () => {
+      hovering = true;
+      stage.classList.add("is-reading");
+      if (hint) hint.textContent = HINT_HOLD;
+    };
+    const onLeave = () => {
+      hovering = false;
+      stage.classList.remove("is-reading");
+      if (hint) hint.textContent = HINT_IDLE;
+    };
+    const onClick = () => {
+      if (!busy) cycle();
+    };
+    stage.addEventListener("mouseenter", onEnter);
+    stage.addEventListener("mouseleave", onLeave);
+    stage.addEventListener("click", onClick);
 
     const io = new IntersectionObserver(
       (es) => es.forEach((e) => (visible = e.isIntersecting)),
@@ -267,8 +294,9 @@ export default function DictStele() {
       timers.clear();
       window.clearInterval(glossTimer);
       io.disconnect();
-      stage.removeEventListener("mouseenter", onTrigger);
-      stage.removeEventListener("click", onTrigger);
+      stage.removeEventListener("mouseenter", onEnter);
+      stage.removeEventListener("mouseleave", onLeave);
+      stage.removeEventListener("click", onClick);
       // Restore the static SSR state (entry 0, crisp) for the disabled path.
       setWordChars(ENTRIES[0].word);
       egloss.textContent = ENTRIES[0].gloss;
@@ -316,7 +344,9 @@ export default function DictStele() {
           </div>
         </div>
       </div>
-      <div className="eco-dict-hint">hover · chữ tự thay</div>
+      <div ref={hintRef} className="eco-dict-hint">
+        rê chuột để đọc · bấm để đổi từ
+      </div>
     </div>
   );
 }
