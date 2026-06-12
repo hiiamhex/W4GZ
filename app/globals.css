@@ -1048,22 +1048,8 @@
   max-width: 88%;
   line-height: 1.75;
   min-height: 3.4em;
-}
-.eco-cursor {
-  display: inline-block;
-  width: 6px;
-  height: 0.95em;
-  background: rgba(244, 241, 235, 0.7);
-  margin-left: 2px;
-  vertical-align: -2px;
-}
-[data-motion="on"] .eco-cursor {
-  animation: eco-blink 1s steps(1) infinite;
-}
-@keyframes eco-blink {
-  50% {
-    opacity: 0;
-  }
+  /* The definition fades in/out as a block, paired with its word. */
+  transition: opacity 0.45s ease;
 }
 .eco-mote {
   position: absolute;
@@ -1523,7 +1509,6 @@
   .eco-slab-shadow,
   .eco-slab-sheen,
   .eco-eword,
-  .eco-cursor,
   .eco-slot.hot::after,
   .eco-slot.flash::after,
   .eco-slot.shake,

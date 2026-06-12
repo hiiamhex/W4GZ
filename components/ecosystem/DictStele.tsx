@@ -10,11 +10,12 @@ import { dictionary } from "@/content/ecosystem";
  * prototypes/ecosystem-projects-v4.html (supersedes v3).
  *
  * Cycle (auto ~13s, paused while hovered; click = deliberate next; never
- *   mid-cycle): dissolve (per-char scatter + dust motes) → engrave (carving beam
- *   sweeps, chars settle with a glow spark + falling chips) → gloss types out
- *   with a blinking cursor → one ~95ms spectral ghost-jitter. A reading lock
- *   keeps the cycle busy until engrave + glossLength×34ms + 2400ms, so a click
- *   can't cut a just-typed definition short.
+ *   mid-cycle): dissolve (per-char scatter + dust motes, the definition fading
+ *   out with it) → engrave (carving beam sweeps, chars settle with a glow spark
+ *   + falling chips) → the matching definition fades in as one block, together
+ *   with the finished word → one ~95ms spectral ghost-jitter. Word and gloss are
+ *   always the same entry; a reading lock keeps the cycle busy past it so a click
+ *   can't cut a just-shown definition short.
  *
  * Interaction (the intelligent part): hovering the card PAUSES the auto-advance
  * and HOLDS the current definition — read it as long as you like; it resumes a
@@ -32,7 +33,6 @@ const ENTRIES = dictionary.entries;
 const AUTO = 13000;
 const DIS_STAG = 55;
 const ENG_PER = 130;
-const GLOSS_PER = 34;
 const HINT_IDLE = "rê chuột để đọc · bấm để đổi từ";
 const HINT_HOLD = "đang giữ · bấm để đổi từ";
 
@@ -60,7 +60,6 @@ export default function DictStele() {
     let hovering = false;
     let disposed = false;
     const timers = new Set<number>();
-    let glossTimer = 0;
 
     const later = (fn: () => void, ms: number) => {
       const id = window.setTimeout(() => {
@@ -109,28 +108,22 @@ export default function DictStele() {
       }
     };
 
-    const typeGloss = (text: string) => {
-      window.clearInterval(glossTimer);
-      egloss.textContent = "";
-      const cur = document.createElement("span");
-      cur.className = "eco-cursor";
-      const txt = document.createTextNode("");
-      egloss.append(txt, cur);
-      let i = 0;
-      glossTimer = window.setInterval(() => {
-        i += 1;
-        txt.nodeValue = text.slice(0, i);
-        if (i >= text.length) {
-          window.clearInterval(glossTimer);
-          later(() => cur.remove(), 1400);
-        }
-      }, GLOSS_PER);
+    // Show the whole definition for the CURRENT word, faded in as one block so the
+    // word and its gloss always read together (opacity via the CSS transition on
+    // .eco-egloss). Setting the text while opacity is 0, then flipping to 1, fades
+    // it in; `hideGloss` fades it out alongside the word's dissolve.
+    const showGloss = (text: string) => {
+      egloss.textContent = text;
+      egloss.style.opacity = "1";
+    };
+    const hideGloss = () => {
+      egloss.style.opacity = "0";
     };
 
-    /* The word leaves the cover: chars scatter individually, shedding motes. */
+    /* The word leaves the cover: chars scatter individually, shedding motes; the
+       matching definition fades out together with it. */
     const dissolve = (cb: () => void) => {
-      if (egloss.firstChild)
-        egloss.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, fill: "forwards" });
+      hideGloss();
       const chars = Array.from(eword.children) as HTMLElement[];
       chars.forEach((c, i) => {
         const p = stagePos(c);
@@ -186,7 +179,9 @@ export default function DictStele() {
             spawnDot("eco-chip", p.x + rand(-5, 5), p.y + 6, rand(-9, 9), rand(14, 26), 2, rand(420, 620));
         }, 200 + i * ENG_PER);
       });
-      later(() => typeGloss(entry.gloss), total + 150);
+      // The definition fades in as the word finishes engraving — together, and
+      // always this word's own gloss.
+      later(() => showGloss(entry.gloss), total);
       // One spectral ghost-jitter per cycle — a ~95ms double-exposure flicker.
       later(() => {
         eword.animate(
@@ -209,10 +204,11 @@ export default function DictStele() {
         idx = (idx + 1) % ENTRIES.length;
         const entry = ENTRIES[idx];
         const eTotal = engrave(entry);
-        // Reading lock: engrave + typing + grace, so the definition stays readable.
+        // Reading lock: engrave + a grace window scaled to the definition length,
+        // so a click can't cut a just-shown definition short.
         later(() => {
           busy = false;
-        }, eTotal + entry.gloss.length * GLOSS_PER + 2400);
+        }, eTotal + entry.gloss.length * 26 + 2200);
       });
     };
 
@@ -283,7 +279,7 @@ export default function DictStele() {
     );
     io.observe(stage);
 
-    typeGloss(ENTRIES[0].gloss);
+    showGloss(ENTRIES[0].gloss);
     scheduleCycle();
     sweepScan();
     ambientMote();
@@ -292,7 +288,6 @@ export default function DictStele() {
       disposed = true;
       timers.forEach((id) => window.clearTimeout(id));
       timers.clear();
-      window.clearInterval(glossTimer);
       io.disconnect();
       stage.removeEventListener("mouseenter", onEnter);
       stage.removeEventListener("mouseleave", onLeave);
@@ -300,6 +295,7 @@ export default function DictStele() {
       // Restore the static SSR state (entry 0, crisp) for the disabled path.
       setWordChars(ENTRIES[0].word);
       egloss.textContent = ENTRIES[0].gloss;
+      egloss.style.opacity = "1";
     };
   }, [enabled]);
 
