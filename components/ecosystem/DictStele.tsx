@@ -5,36 +5,26 @@ import { useMotion } from "@/components/motion/MotionProvider";
 import { dictionary } from "@/content/ecosystem";
 
 /**
- * Dictionary4GenZ stage (Patch 8 A, reskinned + retimed by Patch 9) — an ancient
- * book cover levitating over the paper, engraving its own entries. Ported from
- * prototypes/ecosystem-projects-v4.html (supersedes v3).
+ * Dictionary4GenZ stage (Patch 8 A, reskinned by Patch 9) — an ancient book cover
+ * levitating over the paper. Ported from prototypes/ecosystem-projects-v4.html.
  *
- * Cycle (auto ~13s, paused while hovered; click = deliberate next; never
- *   mid-cycle): dissolve (per-char scatter + dust motes, the definition fading
- *   out with it) → engrave (carving beam sweeps, chars settle with a glow spark
- *   + falling chips) → the matching definition fades in as one block, together
- *   with the finished word → one ~95ms spectral ghost-jitter. Word and gloss are
- *   always the same entry; a reading lock keeps the cycle busy past it so a click
- *   can't cut a just-shown definition short.
+ * Interaction: CLICK-ONLY. Nothing changes on its own and hover does nothing — a
+ * click swaps to the next entry, changing the word AND its meaning together:
+ *   dissolve (current word scatters + dust, its definition fading out with it) →
+ *   engrave (carving beam sweeps as the new word's letters settle) with the new
+ *   definition fading in at the same moment → one ~95ms spectral ghost-jitter.
+ *   The effect is quick; a brief lock ignores clicks mid-transition. Word and
+ *   gloss are always the same entry, advancing in order.
  *
- * Interaction (the intelligent part): hovering the card PAUSES the auto-advance
- * and HOLDS the current definition — read it as long as you like; it resumes a
- * beat after the cursor leaves. A click advances to the next word on purpose
- * (ignored while a definition is still being written). Hover never dissolves.
- *
- * Cover levitation / counter-phase shadow / sheen / breathe + the leather skin
- * (spine bands, fore-edge, tooled frame, fleurons, rulings) live in globals.css
- * under [data-motion="on"]; the beam + scanline sweeps here use transform-only
- * WAAPI (Patch-3 rule). Timers pause off-screen (IntersectionObserver) and when
- * document.hidden. Reduced-motion / toggle-off: static cover, first entry crisp,
- * no cycle (the SSR markup below is exactly that state).
+ * The cover's ambient life (levitation / counter-phase shadow / sheen / breathe)
+ * + the leather skin (spine bands, fore-edge, tooled frame, fleurons, rulings)
+ * live in globals.css under [data-motion="on"]; the beam sweep here is
+ * transform-only (Patch-3 rule). Reduced-motion / toggle-off: static cover, first
+ * entry crisp, no interaction (the SSR markup below is exactly that state).
  */
 const ENTRIES = dictionary.entries;
-const AUTO = 13000;
-const DIS_STAG = 55;
-const ENG_PER = 130;
-const HINT_IDLE = "rê chuột để đọc · bấm để đổi từ";
-const HINT_HOLD = "đang giữ · bấm để đổi từ";
+const DIS_STAG = 24; // per-char dissolve stagger (ms)
+const ENG_PER = 55; // per-char engrave stagger (ms)
 
 export default function DictStele() {
   const { enabled } = useMotion();
@@ -42,22 +32,16 @@ export default function DictStele() {
   const wordRef = useRef<HTMLDivElement>(null);
   const glossRef = useRef<HTMLDivElement>(null);
   const beamRef = useRef<HTMLDivElement>(null);
-  const scanRef = useRef<HTMLDivElement>(null);
-  const hintRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const stage = stageRef.current;
     const eword = wordRef.current;
     const egloss = glossRef.current;
     const ebeam = beamRef.current;
-    const scan = scanRef.current;
-    if (!enabled || !stage || !eword || !egloss || !ebeam || !scan) return;
+    if (!enabled || !stage || !eword || !egloss || !ebeam) return;
 
-    const hint = hintRef.current;
     let idx = 0;
     let busy = false;
-    let visible = true;
-    let hovering = false;
     let disposed = false;
     const timers = new Set<number>();
 
@@ -108,10 +92,8 @@ export default function DictStele() {
       }
     };
 
-    // Show the whole definition for the CURRENT word, faded in as one block so the
-    // word and its gloss always read together (opacity via the CSS transition on
-    // .eco-egloss). Setting the text while opacity is 0, then flipping to 1, fades
-    // it in; `hideGloss` fades it out alongside the word's dissolve.
+    // The definition shows/hides as one block, paired with its word (opacity via
+    // the CSS transition on .eco-egloss).
     const showGloss = (text: string) => {
       egloss.textContent = text;
       egloss.style.opacity = "1";
@@ -120,8 +102,7 @@ export default function DictStele() {
       egloss.style.opacity = "0";
     };
 
-    /* The word leaves the cover: chars scatter individually, shedding motes; the
-       matching definition fades out together with it. */
+    /* The current word scatters out, its definition fading out with it. */
     const dissolve = (cb: () => void) => {
       hideGloss();
       const chars = Array.from(eword.children) as HTMLElement[];
@@ -131,28 +112,26 @@ export default function DictStele() {
           [
             { transform: "translate(0,0) rotate(0deg)", opacity: 1, filter: "blur(0px)" },
             {
-              transform: `translate(${rand(-26, 26)}px,${rand(-46, -16)}px) rotate(${rand(-24, 24)}deg)`,
+              transform: `translate(${rand(-22, 22)}px,${rand(-40, -14)}px) rotate(${rand(-22, 22)}deg)`,
               opacity: 0,
-              filter: "blur(5px)",
+              filter: "blur(4px)",
             },
           ],
-          { duration: rand(700, 1100), delay: i * DIS_STAG, easing: "cubic-bezier(.3,.6,.3,1)", fill: "forwards" },
+          { duration: rand(320, 480), delay: i * DIS_STAG, easing: "cubic-bezier(.3,.6,.3,1)", fill: "forwards" },
         );
-        spawnDot("eco-mote", p.x, p.y, rand(-10, 10), -rand(22, 48), rand(1.5, 2.6), rand(800, 1300));
-        if (Math.random() < 0.4)
-          spawnDot("eco-mote", p.x, p.y, rand(-12, 12), -rand(24, 50), rand(1.5, 2.4), rand(850, 1250));
+        spawnDot("eco-mote", p.x, p.y, rand(-9, 9), -rand(18, 40), rand(1.5, 2.4), rand(500, 800));
       });
-      later(cb, chars.length * DIS_STAG + 1150);
+      later(cb, chars.length * DIS_STAG + 360);
     };
 
-    /* Carving beam sweeps (transform-only); chars settle with spark + chips. */
+    /* The new word engraves while its definition fades in — together. */
     const engrave = (entry: { word: string; gloss: string }) => {
       setWordChars(entry.word);
       const chars = Array.from(eword.children) as HTMLElement[];
       chars.forEach((c) => {
         c.style.opacity = "0";
       });
-      const total = chars.length * ENG_PER + 650;
+      const total = chars.length * ENG_PER + 280;
       const span = (ebeam.parentElement?.clientWidth ?? 200) * 0.76;
       ebeam.animate(
         [
@@ -163,6 +142,9 @@ export default function DictStele() {
         ],
         { duration: total, easing: "linear" },
       );
+      // Meaning changes at the same time as the word: fade it in as the letters
+      // start carving (not after).
+      showGloss(entry.gloss);
       chars.forEach((c, i) => {
         later(() => {
           c.animate(
@@ -170,19 +152,14 @@ export default function DictStele() {
               { opacity: 0, filter: "blur(3px)", transform: "translateY(-2px)" },
               { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
             ],
-            { duration: 520, easing: "ease-out", fill: "forwards" },
+            { duration: 300, easing: "ease-out", fill: "forwards" },
           );
           const p = stagePos(c);
-          spawnDot("eco-spark", p.x, p.y, 0, 0, rand(8, 13), 420);
-          spawnDot("eco-chip", p.x + rand(-4, 4), p.y + 8, rand(-7, 7), rand(16, 30), 2, rand(480, 720));
-          if (Math.random() < 0.5)
-            spawnDot("eco-chip", p.x + rand(-5, 5), p.y + 6, rand(-9, 9), rand(14, 26), 2, rand(420, 620));
-        }, 200 + i * ENG_PER);
+          spawnDot("eco-spark", p.x, p.y, 0, 0, rand(8, 13), 360);
+          spawnDot("eco-chip", p.x + rand(-4, 4), p.y + 8, rand(-7, 7), rand(14, 26), 2, rand(380, 560));
+        }, 110 + i * ENG_PER);
       });
-      // The definition fades in as the word finishes engraving — together, and
-      // always this word's own gloss.
-      later(() => showGloss(entry.gloss), total);
-      // One spectral ghost-jitter per cycle — a ~95ms double-exposure flicker.
+      // One spectral ghost-jitter, just after the word settles.
       later(() => {
         eword.animate(
           [
@@ -193,104 +170,33 @@ export default function DictStele() {
           ],
           { duration: 95, easing: "steps(3,end)" },
         );
-      }, total + 1700);
+      }, total + 250);
       return total;
     };
 
+    // A click advances one entry (ignored while a swap is mid-flight). No timers,
+    // no hover, no auto-advance — the card is still until clicked.
     const cycle = () => {
       if (busy) return;
       busy = true;
       dissolve(() => {
         idx = (idx + 1) % ENTRIES.length;
-        const entry = ENTRIES[idx];
-        const eTotal = engrave(entry);
-        // Reading lock: engrave + a grace window scaled to the definition length,
-        // so a click can't cut a just-shown definition short.
+        const eTotal = engrave(ENTRIES[idx]);
         later(() => {
           busy = false;
-        }, eTotal + entry.gloss.length * 26 + 2200);
+        }, eTotal + 200);
       });
     };
 
-    // Auto-advance, but HOLD the current definition while the card is hovered
-    // (and while off-screen / tab hidden). Reschedules every period regardless.
-    const scheduleCycle = () => {
-      later(() => {
-        if (visible && !document.hidden && !hovering) cycle();
-        scheduleCycle();
-      }, AUTO);
-    };
-
-    const sweepScan = () => {
-      if (visible && !document.hidden) {
-        const h = stage.clientHeight;
-        scan.animate(
-          [
-            { transform: "translateY(-6px)", opacity: 0 },
-            { opacity: 0.85, offset: 0.12 },
-            { opacity: 0.85, offset: 0.85 },
-            { transform: `translateY(${h + 6}px)`, opacity: 0 },
-          ],
-          { duration: 1900, easing: "linear" },
-        );
-      }
-      later(sweepScan, 9000 + rand(0, 3000));
-    };
-
-    const ambientMote = () => {
-      if (visible && !document.hidden && stage.querySelectorAll(".eco-mote").length < 12) {
-        const w = stage.clientWidth;
-        const h = stage.clientHeight;
-        spawnDot(
-          "eco-mote",
-          rand(w * 0.2, w * 0.8),
-          rand(h * 0.55, h * 0.9),
-          rand(-8, 8),
-          -rand(40, 90),
-          rand(1.5, 3),
-          rand(2000, 3400),
-        );
-      }
-      later(ambientMote, 800);
-    };
-
-    // Hover holds the current definition (pause); click is a deliberate "next
-    // word" (ignored while one is still being written). Hover never dissolves.
-    const onEnter = () => {
-      hovering = true;
-      stage.classList.add("is-reading");
-      if (hint) hint.textContent = HINT_HOLD;
-    };
-    const onLeave = () => {
-      hovering = false;
-      stage.classList.remove("is-reading");
-      if (hint) hint.textContent = HINT_IDLE;
-    };
-    const onClick = () => {
-      if (!busy) cycle();
-    };
-    stage.addEventListener("mouseenter", onEnter);
-    stage.addEventListener("mouseleave", onLeave);
+    const onClick = () => cycle();
     stage.addEventListener("click", onClick);
 
-    const io = new IntersectionObserver(
-      (es) => es.forEach((e) => (visible = e.isIntersecting)),
-      { threshold: 0.1 },
-    );
-    io.observe(stage);
-
     showGloss(ENTRIES[0].gloss);
-    scheduleCycle();
-    sweepScan();
-    ambientMote();
 
     return () => {
       disposed = true;
       timers.forEach((id) => window.clearTimeout(id));
       timers.clear();
-      io.disconnect();
-      stage.removeEventListener("mouseenter", onEnter);
-      stage.removeEventListener("mouseleave", onLeave);
       stage.removeEventListener("click", onClick);
       // Restore the static SSR state (entry 0, crisp) for the disabled path.
       setWordChars(ENTRIES[0].word);
@@ -304,7 +210,7 @@ export default function DictStele() {
       ref={stageRef}
       className="eco-dict-stage"
       role="img"
-      aria-label="Bìa sách cổ — chữ tan biến rồi được khắc lại"
+      aria-label="Bìa sách cổ — bấm để đổi từ và nghĩa"
     >
       <div className="eco-slab-shadow" aria-hidden />
       <div className="eco-slab-tilt" aria-hidden>
@@ -318,7 +224,7 @@ export default function DictStele() {
             <i className="eco-fl eco-f4" />
           </div>
           <div className="eco-slab-sheen" />
-          <div ref={scanRef} className="eco-scan" />
+          <div className="eco-scan" />
           <div className="eco-etch">
             <div className="eco-rule">
               <i />
@@ -340,9 +246,7 @@ export default function DictStele() {
           </div>
         </div>
       </div>
-      <div ref={hintRef} className="eco-dict-hint">
-        rê chuột để đọc · bấm để đổi từ
-      </div>
+      <div className="eco-dict-hint">bấm để đổi từ</div>
     </div>
   );
 }
